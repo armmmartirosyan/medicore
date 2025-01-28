@@ -3,17 +3,17 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeStack} from './home-stack';
 import {Home2Stack} from './home-2-stack';
 import {TabBarIcon} from '@components';
-import {Profile} from '@icons';
+import {Triangle} from '@icons';
 
 const Tab = createBottomTabNavigator();
 
 const TABS = [
-  {name: 'HomeStack', component: HomeStack, title: 'Home', icon: Profile},
+  {name: 'HomeStack', component: HomeStack, title: 'Home', icon: Triangle},
   {
     name: 'Home2Stack',
     component: Home2Stack,
     title: 'Home 2',
-    icon: Profile,
+    icon: Triangle,
   },
 ];
 

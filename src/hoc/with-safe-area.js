@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
-import {THEME_COLOR} from '@constants';
+import {COLORS} from '@constants';
 
 export function withSafeArea(Component) {
   return props => {
@@ -15,6 +15,6 @@ export function withSafeArea(Component) {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: THEME_COLOR,
+    backgroundColor: COLORS.THEME_COLOR,
   },
 });

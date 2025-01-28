@@ -1,7 +1,8 @@
 import React, {memo, useCallback} from 'react';
-import {Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {useAuth} from '@contexts';
+import {StyleSheet} from 'react-native';
 import {useAuthSignIn} from '@api-hooks';
+import {Button} from '@components';
+import {useAuth} from '@contexts';
 
 export const SignInButton = memo(({email, password, disableSignIn}) => {
   const {signIn} = useAuth();
@@ -34,27 +35,17 @@ export const SignInButton = memo(({email, password, disableSignIn}) => {
   }, [disableSignIn, sendCredentials, email, password]);
 
   return (
-    <TouchableOpacity
+    <Button
       onPress={handleSignIn}
       disabled={disableSignIn}
-      style={styles.loginButton}>
-      <Text style={styles.loginButtonText}>Sign in</Text>
-    </TouchableOpacity>
+      style={styles.button}>
+      Sign In
+    </Button>
   );
 });
 
 const styles = StyleSheet.create({
-  loginButton: {
-    backgroundColor: '#4A90E2',
-    width: '100%',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  loginButtonText: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
+  button: {
+    marginBottom: 16,
   },
 });
