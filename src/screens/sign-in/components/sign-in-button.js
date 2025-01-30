@@ -1,38 +1,10 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo} from 'react';
 import {StyleSheet} from 'react-native';
-import {useAuthSignIn} from '@api-hooks';
+import {useSignIn} from '@screens/sign-in/hooks';
 import {Button} from '@components';
-import {useAuth} from '@contexts';
 
-export const SignInButton = memo(({email, password, disableSignIn}) => {
-  const {signIn} = useAuth();
-
-  const {mutate: sendCredentials} = useAuthSignIn();
-
-  const onSuccess = () => {
-    console.log('onSuccess');
-
-    const TOKEN_FROM_ARGS = 'token';
-    signIn(TOKEN_FROM_ARGS);
-  };
-
-  const onError = () => {
-    console.log('onError');
-  };
-
-  const handleSignIn = useCallback(() => {
-    if (disableSignIn) {
-      return;
-    }
-
-    sendCredentials(
-      {email, password},
-      {
-        onSuccess,
-        onError: onSuccess,
-      },
-    );
-  }, [disableSignIn, sendCredentials, email, password]);
+export const SignInButton = memo(({email, password}) => {
+  const {disableSignIn, handleSignIn} = useSignIn({email, password});
 
   return (
     <Button

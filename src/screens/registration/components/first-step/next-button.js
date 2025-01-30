@@ -1,20 +1,20 @@
 import React from 'react';
-import {StyleSheet, Pressable, Text} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {useFirstStepDisabled} from '@screens/registration/hooks';
+import {Button} from '@components';
 
 export function NextButton({onNextStep}) {
   const disabled = useFirstStepDisabled();
 
   return (
-    <Pressable style={styles.button} onPress={onNextStep} disabled={disabled}>
-      <Text>next</Text>
-    </Pressable>
+    <Button style={styles.button} onPress={onNextStep} disabled={disabled}>
+      Next step
+    </Button>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    marginBottom: 22,
-    backgroundColor: 'red',
+    marginBottom: 18,
   },
 });

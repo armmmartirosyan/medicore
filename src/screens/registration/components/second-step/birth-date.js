@@ -21,7 +21,8 @@ export function BirthDate() {
   return (
     <Input
       value={value}
-      placeholder="Birth date"
+      label="Birth date"
+      placeholder="DD / MM /YYY"
       onChangeText={handleChange}
       containerStyle={styles.input}
     />
@@ -30,6 +31,6 @@ export function BirthDate() {
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 22,
+    marginBottom: 18,
   },
 });

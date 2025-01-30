@@ -8,3 +8,13 @@ export function isSecurePassword(password) {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#\(\)_=\-\+])[a-zA-Z\d@$!%*?&^#\(\)_=\-\+]{8,}/;
   return reg.test(password);
 }
+
+export function isValidName(name) {
+  const reg = /^[a-zA-Z]{2,}$/;
+  return reg.test(name);
+}
+
+export function isValidPhoneNumber(phoneNumber) {
+  const reg = /^\d{8,15}$/;
+  return reg.test(phoneNumber);
+}

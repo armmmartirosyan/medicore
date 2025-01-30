@@ -2,6 +2,7 @@ import React, {memo} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Triangle} from '@icons';
 import {getSize} from '@utils';
+import {FONTS, COLORS} from '@constants';
 
 export const DropdownImage = memo(({currentCode}) => {
   return (
@@ -21,13 +22,14 @@ const styles = StyleSheet.create({
   triangle: {
     width: getSize(12),
     height: 12,
-    color: 'black',
+    color: COLORS.PRIMARY_BLUE,
   },
   text: {
-    marginRight: 3,
-    fontSize: 12,
+    marginRight: getSize(3),
+    fontSize: getSize(12),
     fontWeight: '600',
-    lineHeight: 20,
-    color: 'black',
+    lineHeight: getSize(20),
+    color: COLORS.PRIMARY_BLUE,
+    fontFamily: FONTS.REGULAR,
   },
 });

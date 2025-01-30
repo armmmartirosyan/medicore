@@ -2,7 +2,7 @@ import React, {memo, useState} from 'react';
 import {StyleSheet, TextInput, View, Pressable, Text} from 'react-native';
 import {FONTS, COLORS} from '@constants';
 import {getSize} from '@utils';
-import {Eye} from '@icons';
+import {Eye, EyeOpen} from '@icons';
 
 export const PasswordInput = memo(({label, style, containerStyle, ...rest}) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,9 +20,9 @@ export const PasswordInput = memo(({label, style, containerStyle, ...rest}) => {
           {...rest}
         />
         <Pressable
-          style={styles.eyeIcon}
+          style={styles.eyeContainer}
           onPress={() => setShowPassword(!showPassword)}>
-          <Eye />
+          {showPassword ? <Eye /> : <EyeOpen style={styles.eye} />}
         </Pressable>
       </View>
     </View>
@@ -57,9 +57,13 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%',
   },
-  eyeIcon: {
+  eyeContainer: {
     position: 'absolute',
     top: getSize(16),
     right: getSize(13),
+  },
+  eye: {
+    width: 22,
+    height: 22,
   },
 });

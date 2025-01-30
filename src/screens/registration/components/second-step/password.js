@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet} from 'react-native';
-import {Input} from '@components';
+import {PasswordInput} from '@components';
 import {
   registrationSelectors,
   changeRegistrationState,
@@ -19,9 +19,10 @@ export function Password() {
   );
 
   return (
-    <Input
+    <PasswordInput
       value={value}
-      placeholder="Password"
+      label="Password"
+      placeholder="···················"
       onChangeText={handleChange}
       containerStyle={styles.input}
     />

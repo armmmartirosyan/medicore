@@ -1,17 +1,18 @@
 import React, {memo, useCallback, useRef, useState} from 'react';
 import {default as RNPhoneInput} from 'react-native-phone-number-input';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {getSize} from '@utils';
-import {DEFAULT_CODE} from '@constants';
+import {DEFAULT_CODE, FONTS, COLORS} from '@constants';
 import {DropdownImage} from './dropdown-image';
 
 export const PhoneInput = memo(
   ({
-    placeholder = 'phone number',
-    onChangeCountry,
+    label,
     onChangeText,
-    value = '',
     containerStyle,
+    onChangeCountry,
+    value = '',
+    placeholder = 'Phone number',
     ...rest
   }) => {
     const phoneInput = useRef(null);
@@ -31,7 +32,7 @@ export const PhoneInput = memo(
 
     const handleChange = useCallback(
       newValue => {
-        const reg = /^[\d]*$/;
+        const reg = /^[\d]{0,15}$/;
 
         if (!reg.test(newValue)) {
           return;
@@ -47,39 +48,49 @@ export const PhoneInput = memo(
     );
 
     return (
-      <RNPhoneInput
-        defaultCode="AM"
-        ref={phoneInput}
-        placeholder={placeholder}
-        onChangeText={handleChange}
-        codeTextStyle={styles.codeTextStyle}
-        onChangeCountry={handleChangeCountry}
-        textInputStyle={styles.textInputStyle}
-        textContainerStyle={styles.textContainerStyle}
-        containerStyle={[styles.containerStyle, containerStyle]}
-        countryPickerButtonStyle={styles.countryPickerButtonStyle}
-        renderDropdownImage={<DropdownImage currentCode={currentCode} />}
-        textInputProps={{
-          placeholderTextColor: 'grey',
-          keyboardType: 'phone-pad',
-          value: currentValue,
-        }}
-        {...rest}
-      />
+      <View style={[styles.wrapper, containerStyle]}>
+        {label && <Text style={styles.label}>{label}</Text>}
+
+        <RNPhoneInput
+          defaultCode="AM"
+          ref={phoneInput}
+          placeholder={placeholder}
+          onChangeText={handleChange}
+          codeTextStyle={styles.codeTextStyle}
+          onChangeCountry={handleChangeCountry}
+          textInputStyle={styles.textInputStyle}
+          containerStyle={styles.containerStyle}
+          textContainerStyle={styles.textContainerStyle}
+          countryPickerButtonStyle={styles.countryPickerButtonStyle}
+          renderDropdownImage={<DropdownImage currentCode={currentCode} />}
+          textInputProps={{
+            placeholderTextColor: COLORS.PLACEHOLDER_BLUE,
+            keyboardType: 'phone-pad',
+            value: currentValue,
+          }}
+          {...rest}
+        />
+      </View>
     );
   },
 );
 
 const styles = StyleSheet.create({
+  wrapper: {
+    width: '100%',
+  },
+  label: {
+    fontFamily: FONTS.MEDIUM,
+    fontSize: getSize(18),
+    marginBottom: getSize(12),
+    color: 'black',
+  },
   containerStyle: {
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 12,
-    backgroundColor: 'white',
+    width: '100%',
+    paddingHorizontal: getSize(13),
+    borderRadius: getSize(13),
+    backgroundColor: COLORS.SOLITUDE_BLUE,
     overflow: 'hidden',
-    height: 56,
-    width: getSize(317),
-    paddingHorizontal: getSize(8),
   },
   codeTextStyle: {
     display: 'none',
@@ -88,12 +99,12 @@ const styles = StyleSheet.create({
     width: getSize(90),
   },
   textInputStyle: {
-    fontSize: 14,
-    color: 'black',
-    paddingVertical: 0,
+    fontSize: getSize(18),
+    color: COLORS.PRIMARY_BLUE,
+    fontFamily: FONTS.REGULAR,
   },
   textContainerStyle: {
-    backgroundColor: 'white',
-    paddingHorizontal: getSize(2),
+    paddingVertical: getSize(15),
+    backgroundColor: COLORS.SOLITUDE_BLUE,
   },
 });

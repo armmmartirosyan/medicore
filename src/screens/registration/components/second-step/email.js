@@ -21,7 +21,8 @@ export function Email() {
   return (
     <Input
       value={value}
-      placeholder="Email"
+      label="Email"
+      placeholder="example@example.com"
       onChangeText={handleChange}
       keyboardType="email-address"
       containerStyle={styles.input}
@@ -31,6 +32,6 @@ export function Email() {
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 22,
+    marginBottom: 18,
   },
 });

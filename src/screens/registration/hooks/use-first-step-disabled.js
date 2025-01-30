@@ -1,6 +1,7 @@
 import {useSelector} from 'react-redux';
-import {registrationSelectors} from '@store/registration';
 import {useMemo} from 'react';
+import {isValidName, isValidPhoneNumber} from '@utils';
+import {registrationSelectors} from '@store/registration';
 
 export function useFirstStepDisabled() {
   const firstName = useSelector(registrationSelectors.fNameSelector);
@@ -8,6 +9,10 @@ export function useFirstStepDisabled() {
   const phoneNumber = useSelector(registrationSelectors.phoneNumberSelector);
 
   return useMemo(() => {
-    return !firstName || !lastName || !phoneNumber;
+    return (
+      !isValidName(firstName) ||
+      !isValidName(lastName) ||
+      !isValidPhoneNumber(phoneNumber)
+    );
   }, [firstName, lastName, phoneNumber]);
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -10,19 +10,16 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Input, PasswordInput, InputWrapperView, HeadText} from '@components';
 import {SignInButton, SignUpLink} from './components';
-import {useFieldValues} from './hooks';
-import {COLORS} from '@constants';
+import {COLORS, FONTS} from '@constants';
 import {AngleLeft} from '@icons';
 import {getSize} from '@utils';
-import {FONTS} from '@constants';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 50;
 
 export function SignIn() {
   const navigation = useNavigation();
-
-  const {email, password, disableSignIn, setEmail, setPassword} =
-    useFieldValues();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <KeyboardAvoidingView
@@ -44,7 +41,7 @@ export function SignIn() {
           <Input
             label="Email"
             value={email}
-            inputMode="email"
+            keyboardType="email-address"
             onChangeText={setEmail}
             placeholder="example@example.com"
             containerStyle={styles.emailInput}
@@ -59,11 +56,7 @@ export function SignIn() {
           <Pressable style={styles.forgetBtn}>
             <Text style={styles.forgetText}>Forgot Password</Text>
           </Pressable>
-          <SignInButton
-            email={email}
-            password={password}
-            disableSignIn={disableSignIn}
-          />
+          <SignInButton email={email} password={password} />
           <SignUpLink />
         </View>
 

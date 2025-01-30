@@ -1,9 +1,10 @@
 import React from 'react';
 import {View, Text, StatusBar, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {FONTS, COLORS} from '@constants';
 import {Button} from '@components';
 import {LogoBlue} from '@icons';
-import {useNavigation} from '@react-navigation/native';
+import {getSize} from '@utils';
 
 export function Welcome() {
   const navigation = useNavigation();
@@ -39,31 +40,31 @@ export function Welcome() {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    paddingHorizontal: 40,
-    paddingBottom: 67,
+    paddingHorizontal: getSize(40),
+    paddingBottom: getSize(67),
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: 'white',
   },
   logoWrapper: {
-    width: 138,
+    width: getSize(138),
     alignItems: 'center',
     marginBottom: 40,
   },
   logo: {
-    width: 138,
-    height: 138,
-    marginBottom: 16,
+    width: getSize(138),
+    height: getSize(138),
+    marginBottom: getSize(16),
   },
   name: {
     fontFamily: FONTS.THIN,
-    fontSize: 48,
+    fontSize: getSize(48),
     color: COLORS.PRIMARY_BLUE,
   },
   infoText: {
-    marginBottom: 32,
+    marginBottom: getSize(32),
     fontFamily: FONTS.LIGHT,
-    fontSize: 14,
+    fontSize: getSize(14),
     color: COLORS.PROFOUND_BLACK,
     textAlign: 'center',
   },

@@ -1,33 +1,48 @@
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {
-  Text,
+  Pressable,
   StyleSheet,
   View,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import {InputWrapperView} from '@components';
+import {InputWrapperView, HeadText} from '@components';
+import {COLORS} from '@constants';
+import {AngleLeft} from '@icons';
+import {getSize} from '@utils';
+import {SignInLink} from './sign-in-link';
 import {NextButton} from './next-button';
 import {FirstName} from './first-name';
 import {LastName} from './last-name';
 import {Phone} from './phone';
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 140 : 50;
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 50;
 
 export function FirstStep({onNextStep}) {
+  const navigation = useNavigation();
+
   return (
     <KeyboardAvoidingView
       behavior="height"
       style={styles.keyboardAvoid}
       keyboardVerticalOffset={keyboardVerticalOffset}>
-      <InputWrapperView contentContainerStyle={styles.wrapper}>
-        <Text style={styles.screenName}>Registration</Text>
-        <View style={styles.alignCenter}>
+      <InputWrapperView contentContainerStyle={styles.contentContainer}>
+        <View style={styles.header}>
+          <Pressable onPress={() => navigation.goBack()}>
+            <AngleLeft style={styles.angleLeft} />
+          </Pressable>
+          <HeadText>Sign Up</HeadText>
+          <View />
+        </View>
+        <View style={styles.fieldsContainer}>
           <FirstName />
           <LastName />
           <Phone />
           <NextButton onNextStep={onNextStep} />
+          <SignInLink />
         </View>
+        <View />
       </InputWrapperView>
     </KeyboardAvoidingView>
   );
@@ -37,15 +52,23 @@ const styles = StyleSheet.create({
   keyboardAvoid: {
     flex: 1,
   },
-  wrapper: {
+  contentContainer: {
     flex: 1,
-    justifyContent: 'space-between',
-  },
-  alignCenter: {
     alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: getSize(20),
   },
-  screenName: {
-    fontWeight: '600',
-    marginBottom: 49,
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  angleLeft: {
+    color: COLORS.PRIMARY_BLUE,
+  },
+  fieldsContainer: {
+    width: '100%',
+    alignItems: 'center',
   },
 });

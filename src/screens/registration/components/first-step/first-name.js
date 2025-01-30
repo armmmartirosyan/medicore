@@ -25,7 +25,8 @@ export function FirstName() {
   return (
     <Input
       value={value}
-      placeholder="First name"
+      label="First name"
+      placeholder="John"
       onChangeText={handleChange}
       containerStyle={styles.input}
     />
@@ -34,6 +35,6 @@ export function FirstName() {
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 22,
+    marginBottom: 18,
   },
 });
