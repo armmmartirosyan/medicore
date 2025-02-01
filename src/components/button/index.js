@@ -27,11 +27,12 @@ Button.variants = variants;
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: getSize(15),
-    paddingHorizontal: getSize(21),
     width: getSize(207),
+    height: getSize(45),
+    paddingHorizontal: getSize(21),
     borderRadius: getSize(RADIUS_LARGE),
     alignItems: 'center',
+    justifyContent: 'center',
   },
   primaryContainer: {
     backgroundColor: COLORS.PRIMARY_BLUE,

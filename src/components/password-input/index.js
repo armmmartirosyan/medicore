@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    paddingVertical: getSize(15),
+    paddingVertical: 0,
+    height: getSize(45),
     paddingHorizontal: getSize(13),
     borderRadius: getSize(13),
     backgroundColor: COLORS.SOLITUDE_BLUE,

@@ -7,25 +7,40 @@ import {
   Pressable,
   StatusBar,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {getSize, screenWidth, screenHeight} from '@utils';
 import {FONTS, COLORS} from '@constants';
 import {useAuth} from '@contexts';
 import {LogoWhite} from '@icons';
+import {
+  registrationSelectors,
+  resetRegistrationState,
+} from '@store/registration';
 
 export function Congrats({onPrevStep}) {
   const {signIn} = useAuth();
+  const dispatch = useDispatch();
+  const token = useSelector(registrationSelectors.signUpTokenSelector);
 
   useEffect(() => {
     setTimeout(async () => {
-      // signIn();
+      signIn(token);
+      dispatch(resetRegistrationState());
       console.log('Congrats');
     }, 1000);
   }, []);
 
+  if (!token) {
+    return <></>;
+  }
+
   return (
     <Modal isTVSelectable={true}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
-      <Pressable onPress={onPrevStep}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={COLORS.PRIMARY_BLUE}
+      />
+      <Pressable onPress={onPrevStep} style={styles.btn}>
         <View style={styles.wrapper}>
           <LogoWhite style={styles.logo} />
           <Text style={styles.name}>Medi{'\n'}Core</Text>
@@ -36,6 +51,10 @@ export function Congrats({onPrevStep}) {
 }
 
 const styles = StyleSheet.create({
+  btn: {
+    flex: 1,
+    backgroundColor: 'red',
+  },
   wrapper: {
     position: 'absolute',
     width: screenWidth,

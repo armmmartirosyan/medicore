@@ -8,6 +8,7 @@ const initialState = {
   birthDate: null,
   email: '',
   password: '',
+  signUpToken: '',
 };
 
 export const registrationSlice = createSlice({

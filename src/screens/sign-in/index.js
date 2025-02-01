@@ -53,9 +53,11 @@ export function SignIn() {
             placeholder="···················"
             containerStyle={styles.passwordInput}
           />
-          <Pressable style={styles.forgetBtn}>
-            <Text style={styles.forgetText}>Forgot Password</Text>
-          </Pressable>
+          <View style={styles.forgotWrapper}>
+            <Pressable style={styles.forgetBtn}>
+              <Text style={styles.forgetText}>Forgot Password</Text>
+            </Pressable>
+          </View>
           <SignInButton email={email} password={password} />
           <SignUpLink />
         </View>
@@ -104,13 +106,13 @@ const styles = StyleSheet.create({
   emailInput: {
     marginBottom: getSize(20),
   },
-  passwordInput: {
+  passwordInput: {},
+  forgotWrapper: {
+    width: '100%',
+    alignItems: 'flex-end',
     marginBottom: getSize(56),
-  },
-  forgetBtn: {
-    position: 'absolute',
-    top: getSize(180),
-    right: 10,
+    paddingTop: 9,
+    paddingRight: 7,
   },
   forgetText: {
     color: COLORS.PRIMARY_BLUE,

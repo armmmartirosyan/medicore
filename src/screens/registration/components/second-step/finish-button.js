@@ -1,12 +1,12 @@
 import React from 'react';
-import {useFinishDisabled} from '@screens/registration/hooks';
+import {useSignUp} from '@screens/registration/hooks';
 import {Button} from '@components';
 
 export function FinishButton({onNextStep}) {
-  const disabled = useFinishDisabled();
+  const {disabled, handleSignUp} = useSignUp(onNextStep);
 
   return (
-    <Button onPress={onNextStep} disabled={disabled}>
+    <Button onPress={handleSignUp} disabled={disabled}>
       Finish
     </Button>
   );

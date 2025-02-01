@@ -1,3 +1,3 @@
 export {useSteps} from './use-steps';
-export {useFinishDisabled} from './use-finish-disabled';
+export {useSignUp} from './use-sign-up';
 export {useFirstStepDisabled} from './use-first-step-disabled';

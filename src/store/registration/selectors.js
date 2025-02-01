@@ -37,6 +37,11 @@ const passwordSelector = createSelector(
   state => state.password,
 );
 
+const signUpTokenSelector = createSelector(
+  registrationBaseSelector,
+  state => state.signUpToken,
+);
+
 export const registrationSelectors = {
   emailSelector,
   fNameSelector,
@@ -45,4 +50,5 @@ export const registrationSelectors = {
   phoneCodeSelector,
   birthDateSelector,
   passwordSelector,
+  signUpTokenSelector,
 };

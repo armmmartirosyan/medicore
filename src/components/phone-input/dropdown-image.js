@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: getSize(20),
     color: COLORS.PRIMARY_BLUE,
-    fontFamily: FONTS.REGULAR,
+    fontFamily: FONTS.MEDIUM,
   },
 });

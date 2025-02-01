@@ -1,36 +1,37 @@
 import React, {useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet} from 'react-native';
-import {Input} from '@components';
+import {DatePicker} from '@components';
 import {
   registrationSelectors,
   changeRegistrationState,
 } from '@store/registration';
 
 export function BirthDate() {
-  const dispatch = useDispatch();
   const value = useSelector(registrationSelectors.birthDateSelector);
+  const dispatch = useDispatch();
 
   const handleChange = useCallback(
-    birthDate => {
+    newDate => {
+      const birthDate = new Date(newDate).toDateString();
+
       dispatch(changeRegistrationState({birthDate}));
     },
     [dispatch],
   );
 
   return (
-    <Input
+    <DatePicker
       value={value}
       label="Birth date"
-      placeholder="DD / MM /YYY"
-      onChangeText={handleChange}
-      containerStyle={styles.input}
+      onDateChange={handleChange}
+      containerStyle={styles.containerStyle}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
+  containerStyle: {
     marginBottom: 18,
   },
 });

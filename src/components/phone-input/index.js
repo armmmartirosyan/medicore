@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   },
   containerStyle: {
     width: '100%',
+    height: getSize(45),
     paddingHorizontal: getSize(13),
     borderRadius: getSize(13),
     backgroundColor: COLORS.SOLITUDE_BLUE,
@@ -102,9 +103,10 @@ const styles = StyleSheet.create({
     fontSize: getSize(18),
     color: COLORS.PRIMARY_BLUE,
     fontFamily: FONTS.REGULAR,
+    paddingVertical: 0,
   },
   textContainerStyle: {
-    paddingVertical: getSize(15),
+    paddingVertical: 0,
     backgroundColor: COLORS.SOLITUDE_BLUE,
   },
 });
