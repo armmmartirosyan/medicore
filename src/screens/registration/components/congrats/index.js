@@ -1,12 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  Modal,
-  Text,
-  Pressable,
-  StatusBar,
-} from 'react-native';
+import {StyleSheet, View, Modal, Text, StatusBar} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getSize, screenWidth, screenHeight} from '@utils';
 import {FONTS, COLORS} from '@constants';
@@ -17,18 +10,19 @@ import {
   resetRegistrationState,
 } from '@store/registration';
 
-export function Congrats({onPrevStep}) {
+export function Congrats() {
   const {signIn} = useAuth();
   const dispatch = useDispatch();
   const token = useSelector(registrationSelectors.signUpTokenSelector);
 
   useEffect(() => {
-    setTimeout(async () => {
-      signIn(token);
-      dispatch(resetRegistrationState());
-      console.log('Congrats');
-    }, 1000);
-  }, []);
+    if (token) {
+      setTimeout(async () => {
+        await signIn(token);
+        dispatch(resetRegistrationState());
+      }, 2000);
+    }
+  }, [token]);
 
   if (!token) {
     return <></>;
@@ -40,21 +34,15 @@ export function Congrats({onPrevStep}) {
         barStyle="dark-content"
         backgroundColor={COLORS.PRIMARY_BLUE}
       />
-      <Pressable onPress={onPrevStep} style={styles.btn}>
-        <View style={styles.wrapper}>
-          <LogoWhite style={styles.logo} />
-          <Text style={styles.name}>Medi{'\n'}Core</Text>
-        </View>
-      </Pressable>
+      <View style={styles.wrapper}>
+        <LogoWhite style={styles.logo} />
+        <Text style={styles.name}>Medi{'\n'}Core</Text>
+      </View>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  btn: {
-    flex: 1,
-    backgroundColor: 'red',
-  },
   wrapper: {
     position: 'absolute',
     width: screenWidth,

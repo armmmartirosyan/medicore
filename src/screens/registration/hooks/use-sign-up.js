@@ -1,5 +1,6 @@
 import {useMemo, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {useAuthSignUp} from '@api-hooks';
 import {
   isValidEmail,
   isSecurePassword,
@@ -10,7 +11,6 @@ import {
   registrationSelectors,
   changeRegistrationState,
 } from '@store/registration';
-import {useAuthSignUp} from '@api-hooks';
 
 export function useSignUp(onNextStep) {
   const dispatch = useDispatch();
@@ -21,25 +21,14 @@ export function useSignUp(onNextStep) {
   const email = useSelector(registrationSelectors.emailSelector);
   const password = useSelector(registrationSelectors.passwordSelector);
 
-  const disabled = useMemo(() => {
-    return (
-      !isValidName(firstName) ||
-      !isValidName(lastName) ||
-      !isValidPhoneNumber(phoneNumber) ||
-      !birthDate ||
-      !isValidEmail(email) ||
-      !isSecurePassword(password)
-    );
-  }, [birthDate, email, password]);
-
   const onSuccess = useCallback(
     signUpToken => {
+      onNextStep();
       dispatch(
         changeRegistrationState({
           signUpToken: 'token',
         }),
       );
-      onNextStep();
       console.log('onSuccess');
     },
     [onNextStep, dispatch],
@@ -49,10 +38,22 @@ export function useSignUp(onNextStep) {
     console.log('onError');
   }, []);
 
-  const {mutate: signUp} = useAuthSignUp({
+  const {mutate: signUp, isLoading} = useAuthSignUp({
     onError: onSuccess,
     onSuccess,
   });
+
+  const disabled = useMemo(() => {
+    return (
+      !isValidPhoneNumber(phoneNumber) ||
+      !isSecurePassword(password) ||
+      !isValidName(firstName) ||
+      !isValidName(lastName) ||
+      !isValidEmail(email) ||
+      !birthDate ||
+      isLoading
+    );
+  }, [birthDate, email, password, isLoading]);
 
   const handleSignUp = useCallback(() => {
     if (disabled) {

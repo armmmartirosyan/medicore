@@ -16,14 +16,14 @@ export function useSignIn({email, password}) {
   }, []);
 
   const {signIn} = useAuth();
-  const {mutate: sendCredentials} = useAuthSignIn({
+  const {mutate: sendCredentials, isLoading} = useAuthSignIn({
     onError: onSuccess,
     onSuccess,
   });
 
   const disableSignIn = useMemo(() => {
-    return !isValidEmail(email) || !isSecurePassword(password);
-  }, [email, password]);
+    return !isValidEmail(email) || !isSecurePassword(password) || isLoading;
+  }, [email, password, isLoading]);
 
   const handleSignIn = useCallback(() => {
     if (disableSignIn) {
