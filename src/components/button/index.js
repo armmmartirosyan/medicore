@@ -1,5 +1,10 @@
 import React, {memo} from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import {ACTIVE_BTN_OPACITY, COLORS, FONTS, RADIUS_LARGE} from '@constants';
 import {getSize} from '@utils';
 
@@ -9,7 +14,14 @@ const variants = {
 };
 
 const Button = memo(
-  ({children, variant = variants.primary, style, textStyle, ...rest}) => {
+  ({
+    children,
+    variant = variants.primary,
+    style,
+    textStyle,
+    isLoading,
+    ...rest
+  }) => {
     return (
       <TouchableOpacity
         activeOpacity={ACTIVE_BTN_OPACITY}
@@ -18,6 +30,13 @@ const Button = memo(
         <Text style={[styles.text, styles[`${variant}Text`], textStyle]}>
           {children}
         </Text>
+        {isLoading && (
+          <ActivityIndicator
+            size="small"
+            color={variant === variants.primary ? 'white' : COLORS.PRIMARY_BLUE}
+            style={styles.activityIndicator}
+          />
+        )}
       </TouchableOpacity>
     );
   },
@@ -33,6 +52,10 @@ const styles = StyleSheet.create({
     borderRadius: getSize(RADIUS_LARGE),
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  activityIndicator: {
+    marginLeft: 10,
   },
   primaryContainer: {
     backgroundColor: COLORS.PRIMARY_BLUE,

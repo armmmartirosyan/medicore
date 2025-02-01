@@ -4,15 +4,18 @@ import {Navigation} from '@navigation';
 import {store} from '@store/index';
 import {AuthProvider} from '@contexts';
 import {ReactQueryProvider} from '@api-hooks';
+import {AlertNotificationRoot} from 'react-native-alert-notification';
 
 export default function App() {
   return (
-    <ReduxProvider store={store}>
-      <AuthProvider>
-        <ReactQueryProvider>
-          <Navigation />
-        </ReactQueryProvider>
-      </AuthProvider>
-    </ReduxProvider>
+    <AlertNotificationRoot>
+      <ReduxProvider store={store}>
+        <AuthProvider>
+          <ReactQueryProvider>
+            <Navigation />
+          </ReactQueryProvider>
+        </AuthProvider>
+      </ReduxProvider>
+    </AlertNotificationRoot>
   );
 }

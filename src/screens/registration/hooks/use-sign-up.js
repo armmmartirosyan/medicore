@@ -1,3 +1,4 @@
+import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {useMemo, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useAuthSignUp} from '@api-hooks';
@@ -35,7 +36,12 @@ export function useSignUp(onNextStep) {
   );
 
   const onError = useCallback(() => {
-    console.log('onError');
+    Toast.show({
+      autoClose: 2000,
+      title: 'Error',
+      type: ALERT_TYPE.DANGER,
+      textBody: 'Invalid field(s) value',
+    });
   }, []);
 
   const {mutate: signUp, isLoading} = useAuthSignUp({
@@ -65,6 +71,7 @@ export function useSignUp(onNextStep) {
 
   return {
     disabled,
+    isLoading,
     handleSignUp,
   };
 }

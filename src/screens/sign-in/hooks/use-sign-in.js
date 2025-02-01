@@ -1,3 +1,4 @@
+import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {useCallback, useMemo} from 'react';
 import {isValidEmail, isSecurePassword} from '@utils';
 import {useAuthSignIn} from '@api-hooks';
@@ -12,7 +13,12 @@ export function useSignIn({email, password}) {
   }, [signIn]);
 
   const onError = useCallback(() => {
-    console.log('onError');
+    Toast.show({
+      autoClose: 2000,
+      title: 'Error',
+      type: ALERT_TYPE.DANGER,
+      textBody: 'Invalid email or password.',
+    });
   }, []);
 
   const {signIn} = useAuth();
@@ -36,5 +42,6 @@ export function useSignIn({email, password}) {
   return {
     disableSignIn,
     handleSignIn,
+    isLoading,
   };
 }
