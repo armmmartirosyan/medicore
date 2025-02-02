@@ -1,13 +1,13 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Home} from '@screens';
+import {Visits} from '@screens';
 
 const Stack = createNativeStackNavigator();
 
-export function Home2Stack() {
+export function VisitsStack() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home2" component={Home} />
+      <Stack.Screen name="Visits" component={Visits} />
     </Stack.Navigator>
   );
 }

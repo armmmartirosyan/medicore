@@ -7,10 +7,11 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {resetRegistrationState} from '@store/registration';
 import {InputWrapperView, HeadText} from '@components';
 import {COLORS} from '@constants';
-import {AngleLeft} from '@icons';
 import {getSize} from '@utils';
 import {Email} from './email';
 import {Password} from './password';
@@ -35,7 +36,11 @@ export function SecondStep({onNextStep, onPrevStep}) {
       <InputWrapperView contentContainerStyle={styles.contentContainer}>
         <View style={styles.header}>
           <Pressable onPress={onPrevStep}>
-            <AngleLeft style={styles.angleLeft} />
+            <FontAwesomeIcon
+              style={styles.angleLeft}
+              icon={faAngleLeft}
+              size={20}
+            />
           </Pressable>
           <HeadText>Step 2</HeadText>
           <View />

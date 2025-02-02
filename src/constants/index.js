@@ -9,6 +9,7 @@ export const COLORS = {
   SOLITUDE_BLUE: '#ECF1FF',
   VIBRANT_BLUE: '#CAD6FFAA',
   VERY_SOFT_BLUE: '#A9BCFE',
+  ACTIVE_BLUE: '#00278C',
 };
 
 // Fonts

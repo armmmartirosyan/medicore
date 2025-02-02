@@ -1,5 +1,7 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   Pressable,
   StyleSheet,
@@ -9,7 +11,6 @@ import {
 } from 'react-native';
 import {InputWrapperView, HeadText} from '@components';
 import {COLORS} from '@constants';
-import {AngleLeft} from '@icons';
 import {getSize} from '@utils';
 import {SignInLink} from './sign-in-link';
 import {NextButton} from './next-button';
@@ -30,7 +31,11 @@ export function FirstStep({onNextStep}) {
       <InputWrapperView contentContainerStyle={styles.contentContainer}>
         <View style={styles.header}>
           <Pressable onPress={() => navigation.goBack()}>
-            <AngleLeft style={styles.angleLeft} />
+            <FontAwesomeIcon
+              style={styles.angleLeft}
+              icon={faAngleLeft}
+              size={20}
+            />
           </Pressable>
           <HeadText>Sign Up</HeadText>
           <View />

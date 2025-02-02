@@ -1,11 +1,11 @@
 import React, {Fragment} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
-import {COLORS} from '@constants';
+import {THEME_COLOR} from '@constants';
 
 export function ColoredStatusBar({
-  statusBgColor = COLORS.THEME_COLOR,
-  bgColor = COLORS.THEME_COLOR,
+  statusBgColor = THEME_COLOR,
   barStyle = 'light-content',
+  bgColor = THEME_COLOR,
   children,
 }) {
   return (

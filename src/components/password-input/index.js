@@ -1,8 +1,9 @@
 import React, {memo, useState} from 'react';
 import {StyleSheet, TextInput, View, Pressable, Text} from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 import {FONTS, COLORS} from '@constants';
 import {getSize} from '@utils';
-import {Eye, EyeOpen} from '@icons';
 
 export const PasswordInput = memo(({label, style, containerStyle, ...rest}) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +23,11 @@ export const PasswordInput = memo(({label, style, containerStyle, ...rest}) => {
         <Pressable
           style={styles.eyeContainer}
           onPress={() => setShowPassword(!showPassword)}>
-          {showPassword ? <Eye /> : <EyeOpen style={styles.eye} />}
+          <FontAwesomeIcon
+            icon={showPassword ? faEye : faEyeSlash}
+            style={styles.eye}
+            size={20}
+          />
         </Pressable>
       </View>
     </View>
@@ -60,11 +65,10 @@ const styles = StyleSheet.create({
   },
   eyeContainer: {
     position: 'absolute',
-    top: getSize(16),
-    right: getSize(13),
+    top: getSize(14),
+    right: getSize(15),
   },
   eye: {
-    width: 22,
-    height: 22,
+    color: COLORS.PRIMARY_BLUE,
   },
 });

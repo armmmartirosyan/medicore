@@ -8,10 +8,11 @@ import {
   Text,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {Input, PasswordInput, InputWrapperView, HeadText} from '@components';
 import {SignInButton, SignUpLink} from './components';
 import {COLORS, FONTS} from '@constants';
-import {AngleLeft} from '@icons';
 import {getSize} from '@utils';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 50;
@@ -31,7 +32,11 @@ export function SignIn() {
         contentContainerStyle={styles.contentContainer}>
         <View style={styles.header}>
           <Pressable onPress={() => navigation.goBack()}>
-            <AngleLeft style={styles.angleLeft} />
+            <FontAwesomeIcon
+              style={styles.angleLeft}
+              icon={faAngleLeft}
+              size={20}
+            />
           </Pressable>
           <HeadText>Sign In</HeadText>
           <View />
