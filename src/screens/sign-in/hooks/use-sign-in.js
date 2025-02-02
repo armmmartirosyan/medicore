@@ -5,12 +5,25 @@ import {useAuthSignIn} from '@api-hooks';
 import {useAuth} from '@contexts';
 
 export function useSignIn({email, password}) {
-  const onSuccess = useCallback(() => {
-    console.log('onSuccess');
+  const onSuccess = useCallback(
+    data => {
+      const token = data?.data?.data;
 
-    const TOKEN_FROM_ARGS = 'token';
-    signIn(TOKEN_FROM_ARGS);
-  }, [signIn]);
+      if (!token) {
+        Toast.show({
+          autoClose: 2000,
+          title: 'Error',
+          type: ALERT_TYPE.DANGER,
+          textBody: 'Something went wrong!',
+        });
+
+        return;
+      }
+
+      signIn(token);
+    },
+    [signIn],
+  );
 
   const onError = useCallback(() => {
     Toast.show({
@@ -23,7 +36,7 @@ export function useSignIn({email, password}) {
 
   const {signIn} = useAuth();
   const {mutate: sendCredentials, isLoading} = useAuthSignIn({
-    onError: onSuccess,
+    onError,
     onSuccess,
   });
 

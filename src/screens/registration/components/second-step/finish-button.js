@@ -6,10 +6,8 @@ export function FinishButton({onNextStep}) {
   const {disabled, handleSignUp, isLoading} = useSignUp(onNextStep);
 
   return (
-    <>
-      <Button onPress={handleSignUp} disabled={disabled} isLoading={isLoading}>
-        Finish
-      </Button>
-    </>
+    <Button onPress={handleSignUp} disabled={disabled} isLoading={isLoading}>
+      Finish
+    </Button>
   );
 }

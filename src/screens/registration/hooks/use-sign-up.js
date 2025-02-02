@@ -1,7 +1,9 @@
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
+import moment from 'moment';
 import {useMemo, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useAuthSignUp} from '@api-hooks';
+import {useAuthSignUp, useGetUserType} from '@api-hooks';
+import {USER_TYPE_NAMES} from '@constants';
 import {
   isValidEmail,
   isSecurePassword,
@@ -18,19 +20,32 @@ export function useSignUp(onNextStep) {
   const firstName = useSelector(registrationSelectors.fNameSelector);
   const lastName = useSelector(registrationSelectors.lNameSelector);
   const phoneNumber = useSelector(registrationSelectors.phoneNumberSelector);
+  const phoneCode = useSelector(registrationSelectors.phoneCodeSelector);
   const birthDate = useSelector(registrationSelectors.birthDateSelector);
   const email = useSelector(registrationSelectors.emailSelector);
   const password = useSelector(registrationSelectors.passwordSelector);
 
+  const {data: userTypeData} = useGetUserType({name: USER_TYPE_NAMES.PATIENT});
+
   const onSuccess = useCallback(
-    signUpToken => {
+    data => {
+      if (!data) {
+        Toast.show({
+          autoClose: 2000,
+          title: 'Error',
+          type: ALERT_TYPE.DANGER,
+          textBody: 'Something went wrong!',
+        });
+
+        return;
+      }
+
       onNextStep();
       dispatch(
         changeRegistrationState({
-          signUpToken: 'token',
+          signUpToken: data.data,
         }),
       );
-      console.log('onSuccess');
     },
     [onNextStep, dispatch],
   );
@@ -45,7 +60,7 @@ export function useSignUp(onNextStep) {
   }, []);
 
   const {mutate: signUp, isLoading} = useAuthSignUp({
-    onError: onSuccess,
+    onError,
     onSuccess,
   });
 
@@ -57,17 +72,49 @@ export function useSignUp(onNextStep) {
       !isValidName(lastName) ||
       !isValidEmail(email) ||
       !birthDate ||
-      isLoading
+      isLoading ||
+      !userTypeData?.data?.id
     );
-  }, [birthDate, email, password, isLoading]);
+  }, [
+    phoneNumber,
+    password,
+    firstName,
+    lastName,
+    email,
+    birthDate,
+    isLoading,
+    userTypeData?.data?.id,
+  ]);
 
   const handleSignUp = useCallback(() => {
     if (disabled) {
       return;
     }
 
-    signUp({email, password, firstName, lastName, phoneNumber});
-  }, [disabled, signUp, email, password, firstName, lastName, phoneNumber]);
+    const phone = phoneCode + phoneNumber;
+
+    signUp({
+      email,
+      password,
+      firstName,
+      lastName,
+      phone,
+      typesId: userTypeData?.data?.id,
+      birthDate: moment().format('YYYY-MM-DD'),
+      specializations: [2], //TODO: Remove this
+    });
+  }, [
+    disabled,
+    signUp,
+    email,
+    password,
+    firstName,
+    lastName,
+    phoneNumber,
+    userTypeData?.data?.id,
+    birthDate,
+    phoneCode,
+  ]);
 
   return {
     disabled,

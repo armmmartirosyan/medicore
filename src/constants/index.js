@@ -35,3 +35,8 @@ export const DEFAULT_CODE = {
   callingCode: ['374'],
   flag: 'flag-am',
 };
+
+export const USER_TYPE_NAMES = {
+  DOCTOR: 'Doctor',
+  PATIENT: 'Patient',
+};

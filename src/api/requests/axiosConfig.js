@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AUTH_TOKEN_KEY} from '@constants';
 
 const axiosConfig = axios.create({
-  baseURL: '',
+  baseURL: 'http://localhost:5122/',
   headers: {
     'Content-Type': 'application/json',
   },
