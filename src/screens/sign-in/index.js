@@ -60,7 +60,7 @@ export function SignIn() {
           />
           <View style={styles.forgotWrapper}>
             <Pressable style={styles.forgetBtn}>
-              <Text style={styles.forgetText}>Forgot Password</Text>
+              <Text style={styles.forgetText}>Forgot Password?</Text>
             </Pressable>
           </View>
           <SignInButton email={email} password={password} />
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
   emailInput: {
     marginBottom: getSize(20),
   },
-  passwordInput: {},
   forgotWrapper: {
     width: '100%',
     alignItems: 'flex-end',

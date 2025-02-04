@@ -6,3 +6,5 @@ export {Account} from './account';
 export {Medicines} from './medicines';
 export {Visits} from './visits';
 export {TermsAndPrivacy} from './terms-and-privacy';
+export {Profile} from './profile';
+export {ChangePassword} from './change-password';

@@ -10,19 +10,21 @@ const user = {
   profilePicture: profile,
 };
 
-export function AccountHeader() {
+export function AccountHeader({showName = true, allowChangePicture}) {
   return (
     <View style={styles.profileHeader}>
       <Text style={styles.headerText}>My Profile</Text>
       <View style={styles.imageWrapper}>
         <Image source={user.profilePicture} style={styles.profilePicture} />
-        <TouchableOpacity
-          style={styles.editButton}
-          activeOpacity={ACTIVE_BTN_OPACITY}>
-          <FontAwesomeIcon color="white" icon={faPencil} size={13} />
-        </TouchableOpacity>
+        {allowChangePicture && (
+          <TouchableOpacity
+            style={styles.editButton}
+            activeOpacity={ACTIVE_BTN_OPACITY}>
+            <FontAwesomeIcon color="white" icon={faPencil} size={13} />
+          </TouchableOpacity>
+        )}
       </View>
-      <Text style={styles.userName}>{user.name}</Text>
+      {showName && <Text style={styles.userName}>{user.name}</Text>}
     </View>
   );
 }

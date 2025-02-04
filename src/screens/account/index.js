@@ -10,8 +10,8 @@ import {
 import {
   faAngleRight,
   faShieldHalved,
-  faGear,
   faArrowRightFromBracket,
+  faKey,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faUser} from '@fortawesome/free-regular-svg-icons';
@@ -25,10 +25,6 @@ function AccountComponent() {
   const {signOut} = useAuth();
   const navigation = useNavigation();
 
-  const goToTermsAndPrivacy = useCallback(() => {
-    navigation.navigate('TermsAndPrivacy');
-  }, [navigation]);
-
   const handleSignOut = useCallback(() => {
     Alert.alert('Logout', 'Are you sure you want to log out?', [
       {
@@ -40,13 +36,21 @@ function AccountComponent() {
   }, [signOut]);
 
   const MENU_ITEMS = [
-    {label: 'Profile', icon: faUser, onPress: goToTermsAndPrivacy},
+    {
+      label: 'Profile',
+      icon: faUser,
+      onPress: () => navigation.navigate('Profile'),
+    },
+    {
+      label: 'Change Password',
+      icon: faKey,
+      onPress: () => navigation.navigate('ChangePassword'),
+    },
     {
       label: 'Terms and Privacy',
       icon: faShieldHalved,
-      onPress: goToTermsAndPrivacy,
+      onPress: () => navigation.navigate('TermsAndPrivacy'),
     },
-    {label: 'Settings', icon: faGear, onPress: goToTermsAndPrivacy},
     {
       label: 'Logout',
       icon: faArrowRightFromBracket,
