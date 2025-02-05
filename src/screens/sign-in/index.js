@@ -97,12 +97,6 @@ const styles = StyleSheet.create({
   angleLeft: {
     color: COLORS.PRIMARY_BLUE,
   },
-  title: {
-    fontSize: getSize(32),
-    fontWeight: 'bold',
-    color: 'black',
-    marginBottom: getSize(20),
-  },
   inputContainer: {
     width: '100%',
     alignItems: 'center',

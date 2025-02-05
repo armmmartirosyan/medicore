@@ -100,7 +100,7 @@ export function useSignUp(onNextStep) {
       lastName,
       phone,
       typesId: userTypeData?.data?.id,
-      birthDate: moment().format('YYYY-MM-DD'),
+      birthDate: moment(birthDate).format('YYYY-MM-DD'),
       specializations: [2], //TODO: Remove this
     });
   }, [

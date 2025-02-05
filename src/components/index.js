@@ -9,3 +9,4 @@ export {HeadText} from './head-text';
 export {DatePicker} from './date-picker';
 export {DoctorCard} from './doctor-card';
 export {AccountHeader} from './account-header';
+export {MedicineCard} from './medicine-card';

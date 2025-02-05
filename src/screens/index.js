@@ -4,6 +4,7 @@ export {Registration} from './registration';
 export {Home} from './home';
 export {Account} from './account';
 export {Medicines} from './medicines';
+export {MedicineDetails} from './medicine-details';
 export {Visits} from './visits';
 export {TermsAndPrivacy} from './terms-and-privacy';
 export {Profile} from './profile';
