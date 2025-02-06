@@ -9,3 +9,5 @@ export {Visits} from './visits';
 export {TermsAndPrivacy} from './terms-and-privacy';
 export {Profile} from './profile';
 export {ChangePassword} from './change-password';
+export {DoctorInfo} from './doctor-info';
+export {ProcedureDetails} from './procedure-details';

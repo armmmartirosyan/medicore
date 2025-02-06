@@ -8,7 +8,7 @@ export const HeadText = memo(({children, style}) => {
 
 const styles = StyleSheet.create({
   text: {
-    fintFamily: FONTS.SEMI_BOLD,
+    fontFamily: FONTS.SEMI_BOLD,
     fontSize: 24,
     color: COLORS.PRIMARY_BLUE,
     fontWeight: '600',

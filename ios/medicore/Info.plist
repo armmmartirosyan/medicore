@@ -61,5 +61,9 @@
 		<string>LeagueSpartan-SemiBold.ttf</string>
 		<string>LeagueSpartan-Thin.ttf</string>
 	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+	</array>
 </dict>
 </plist>

@@ -1,100 +1,104 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  StatusBar,
-} from 'react-native';
-import {Doctor1 as doctor1, Doctor2 as doctor2} from '@images';
-import {DoctorCard} from '@components';
-import {COLORS} from '@constants';
+import React from 'react';
+import {View, StyleSheet, ScrollView, StatusBar} from 'react-native';
+import {Doctor3 as doctor3, Doctor2 as doctor2} from '@images';
+import {DoctorCard, HeadText, ProcedureCard} from '@components';
 import {withSafeArea} from '@hoc';
 import {getSize} from '@utils';
+import {useNavigation} from '@react-navigation/native';
+
+const doctors = [
+  {
+    id: 1,
+    firstName: 'Dr. Olivia',
+    lastName: 'Turner',
+    phone: '+37491777418',
+    email: 'davidson@mail.ru',
+    birthDate: '2000-02-04',
+    image: doctor3,
+    specializations: [
+      'Dermato-Endocrinology',
+      'Dermato-Endocrinology',
+      'Dermato-Endocrinology',
+    ],
+  },
+  {
+    id: 2,
+    firstName: 'Dr. Alexander',
+    lastName: 'Bennett',
+    phone: '+37491777418',
+    email: 'davidson@mail.ru',
+    birthDate: '2000-02-04',
+    image: doctor2,
+    specializations: [
+      'Dermato-Genetics',
+      'Dermato-Genetics',
+      'Dermato-Genetics',
+    ],
+  },
+  {
+    id: 3,
+    firstName: 'Dr. Sophia',
+    lastName: 'Martinez',
+    phone: '+37491777418',
+    email: 'davidson@mail.ru',
+    birthDate: '2000-02-04',
+    image: doctor3,
+    specializations: [
+      'Cosmetic Bioengineering',
+      'Cosmetic Bioengineering',
+      'Cosmetic Bioengineering',
+    ],
+  },
+  {
+    id: 4,
+    firstName: 'Dr. Michael',
+    lastName: 'Davidson',
+    phone: '+37491777418',
+    email: 'davidson@mail.ru',
+    birthDate: '2000-02-04',
+    image: doctor2,
+    specializations: [
+      'Nano-Dermatology',
+      'Nano-Dermatology',
+      'Nano-Dermatology',
+    ],
+  },
+];
+
+const procedures = [
+  {id: 1, name: 'Procedure', date: '2025-02-02'},
+  {id: 2, name: 'Teeth Cleaning', date: '2025-02-02'},
+  {id: 3, name: 'Root Canal', date: '2025-02-02'},
+  {id: 4, name: 'Whitening', date: '2025-02-02'},
+  {id: 5, name: 'Procedure', date: '2025-02-02'},
+  {id: 6, name: 'Teeth Cleaning', date: '2025-02-02'},
+  {id: 7, name: 'Root Canal', date: '2025-02-02'},
+  {id: 8, name: 'Whitening', date: '2025-02-02'},
+];
 
 function HomeComponent() {
-  const [selectedDate, setSelectedDate] = useState(11);
-
-  const dates = [9, 10, 11, 12, 13, 14];
-  const doctors = [
-    {
-      id: 1,
-      name: 'Dr. Olivia Turner, M.D.',
-      specialization: 'Dermato-Endocrinology',
-      rating: 5,
-      reviews: 60,
-      image: doctor1,
-    },
-    {
-      id: 2,
-      name: 'Dr. Alexander Bennett, Ph.D.',
-      specialization: 'Dermato-Genetics',
-      rating: 4.5,
-      reviews: 40,
-      image: doctor2,
-    },
-    {
-      id: 3,
-      name: 'Dr. Sophia Martinez, Ph.D.',
-      specialization: 'Cosmetic Bioengineering',
-      rating: 5,
-      reviews: 150,
-      image: doctor1,
-    },
-    {
-      id: 4,
-      name: 'Dr. Michael Davidson, M.D.',
-      specialization: 'Nano-Dermatology',
-      rating: 4.8,
-      reviews: 90,
-      image: doctor2,
-    },
-  ];
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
-      <ScrollView
-        horizontal
-        contentContainerStyle={styles.dateSelector}
-        showsHorizontalScrollIndicator={false}>
-        {dates.map(date => (
-          <TouchableOpacity
-            key={date}
-            style={[
-              styles.dateButton,
-              selectedDate === date && styles.selectedDateButton,
-            ]}
-            onPress={() => setSelectedDate(date)}>
-            <Text
-              style={[
-                styles.dateText,
-                selectedDate === date && styles.selectedDateText,
-              ]}>
-              {date}
-            </Text>
-          </TouchableOpacity>
+      <HeadText style={styles.headText}>Recent Procedures</HeadText>
+      <ScrollView style={styles.doctorList}>
+        {procedures.map(procedure => (
+          <ProcedureCard
+            key={procedure.id}
+            procedure={procedure}
+            onPress={() => navigation.navigate('ProcedureDetails', {procedure})}
+          />
         ))}
       </ScrollView>
-
-      {/* Appointment Info */}
-      <View style={styles.appointmentInfo}>
-        <Text style={styles.appointmentTime}>10 AM</Text>
-        <View style={styles.appointmentDetails}>
-          <Text style={styles.doctorName}>Dr. Olivia Turner, M.D.</Text>
-          <Text style={styles.doctorspecialization}>
-            Treatment and prevention of skin and photodermatitis.
-          </Text>
-        </View>
-      </View>
-
+      <HeadText style={styles.headText}>Doctors</HeadText>
       <ScrollView style={styles.doctorList}>
         {doctors.map((doctor, index) => (
           <DoctorCard
             key={doctor.id}
             doctor={doctor}
-            onPress={() => {}}
+            onPress={() => navigation.navigate('DoctorInfo', {doctor})}
             style={index + 1 === doctors.length ? {} : styles.doctorCard}
           />
         ))}
@@ -106,45 +110,19 @@ function HomeComponent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: 'white',
     paddingHorizontal: getSize(20),
     position: 'relative',
-  },
-  dateSelector: {
-    flexDirection: 'row',
-    marginBottom: getSize(20),
-  },
-  dateButton: {
-    backgroundColor: '#E1E8FF',
-    paddingVertical: getSize(10),
-    paddingHorizontal: getSize(15),
-    borderRadius: getSize(10),
-    marginRight: getSize(10),
-  },
-  selectedDateButton: {
-    backgroundColor: '#4A90E2',
-  },
-  dateText: {
-    color: '#4A90E2',
-  },
-  selectedDateText: {
-    color: '#FFF',
-  },
-  appointmentInfo: {
-    backgroundColor: '#E1E8FF',
-    padding: getSize(15),
-    borderRadius: getSize(10),
-    marginBottom: getSize(20),
-  },
-  appointmentTime: {
-    fontWeight: 'bold',
-    marginBottom: getSize(10),
   },
   doctorList: {
     flex: 1,
   },
   doctorCard: {
     marginBottom: getSize(18),
+  },
+  headText: {
+    marginTop: 10,
+    marginBottom: 20,
+    textAlign: 'center',
   },
 });
 

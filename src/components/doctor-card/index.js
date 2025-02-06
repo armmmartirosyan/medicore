@@ -8,8 +8,10 @@ export function DoctorCard({doctor, style, onPress}) {
     <Pressable style={[styles.card, style]} onPress={onPress}>
       <Image style={styles.image} source={doctor.image} />
       <View style={styles.info}>
-        <Text style={styles.name}>{doctor.name}</Text>
-        <Text style={styles.specialization}>{doctor.specialization}</Text>
+        <Text style={styles.name}>
+          {doctor.firstName} {doctor.lastName}
+        </Text>
+        <Text style={styles.specialization}>{doctor.specializations[0]}</Text>
       </View>
     </Pressable>
   );

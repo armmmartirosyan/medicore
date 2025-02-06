@@ -4,7 +4,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {HeadText} from '@components';
 import {COLORS, FONTS} from '@constants';
-
 import {withSafeArea} from '@hoc';
 
 function MedicineDetailsComponent({route, navigation}) {
