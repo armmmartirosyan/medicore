@@ -16,7 +16,7 @@ export function ProcedureCard({procedure, onPress}) {
           size={20}
           color={COLORS.ACTIVE_BLUE}
         />
-        <Text style={styles.procedureName}>{procedure.name}</Text>
+        <Text style={styles.procedureName}>{procedure.procedure.name}</Text>
       </View>
       <View style={styles.cardFooter}>
         <FontAwesomeIcon

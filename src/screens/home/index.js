@@ -5,6 +5,11 @@ import {DoctorCard, HeadText, ProcedureCard} from '@components';
 import {withSafeArea} from '@hoc';
 import {getSize} from '@utils';
 import {useNavigation} from '@react-navigation/native';
+import {
+  Procedure1 as procedure1,
+  Procedure2 as procedure2,
+  Procedure3 as procedure3,
+} from '@images';
 
 const doctors = [
   {
@@ -66,14 +71,213 @@ const doctors = [
 ];
 
 const procedures = [
-  {id: 1, name: 'Procedure', date: '2025-02-02'},
-  {id: 2, name: 'Teeth Cleaning', date: '2025-02-02'},
-  {id: 3, name: 'Root Canal', date: '2025-02-02'},
-  {id: 4, name: 'Whitening', date: '2025-02-02'},
-  {id: 5, name: 'Procedure', date: '2025-02-02'},
-  {id: 6, name: 'Teeth Cleaning', date: '2025-02-02'},
-  {id: 7, name: 'Root Canal', date: '2025-02-02'},
-  {id: 8, name: 'Whitening', date: '2025-02-02'},
+  {
+    id: 1,
+    visitDate: '2025-01-02',
+    procedure: {
+      name: 'Procedure',
+      price: 100,
+      images: [
+        procedure1,
+        procedure2,
+        procedure3,
+        procedure1,
+        procedure2,
+        procedure3,
+      ],
+    },
+    doctor: {
+      id: 1,
+      name: 'Dr. Michael Davidson',
+    },
+    medicines: [],
+    notes:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    date: '2025-02-02',
+  },
+  {
+    id: 2,
+    visitDate: '2025-01-02',
+    procedure: {
+      name: 'Teeth Cleaning',
+      price: 100,
+      images: [
+        procedure1,
+        procedure2,
+        procedure3,
+        procedure1,
+        procedure2,
+        procedure3,
+      ],
+    },
+    doctor: {
+      id: 1,
+      name: 'Dr. Michael Davidson',
+    },
+    medicines: [
+      {id: 1, name: 'Painkiller'},
+      {id: 2, name: 'Antibiotic'},
+    ],
+    notes:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    date: '2025-02-02',
+  },
+  {
+    id: 3,
+    visitDate: '2025-01-02',
+    procedure: {
+      name: 'Root Canal',
+      price: 100,
+      images: [
+        procedure1,
+        procedure2,
+        procedure3,
+        procedure1,
+        procedure2,
+        procedure3,
+      ],
+    },
+    doctor: {
+      id: 1,
+      name: 'Dr. Michael Davidson',
+    },
+    medicines: [
+      {id: 1, name: 'Painkiller'},
+      {id: 2, name: 'Antibiotic'},
+    ],
+    notes: 'No need to worry about',
+    date: '2025-02-02',
+  },
+  {
+    id: 4,
+    visitDate: '2025-01-02',
+    procedure: {
+      name: 'Whitening',
+      price: 100,
+      images: [
+        procedure1,
+        procedure2,
+        procedure3,
+        procedure1,
+        procedure2,
+        procedure3,
+      ],
+    },
+    doctor: {
+      id: 1,
+      name: 'Dr. Michael Davidson',
+    },
+    medicines: [
+      {id: 1, name: 'Painkiller'},
+      {id: 2, name: 'Antibiotic'},
+    ],
+    notes: 'No need to worry about',
+    date: '2025-02-02',
+  },
+  {
+    id: 5,
+    visitDate: '2025-01-02',
+    procedure: {
+      name: 'Procedure',
+      price: 100,
+      images: [
+        procedure1,
+        procedure2,
+        procedure3,
+        procedure1,
+        procedure2,
+        procedure3,
+      ],
+    },
+    doctor: {
+      id: 1,
+      name: 'Dr. Michael Davidson',
+    },
+    medicines: [
+      {id: 1, name: 'Painkiller'},
+      {id: 2, name: 'Antibiotic'},
+    ],
+    notes: 'No need to worry about',
+    date: '2025-02-02',
+  },
+  {
+    id: 6,
+    visitDate: '2025-01-02',
+    procedure: {
+      name: 'Teeth Cleaning',
+      price: 100,
+      images: [
+        procedure1,
+        procedure2,
+        procedure3,
+        procedure1,
+        procedure2,
+        procedure3,
+      ],
+    },
+    doctor: {
+      id: 1,
+      name: 'Dr. Michael Davidson',
+    },
+    medicines: [
+      {id: 1, name: 'Painkiller'},
+      {id: 2, name: 'Antibiotic'},
+    ],
+    notes: 'No need to worry about',
+    date: '2025-02-02',
+  },
+  {
+    id: 7,
+    visitDate: '2025-01-02',
+    procedure: {
+      name: 'Root Canal',
+      price: 100,
+      images: [
+        procedure1,
+        procedure2,
+        procedure3,
+        procedure1,
+        procedure2,
+        procedure3,
+      ],
+    },
+    doctor: {
+      id: 1,
+      name: 'Dr. Michael Davidson',
+    },
+    medicines: [
+      {id: 1, name: 'Painkiller'},
+      {id: 2, name: 'Antibiotic'},
+    ],
+    notes: 'No need to worry about',
+    date: '2025-02-02',
+  },
+  {
+    id: 8,
+    visitDate: '2025-01-02',
+    procedure: {
+      name: 'Whitening',
+      price: 100,
+      images: [
+        procedure1,
+        procedure2,
+        procedure3,
+        procedure1,
+        procedure2,
+        procedure3,
+      ],
+    },
+    doctor: {
+      id: 1,
+      name: 'Dr. Michael Davidson',
+    },
+    medicines: [
+      {id: 1, name: 'Painkiller'},
+      {id: 2, name: 'Antibiotic'},
+    ],
+    notes: 'No need to worry about',
+    date: '2025-02-02',
+  },
 ];
 
 function HomeComponent() {
