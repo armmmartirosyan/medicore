@@ -13,3 +13,4 @@ export {MedicineCard} from './medicine-card';
 export {NonWorkingDate} from './non-working-date';
 export {WeekScheduleModal} from './week-schedule-modal';
 export {ProcedureCard} from './procedure-card';
+export {VisitCard} from './visit-card';
