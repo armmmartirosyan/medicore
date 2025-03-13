@@ -1,30 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPencil} from '@fortawesome/free-solid-svg-icons';
 import {FONTS, COLORS, ACTIVE_BTN_OPACITY} from '@constants';
 import {Profile as profile} from '@images';
-
-const user = {
-  name: 'John Doe',
-  profilePicture: profile,
-};
+import {profileSelectors} from '@store/profile';
+import {useSelector} from 'react-redux';
+import {ProfileImageModal} from '@components';
 
 export function AccountHeader({showName = true, allowChangePicture}) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const firstName = useSelector(profileSelectors.fNameSelector);
+  const lastName = useSelector(profileSelectors.lNameSelector);
+  const image = useSelector(profileSelectors.imageSelector);
+
   return (
     <View style={styles.profileHeader}>
       <Text style={styles.headerText}>My Profile</Text>
       <View style={styles.imageWrapper}>
-        <Image source={user.profilePicture} style={styles.profilePicture} />
+        <Image source={profile} style={styles.profilePicture} />
         {allowChangePicture && (
           <TouchableOpacity
             style={styles.editButton}
-            activeOpacity={ACTIVE_BTN_OPACITY}>
+            activeOpacity={ACTIVE_BTN_OPACITY}
+            onPress={() => setModalVisible(true)}>
             <FontAwesomeIcon color="white" icon={faPencil} size={13} />
           </TouchableOpacity>
         )}
       </View>
-      {showName && <Text style={styles.userName}>{user.name}</Text>}
+      {showName && (
+        <Text style={styles.userName}>
+          {firstName} {lastName}
+        </Text>
+      )}
+      <ProfileImageModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </View>
   );
 }

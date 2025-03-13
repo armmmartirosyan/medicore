@@ -1,20 +1,17 @@
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet} from 'react-native';
-import {
-  registrationSelectors,
-  changeRegistrationState,
-} from '@store/registration';
+import {profileSelectors, changeProfileState} from '@store/profile';
 import {PhoneInput} from '@components';
 
 export function Phone() {
   const dispatch = useDispatch();
-  const number = useSelector(registrationSelectors.phoneNumberSelector);
+  const number = useSelector(profileSelectors.phoneNumberSelector);
 
   const handleNumberChange = useCallback(
     phoneNumber => {
       dispatch(
-        changeRegistrationState({
+        changeProfileState({
           phoneNumber,
         }),
       );
@@ -25,7 +22,7 @@ export function Phone() {
   const handleCountryChange = useCallback(
     country => {
       dispatch(
-        changeRegistrationState({
+        changeProfileState({
           phoneCode: `+${country.callingCode[0]}`,
         }),
       );

@@ -7,6 +7,8 @@ import {useNavigation} from '@react-navigation/native';
 export const MedicineCard = ({medicine}) => {
   const navigation = useNavigation();
 
+  console.log(medicine);
+
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.medicineName}>{medicine.medicine}</Text>

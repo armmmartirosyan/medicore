@@ -11,6 +11,8 @@ export const COLORS = {
   VERY_SOFT_BLUE: '#A9BCFE',
   ACTIVE_BLUE: '#00278C',
   GRAYISH: '#6B7280',
+  RED: '#dc3545',
+  LIGHT_GREY: '#f0f0f0',
 };
 
 // Fonts

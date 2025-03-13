@@ -43,7 +43,7 @@ export function useSignUp(onNextStep) {
       onNextStep();
       dispatch(
         changeRegistrationState({
-          signUpToken: data.data,
+          signUpToken: data?.data,
         }),
       );
     },

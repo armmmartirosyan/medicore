@@ -1,5 +1,6 @@
-import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, StyleSheet, View} from 'react-native';
+import {useGetMedicinesAssigned} from '@api-hooks';
 import {HeadText, MedicineCard} from '@components';
 import {withSafeArea} from '@hoc';
 
@@ -77,14 +78,36 @@ const MOCK_MEDICINES = [
 ];
 
 function MedicinesComponent() {
+  const [allowNext, setAllowNext] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const {data: medicinesAssigned} = useGetMedicinesAssigned({
+    page,
+    options: {
+      onSuccess: data => {
+        setAllowNext(data?.allowNext);
+      },
+    },
+  });
+
+  const handleEndReached = () => {
+    if (allowNext) {
+      setPage(prev => ++prev);
+    }
+  };
+
+  console.log({medicinesAssigned});
+
   return (
     <View style={styles.container}>
       <HeadText style={styles.headerText}>Assigned Medicines</HeadText>
-      <ScrollView style={styles.list}>
-        {MOCK_MEDICINES.map(medicine => (
-          <MedicineCard key={medicine.id} medicine={medicine} />
-        ))}
-      </ScrollView>
+      <FlatList
+        style={styles.list}
+        data={MOCK_MEDICINES}
+        keyExtractor={ma => ma.id}
+        onEndReached={handleEndReached}
+        renderItem={({item}) => <MedicineCard key={item.key} medicine={item} />}
+      />
     </View>
   );
 }

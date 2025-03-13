@@ -29,7 +29,7 @@ export function Congrats() {
   }
 
   return (
-    <Modal isTVSelectable={true}>
+    <Modal isTVSelectable={true} animationType="fade">
       <StatusBar
         barStyle="dark-content"
         backgroundColor={COLORS.PRIMARY_BLUE}

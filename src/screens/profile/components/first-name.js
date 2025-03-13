@@ -2,19 +2,16 @@ import React, {useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {Input} from '@components';
-import {
-  registrationSelectors,
-  changeRegistrationState,
-} from '@store/registration';
+import {profileSelectors, changeProfileState} from '@store/profile';
 
 export function FirstName() {
   const dispatch = useDispatch();
-  const value = useSelector(registrationSelectors.fNameSelector);
+  const value = useSelector(profileSelectors.fNameSelector);
 
   const handleChange = useCallback(
     firstName => {
       dispatch(
-        changeRegistrationState({
+        changeProfileState({
           firstName,
         }),
       );

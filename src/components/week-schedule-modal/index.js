@@ -8,7 +8,7 @@ import {COLORS, FONTS} from '@constants';
 export function WeekScheduleModal({schedule, visible, onClose}) {
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={visible}
       onRequestClose={onClose}>

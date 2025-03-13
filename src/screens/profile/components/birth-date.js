@@ -2,20 +2,17 @@ import React, {useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {DatePicker} from '@components';
-import {
-  registrationSelectors,
-  changeRegistrationState,
-} from '@store/registration';
+import {profileSelectors, changeProfileState} from '@store/profile';
 
 export function BirthDate() {
-  const value = useSelector(registrationSelectors.birthDateSelector);
+  const value = useSelector(profileSelectors.birthDateSelector);
   const dispatch = useDispatch();
 
   const handleChange = useCallback(
     newDate => {
       const birthDate = new Date(newDate).toDateString();
 
-      dispatch(changeRegistrationState({birthDate}));
+      dispatch(changeProfileState({birthDate}));
     },
     [dispatch],
   );

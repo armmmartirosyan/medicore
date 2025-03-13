@@ -41,7 +41,7 @@ export function DatePicker({
       <Modal
         transparent
         visible={isCalendarVisible}
-        animationType="slide"
+        animationType="fade"
         onRequestClose={closeCalendar}>
         <StatusBar
           barStyle="dark-content"

@@ -1,16 +1,31 @@
-import React from 'react';
-import {View, StyleSheet, Pressable, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import React, {useMemo, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {View, StyleSheet, Pressable, Text} from 'react-native';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
-import {PasswordInput, InputWrapperView, HeadText} from '@components';
+import {useNavigation} from '@react-navigation/native';
+import {PasswordInput, InputWrapperView, HeadText, Button} from '@components';
+import {useChangeProfilePassword} from '@api-hooks';
 import {COLORS, FONTS} from '@constants';
-import {getSize} from '@utils';
 import {withSafeArea} from '@hoc';
-import {ChangeButton} from './components';
+import {getSize} from '@utils';
 
 function ChangePasswordComponent() {
   const navigation = useNavigation();
+  const [current, setCurrent] = useState('');
+  const [newPass, setNewPass] = useState('');
+  const [confirm, setConfirm] = useState('');
+
+  const {mutate: changePassword, isLoading} = useChangeProfilePassword({
+    onSuccess: () => {
+      setCurrent('');
+      setNewPass('');
+      setConfirm('');
+    },
+  });
+
+  const disabled = useMemo(() => {
+    return !current || !newPass || !confirm || confirm !== newPass;
+  }, [current, newPass, confirm]);
 
   return (
     <InputWrapperView
@@ -31,8 +46,8 @@ function ChangePasswordComponent() {
         <View>
           <PasswordInput
             label="Current Password"
-            //   value={password}
-            //   onChangeText={setPassword}
+            value={current}
+            onChangeText={setCurrent}
             placeholder="···················"
           />
           <View style={styles.forgotWrapper}>
@@ -42,20 +57,28 @@ function ChangePasswordComponent() {
           </View>
           <PasswordInput
             label="New Password"
-            //   value={password}
-            //   onChangeText={setPassword}
+            value={newPass}
+            onChangeText={setNewPass}
             placeholder="···················"
           />
           <PasswordInput
             label="Confirm New Password"
-            //   value={password}
-            //   onChangeText={setPassword}
+            value={confirm}
+            onChangeText={setConfirm}
             placeholder="···················"
             containerStyle={styles.input}
           />
         </View>
       </View>
-      <ChangeButton />
+      <View style={styles.view}>
+        <Button
+          onPress={changePassword}
+          disabled={disabled}
+          isLoading={isLoading}
+          style={styles.button}>
+          Change Password
+        </Button>
+      </View>
     </InputWrapperView>
   );
 }
@@ -99,6 +122,14 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 26,
+  },
+  view: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  button: {
+    width: '100%',
   },
 });
 

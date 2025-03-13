@@ -1,11 +1,12 @@
+import moment from 'moment';
 import React, {useCallback, useMemo, useState} from 'react';
 import {View, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
-import {withSafeArea} from '@hoc';
-import {VisitCard, HeadText} from '@components';
-import moment from 'moment';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {COLORS, ACTIVE_BTN_OPACITY} from '@constants';
+import {VisitCard, HeadText} from '@components';
+import {useGetVisits} from '@api-hooks';
+import {withSafeArea} from '@hoc';
 
 const MOCK = [
   {
@@ -56,6 +57,10 @@ const VisitsComponent = () => {
       currentWeekStart.clone().add(i, 'days').format('YYYY-MM-DD'),
     );
   }, [currentWeekStart]);
+
+  const {date: visits} = useGetVisits(currentWeekStart);
+
+  console.log({visits});
 
   return (
     <View style={styles.container}>

@@ -3,9 +3,10 @@ import {View, StyleSheet, ScrollView, Pressable} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {AccountHeader, InputWrapperView} from '@components';
-import {withSafeArea} from '@hoc';
 import {useNavigation} from '@react-navigation/native';
+import {useGetProfileInfo} from '@api-hooks';
 import {COLORS} from '@constants';
+import {withSafeArea} from '@hoc';
 import {
   BirthDate,
   FirstName,
@@ -16,6 +17,9 @@ import {
 
 function ProfileComponent() {
   const navigation = useNavigation();
+
+  useGetProfileInfo();
+
   return (
     <InputWrapperView contentContainerStyle={styles.container}>
       <View style={styles.headerContainer}>
