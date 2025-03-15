@@ -60,8 +60,6 @@ const VisitsComponent = () => {
 
   const {date: visits} = useGetVisits(currentWeekStart);
 
-  console.log({visits});
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>

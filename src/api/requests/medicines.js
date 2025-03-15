@@ -2,7 +2,7 @@ import axiosClient from './axiosConfig';
 
 function getMedicines(page) {
   return axiosClient
-    .get('MedicinesAssigned/GetAll', {params: {page}})
+    .get(`MedicinesAssigned/GetAll/${page}`)
     .then(data => data?.data);
 }
 

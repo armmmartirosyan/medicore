@@ -85,8 +85,6 @@ export function DoctorsBlock() {
     }
   };
 
-  console.log({doctorss});
-
   return (
     <>
       <HeadText style={styles.headText}>Doctors</HeadText>

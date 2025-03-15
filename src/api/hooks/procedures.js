@@ -1,18 +1,18 @@
 import {useQuery} from 'react-query';
 import {procedureRequests} from '../requests';
 
-export const useGetProcedures = ({page, options}) => {
+export const useGetVisitProcedures = ({page, options}) => {
   return useQuery(
-    'get-procedures',
-    () => procedureRequests.getProcedures(page),
+    ['get-visit-procedures', page],
+    () => procedureRequests.getVisitProcedures(page),
     options,
   );
 };
 
-export const useGetProcedureById = ({id, options}) => {
+export const useGetVisitProcedureById = ({id, options}) => {
   return useQuery(
-    'get-procedure-by-id',
-    () => procedureRequests.getProcedureById(id),
+    ['get-visit-procedure-by-id', id],
+    () => procedureRequests.getVisitProcedureById(id),
     options,
   );
 };

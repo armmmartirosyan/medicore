@@ -1,234 +1,184 @@
 import React, {useState} from 'react';
 import {StyleSheet, FlatList} from 'react-native';
 import {HeadText, ProcedureCard} from '@components';
-import {
-  Procedure1 as procedure1,
-  Procedure2 as procedure2,
-  Procedure3 as procedure3,
-} from '@images';
 import {useNavigation} from '@react-navigation/native';
-import {useGetProcedures} from '@api-hooks';
+import {useGetVisitProcedures} from '@api-hooks';
 
-const procedures = [
+const MOCK = [
   {
     id: 1,
-    visitDate: '2025-01-02',
+    visitId: 1,
+    procedureId: 1,
+    notes: 'noo',
+    createdAt: '2025-03-14T22:42:00',
+    medicinesAssigneds: [],
     procedure: {
-      name: 'Procedure',
-      price: 100,
-      images: [
-        procedure1,
-        procedure2,
-        procedure3,
-        procedure1,
-        procedure2,
-        procedure3,
-      ],
-    },
-    doctor: {
       id: 1,
-      name: 'Dr. Michael Davidson',
+      name: 'Dental Examination',
+      price: 5000,
+      isActive: true,
+      visitsProcedures: [],
     },
-    medicines: [],
-    notes:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-    date: '2025-02-02',
+    procedureImages: [],
+    visit: {
+      id: 1,
+      doctorId: 2,
+      patientId: 6,
+      startScheduledDate: '2025-05-06T15:30:50',
+      endScheduledDate: '2025-05-06T16:30:50',
+      startActualDate: null,
+      endActualDate: null,
+      notes: 'string',
+      createdAt: '2025-03-14T22:40:22',
+      statusId: 1,
+      doctor: null,
+      patient: null,
+      status: null,
+      visitsProcedures: [],
+    },
   },
   {
     id: 2,
-    visitDate: '2025-01-02',
+    visitId: 2,
+    procedureId: 2,
+    notes: 'noo2',
+    createdAt: '2025-03-14T22:44:57',
+    medicinesAssigneds: [],
     procedure: {
-      name: 'Teeth Cleaning',
-      price: 100,
-      images: [
-        procedure1,
-        procedure2,
-        procedure3,
-        procedure1,
-        procedure2,
-        procedure3,
-      ],
+      id: 2,
+      name: 'Teeth Cleaning ',
+      price: 10000,
+      isActive: true,
+      visitsProcedures: [],
     },
-    doctor: {
-      id: 1,
-      name: 'Dr. Michael Davidson',
+    procedureImages: [],
+    visit: {
+      id: 2,
+      doctorId: 2,
+      patientId: 6,
+      startScheduledDate: '2025-05-07T15:30:50',
+      endScheduledDate: '2025-05-07T16:30:50',
+      startActualDate: null,
+      endActualDate: null,
+      notes: 'string',
+      createdAt: '2025-03-14T22:42:50',
+      statusId: 1,
+      doctor: null,
+      patient: null,
+      status: null,
+      visitsProcedures: [],
     },
-    medicines: [
-      {id: 1, name: 'Painkiller'},
-      {id: 2, name: 'Antibiotic'},
-    ],
-    notes:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-    date: '2025-02-02',
   },
   {
     id: 3,
-    visitDate: '2025-01-02',
+    visitId: 3,
+    procedureId: 3,
+    notes: 'noo3',
+    createdAt: '2025-03-14T22:45:05',
+    medicinesAssigneds: [],
     procedure: {
-      name: 'Root Canal',
-      price: 100,
-      images: [
-        procedure1,
-        procedure2,
-        procedure3,
-        procedure1,
-        procedure2,
-        procedure3,
-      ],
+      id: 3,
+      name: 'Tooth Filling ',
+      price: 20000,
+      isActive: true,
+      visitsProcedures: [],
     },
-    doctor: {
-      id: 1,
-      name: 'Dr. Michael Davidson',
+    procedureImages: [],
+    visit: {
+      id: 3,
+      doctorId: 2,
+      patientId: 6,
+      startScheduledDate: '2025-05-08T15:30:50',
+      endScheduledDate: '2025-05-08T16:30:50',
+      startActualDate: null,
+      endActualDate: null,
+      notes: 'string',
+      createdAt: '2025-03-14T22:43:01',
+      statusId: 1,
+      doctor: null,
+      patient: null,
+      status: null,
+      visitsProcedures: [],
     },
-    medicines: [
-      {id: 1, name: 'Painkiller'},
-      {id: 2, name: 'Antibiotic'},
-    ],
-    notes: 'No need to worry about',
-    date: '2025-02-02',
   },
   {
     id: 4,
-    visitDate: '2025-01-02',
+    visitId: 4,
+    procedureId: 4,
+    notes: 'noo4',
+    createdAt: '2025-03-14T22:45:11',
+    medicinesAssigneds: [],
     procedure: {
-      name: 'Whitening',
-      price: 100,
-      images: [
-        procedure1,
-        procedure2,
-        procedure3,
-        procedure1,
-        procedure2,
-        procedure3,
-      ],
+      id: 4,
+      name: 'Tooth Extraction',
+      price: 23000,
+      isActive: true,
+      visitsProcedures: [],
     },
-    doctor: {
-      id: 1,
-      name: 'Dr. Michael Davidson',
+    procedureImages: [],
+    visit: {
+      id: 4,
+      doctorId: 2,
+      patientId: 6,
+      startScheduledDate: '2025-05-09T15:30:50',
+      endScheduledDate: '2025-05-09T16:30:50',
+      startActualDate: null,
+      endActualDate: null,
+      notes: 'string',
+      createdAt: '2025-03-14T22:43:08',
+      statusId: 1,
+      doctor: null,
+      patient: null,
+      status: null,
+      visitsProcedures: [],
     },
-    medicines: [
-      {id: 1, name: 'Painkiller'},
-      {id: 2, name: 'Antibiotic'},
-    ],
-    notes: 'No need to worry about',
-    date: '2025-02-02',
   },
   {
     id: 5,
-    visitDate: '2025-01-02',
+    visitId: 1,
+    procedureId: 2,
+    notes: 'noo12',
+    createdAt: '2025-03-14T22:49:19',
+    medicinesAssigneds: [],
     procedure: {
-      name: 'Procedure',
-      price: 100,
-      images: [
-        procedure1,
-        procedure2,
-        procedure3,
-        procedure1,
-        procedure2,
-        procedure3,
-      ],
+      id: 2,
+      name: 'Teeth Cleaning ',
+      price: 10000,
+      isActive: true,
+      visitsProcedures: [],
     },
-    doctor: {
+    procedureImages: [],
+    visit: {
       id: 1,
-      name: 'Dr. Michael Davidson',
+      doctorId: 2,
+      patientId: 6,
+      startScheduledDate: '2025-05-06T15:30:50',
+      endScheduledDate: '2025-05-06T16:30:50',
+      startActualDate: null,
+      endActualDate: null,
+      notes: 'string',
+      createdAt: '2025-03-14T22:40:22',
+      statusId: 1,
+      doctor: null,
+      patient: null,
+      status: null,
+      visitsProcedures: [],
     },
-    medicines: [
-      {id: 1, name: 'Painkiller'},
-      {id: 2, name: 'Antibiotic'},
-    ],
-    notes: 'No need to worry about',
-    date: '2025-02-02',
-  },
-  {
-    id: 6,
-    visitDate: '2025-01-02',
-    procedure: {
-      name: 'Teeth Cleaning',
-      price: 100,
-      images: [
-        procedure1,
-        procedure2,
-        procedure3,
-        procedure1,
-        procedure2,
-        procedure3,
-      ],
-    },
-    doctor: {
-      id: 1,
-      name: 'Dr. Michael Davidson',
-    },
-    medicines: [
-      {id: 1, name: 'Painkiller'},
-      {id: 2, name: 'Antibiotic'},
-    ],
-    notes: 'No need to worry about',
-    date: '2025-02-02',
-  },
-  {
-    id: 7,
-    visitDate: '2025-01-02',
-    procedure: {
-      name: 'Root Canal',
-      price: 100,
-      images: [
-        procedure1,
-        procedure2,
-        procedure3,
-        procedure1,
-        procedure2,
-        procedure3,
-      ],
-    },
-    doctor: {
-      id: 1,
-      name: 'Dr. Michael Davidson',
-    },
-    medicines: [
-      {id: 1, name: 'Painkiller'},
-      {id: 2, name: 'Antibiotic'},
-    ],
-    notes: 'No need to worry about',
-    date: '2025-02-02',
-  },
-  {
-    id: 8,
-    visitDate: '2025-01-02',
-    procedure: {
-      name: 'Whitening',
-      price: 100,
-      images: [
-        procedure1,
-        procedure2,
-        procedure3,
-        procedure1,
-        procedure2,
-        procedure3,
-      ],
-    },
-    doctor: {
-      id: 1,
-      name: 'Dr. Michael Davidson',
-    },
-    medicines: [
-      {id: 1, name: 'Painkiller'},
-      {id: 2, name: 'Antibiotic'},
-    ],
-    notes: 'No need to worry about',
-    date: '2025-02-02',
   },
 ];
 
 export function ProceduresBlock() {
   const navigation = useNavigation();
+  const [procedures, setProcedures] = useState([]);
   const [allowNext, setAllowNext] = useState(false);
   const [page, setPage] = useState(1);
 
-  const {data: proceduress} = useGetProcedures({
+  useGetVisitProcedures({
     page,
     options: {
       onSuccess: data => {
-        setAllowNext(data?.allowNext);
+        setAllowNext(data?.data?.allowNext);
+        setProcedures(prev => [...prev, ...data?.data?.data]);
       },
     },
   });
@@ -238,8 +188,6 @@ export function ProceduresBlock() {
       setPage(prev => ++prev);
     }
   };
-
-  console.log({proceduress});
 
   return (
     <>

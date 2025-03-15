@@ -6,6 +6,7 @@ import {
   faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons';
 import {FONTS, COLORS} from '@constants';
+import moment from 'moment/moment';
 
 export function ProcedureCard({procedure, onPress}) {
   return (
@@ -16,7 +17,7 @@ export function ProcedureCard({procedure, onPress}) {
           size={20}
           color={COLORS.ACTIVE_BLUE}
         />
-        <Text style={styles.procedureName}>{procedure.procedure.name}</Text>
+        <Text style={styles.procedureName}>{procedure?.procedure.name}</Text>
       </View>
       <View style={styles.cardFooter}>
         <FontAwesomeIcon
@@ -24,7 +25,9 @@ export function ProcedureCard({procedure, onPress}) {
           size={16}
           color={COLORS.GRAYISH}
         />
-        <Text style={styles.procedureDate}>{procedure.date}</Text>
+        <Text style={styles.procedureDate}>
+          {moment(procedure?.visit?.startScheduledDate).format('YYYY-MM-DD')}
+        </Text>
       </View>
     </Pressable>
   );

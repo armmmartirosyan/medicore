@@ -1,18 +1,18 @@
 import axiosClient from './axiosConfig';
 
-function getProcedures(page) {
+function getVisitProcedures(page) {
   return axiosClient
-    .get('Procedures/GetAll', {params: {page}})
+    .get(`VisitProcedure/GetAll/${page}`)
     .then(data => data?.data);
 }
 
-function getProcedureById(id) {
+function getVisitProcedureById(id) {
   return axiosClient
-    .get('Procedures/GetById', {params: {id}})
+    .get('VisitProcedure/GetById', {params: {id}})
     .then(data => data?.data);
 }
 
 export const procedureRequests = {
-  getProcedures,
-  getProcedureById,
+  getVisitProcedures,
+  getVisitProcedureById,
 };

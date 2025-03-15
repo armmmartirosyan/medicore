@@ -3,7 +3,7 @@ import {medicinesRequests} from '../requests';
 
 export const useGetMedicinesAssigned = ({page, options}) => {
   return useQuery(
-    'get-medicines-assigned',
+    ['get-medicines-assigned', page],
     () => medicinesRequests.getMedicines(page),
     options,
   );
@@ -11,7 +11,7 @@ export const useGetMedicinesAssigned = ({page, options}) => {
 
 export const useGetMedicinesAssignedById = ({id, options}) => {
   return useQuery(
-    'get-medicines-assigned-by-id',
+    ['get-medicines-assigned-by-id', id],
     () => medicinesRequests.getMedicineById(id),
     options,
   );

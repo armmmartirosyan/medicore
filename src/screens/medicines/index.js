@@ -6,86 +6,93 @@ import {withSafeArea} from '@hoc';
 
 const MOCK_MEDICINES = [
   {
-    medicine: 'Amoxicillin',
     id: 1,
-    dose: '500mg',
-    startDate: '2025-02-01',
-    dayCount: '7 days',
-    quantity: '14 tablets',
-    notes: 'Take after meals to reduce stomach upset.',
-    doctor: 'Dr. Olivia Turner, M.D.',
+    name: 'Med 1',
+    dose: '100 mg',
+    notes: 'no nottttttt',
+    startDate: '2025-03-17',
+    quantity: 2,
+    dayCount: 3,
+    doctorId: 1,
+    patientId: 5,
+    visitProcedureId: 1,
+    doctor: null,
+    patient: null,
+    visitProcedure: null,
   },
   {
-    medicine: 'Amoxicillin',
     id: 2,
-    dose: '500mg',
-    startDate: '2025-02-01',
-    dayCount: '7 days',
-    quantity: '14 tablets',
-    notes: 'Take after meals to reduce stomach upset.',
-    doctor: 'Dr. Olivia Turner, M.D.',
+    name: 'Med 2',
+    dose: '100 mg',
+    notes: 'no nottttttt',
+    startDate: '2025-03-17',
+    quantity: 2,
+    dayCount: 3,
+    doctorId: 1,
+    patientId: 5,
+    visitProcedureId: 1,
+    doctor: null,
+    patient: null,
+    visitProcedure: null,
   },
   {
-    medicine: 'Amoxicillin',
     id: 3,
-    dose: '500mg',
-    startDate: '2025-02-01',
-    dayCount: '7 days',
-    quantity: '14 tablets',
-    notes: 'Take after meals to reduce stomach upset.',
-    doctor: 'Dr. Olivia Turner, M.D.',
+    name: 'Med 3',
+    dose: '100 mg',
+    notes: 'no nottttttt',
+    startDate: '2025-03-17',
+    quantity: 2,
+    dayCount: 3,
+    doctorId: 1,
+    patientId: 5,
+    visitProcedureId: 1,
+    doctor: null,
+    patient: null,
+    visitProcedure: null,
   },
   {
-    medicine: 'Amoxicillin',
     id: 4,
-    dose: '500mg',
-    startDate: '2025-02-01',
-    dayCount: '7 days',
-    quantity: '14 tablets',
-    notes: 'Take after meals to reduce stomach upset.',
-    doctor: 'Dr. Olivia Turner, M.D.',
+    name: 'Med 4',
+    dose: '100 mg',
+    notes: 'no nottttttt',
+    startDate: '2025-03-17',
+    quantity: 2,
+    dayCount: 3,
+    doctorId: 1,
+    patientId: 5,
+    visitProcedureId: 1,
+    doctor: null,
+    patient: null,
+    visitProcedure: null,
   },
   {
-    medicine: 'Amoxicillin',
     id: 5,
-    dose: '500mg',
-    startDate: '2025-02-01',
-    dayCount: '7 days',
-    quantity: '14 tablets',
-    notes: 'Take after meals to reduce stomach upset.',
-    doctor: 'Dr. Olivia Turner, M.D.',
-  },
-  {
-    medicine: 'Amoxicillin',
-    id: 6,
-    dose: '500mg',
-    startDate: '2025-02-01',
-    dayCount: '7 days',
-    quantity: '14 tablets',
-    notes: 'Take after meals to reduce stomach upset.',
-    doctor: 'Dr. Olivia Turner, M.D.',
-  },
-  {
-    medicine: 'Amoxicillin',
-    id: 7,
-    dose: '500mg',
-    startDate: '2025-02-01',
-    dayCount: '7 days',
-    quantity: '14 tablets',
-    notes: 'Take after meals to reduce stomach upset.',
-    doctor: 'Dr. Olivia Turner, M.D.',
+    name: 'Med 5',
+    dose: '100 mg',
+    notes: 'no nottttttt',
+    startDate: '2025-03-17',
+    quantity: 2,
+    dayCount: 3,
+    doctorId: 1,
+    patientId: 5,
+    visitProcedureId: 2,
+    doctor: null,
+    patient: null,
+    visitProcedure: null,
   },
 ];
 
 function MedicinesComponent() {
+  const [medicinesAssigned, setMedicinesAssigned] = useState([]);
   const [allowNext, setAllowNext] = useState(false);
   const [page, setPage] = useState(1);
 
-  const {data: medicinesAssigned} = useGetMedicinesAssigned({
+  useGetMedicinesAssigned({
     page,
     options: {
       onSuccess: data => {
-        setAllowNext(data?.allowNext);
+        setAllowNext(data?.data?.allowNext);
+        setMedicinesAssigned(prev => [...prev, ...data?.data?.data]);
       },
     },
   });
@@ -96,14 +103,12 @@ function MedicinesComponent() {
     }
   };
 
-  console.log({medicinesAssigned});
-
   return (
     <View style={styles.container}>
       <HeadText style={styles.headerText}>Assigned Medicines</HeadText>
       <FlatList
         style={styles.list}
-        data={MOCK_MEDICINES}
+        data={medicinesAssigned}
         keyExtractor={ma => ma.id}
         onEndReached={handleEndReached}
         renderItem={({item}) => <MedicineCard key={item.key} medicine={item} />}

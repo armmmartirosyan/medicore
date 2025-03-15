@@ -7,7 +7,7 @@ import {COLORS, FONTS} from '@constants';
 import {withSafeArea} from '@hoc';
 
 function MedicineDetailsComponent({route, navigation}) {
-  const {medicine, dose, startDate, dayCount, quantity, notes, doctor} =
+  const {name, dose, startDate, dayCount, quantity, notes, doctor} =
     route.params;
 
   return (
@@ -25,7 +25,7 @@ function MedicineDetailsComponent({route, navigation}) {
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.title}>{medicine}</Text>
+        <Text style={styles.title}>{name}</Text>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Dose:</Text>
           <Text style={styles.value}>{dose}</Text>
@@ -49,10 +49,12 @@ function MedicineDetailsComponent({route, navigation}) {
         <Text style={styles.notes}>{notes || 'No notes provided.'}</Text>
       </View>
 
-      <View style={styles.card}>
-        <Text style={styles.sectionTitle}>Prescribed by</Text>
-        <Text style={styles.doctorName}>{doctor}</Text>
-      </View>
+      {doctor && (
+        <View style={styles.card}>
+          <Text style={styles.sectionTitle}>Prescribed by</Text>
+          <Text style={styles.doctorName}>{doctor}</Text>
+        </View>
+      )}
     </ScrollView>
   );
 }

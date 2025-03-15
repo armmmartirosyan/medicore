@@ -35,6 +35,8 @@ export const ACTIVE_BTN_OPACITY = 0.9;
 
 export const RADIUS_LARGE = 30;
 
+export const API_BASE_URL = 'http://localhost:5122/';
+
 export const DEFAULT_CODE = {
   callingCode: ['374'],
   flag: 'flag-am',

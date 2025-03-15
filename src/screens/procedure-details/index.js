@@ -22,7 +22,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {HeadText} from '@components';
 import {withSafeArea} from '@hoc';
-import {COLORS, FONTS, ACTIVE_BTN_OPACITY} from '@constants';
+import {COLORS, FONTS, ACTIVE_BTN_OPACITY, API_BASE_URL} from '@constants';
+import moment from 'moment';
 
 function ProcedureDetailsComponent({route}) {
   const {procedure} = route.params;
@@ -44,7 +45,10 @@ function ProcedureDetailsComponent({route}) {
     <TouchableOpacity
       onPress={() => openImageModal(item)}
       activeOpacity={ACTIVE_BTN_OPACITY}>
-      <Image source={item} style={styles.procedureImage} />
+      <Image
+        source={{uri: `${API_BASE_URL}images/${item.url}`}}
+        style={styles.procedureImage}
+      />
     </TouchableOpacity>
   );
 
@@ -69,7 +73,9 @@ function ProcedureDetailsComponent({route}) {
             size={18}
             color={COLORS.PROFOUND_BLACK}
           />
-          <Text style={styles.infoText}>{procedure.date}</Text>
+          <Text style={styles.infoText}>
+            {moment(procedure.visit.startScheduledDate).format('YYYY-MM-DD')}
+          </Text>
         </View>
         <View style={styles.infoRow}>
           <FontAwesomeIcon icon={faMoneyBillAlt} size={18} color="#10B981" />
@@ -77,30 +83,36 @@ function ProcedureDetailsComponent({route}) {
         </View>
       </View>
 
-      <View style={styles.doctorRow}>
-        <FontAwesomeIcon
-          icon={faUserMd}
-          size={18}
-          color={COLORS.PRIMARY_BLUE}
-        />
-        <Text style={styles.infoText}>{procedure.doctor.name}</Text>
-      </View>
+      {procedure?.doctor?.name && (
+        <View style={styles.doctorRow}>
+          <FontAwesomeIcon
+            icon={faUserMd}
+            size={18}
+            color={COLORS.PRIMARY_BLUE}
+          />
+          <Text style={styles.infoText}>{procedure.doctor.name}</Text>
+        </View>
+      )}
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Procedure Images</Text>
-        <FlatList
-          data={procedure.procedure.images}
-          renderItem={renderImage}
-          keyExtractor={(_, index) => index.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
+        {procedure.procedureImages.length > 0 ? (
+          <FlatList
+            data={procedure.procedureImages}
+            renderItem={renderImage}
+            keyExtractor={(_, index) => index.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
+        ) : (
+          <Text style={styles.emptyText}>No images for this procedure</Text>
+        )}
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Assigned Medicines</Text>
-        {procedure.medicines.length > 0 ? (
-          procedure.medicines.map(medicine => (
+        {procedure.medicinesAssigneds.length > 0 ? (
+          procedure.medicinesAssigneds.map(medicine => (
             <View key={medicine.id} style={styles.medicineCard}>
               <FontAwesomeIcon
                 size={16}
@@ -135,7 +147,10 @@ function ProcedureDetailsComponent({route}) {
             <FontAwesomeIcon icon={faTimes} size={24} color="#FFFFFF" />
           </TouchableOpacity>
           {selectedImage && (
-            <Image source={selectedImage} style={styles.modalImage} />
+            <Image
+              source={{uri: `${API_BASE_URL}images/${selectedImage.url}`}}
+              style={styles.modalImage}
+            />
           )}
         </View>
       </Modal>
