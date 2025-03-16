@@ -27,7 +27,10 @@ const birthDateSelector = createSelector(
   state => state.birthDate,
 );
 
-const imageSelector = createSelector(profileBaseSelector, state => state.image);
+const imageSelector = createSelector(
+  profileBaseSelector,
+  state => state.imageUrl,
+);
 
 export const profileSelectors = {
   fNameSelector,

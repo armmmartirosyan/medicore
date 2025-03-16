@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPencil} from '@fortawesome/free-solid-svg-icons';
-import {FONTS, COLORS, ACTIVE_BTN_OPACITY} from '@constants';
+import {FONTS, COLORS, ACTIVE_BTN_OPACITY, API_BASE_URL} from '@constants';
 import {Profile as profile} from '@images';
 import {profileSelectors} from '@store/profile';
 import {useSelector} from 'react-redux';
@@ -12,13 +12,18 @@ export function AccountHeader({showName = true, allowChangePicture}) {
   const [modalVisible, setModalVisible] = useState(false);
   const firstName = useSelector(profileSelectors.fNameSelector);
   const lastName = useSelector(profileSelectors.lNameSelector);
-  const image = useSelector(profileSelectors.imageSelector);
+  const imageUrl = useSelector(profileSelectors.imageSelector);
 
   return (
     <View style={styles.profileHeader}>
       <Text style={styles.headerText}>My Profile</Text>
       <View style={styles.imageWrapper}>
-        <Image source={profile} style={styles.profilePicture} />
+        <Image
+          source={
+            imageUrl ? {uri: `${API_BASE_URL}images/${imageUrl}`} : profile
+          }
+          style={styles.profilePicture}
+        />
         {allowChangePicture && (
           <TouchableOpacity
             style={styles.editButton}

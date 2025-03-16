@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {DatePicker} from '@components';
 import {profileSelectors, changeProfileState} from '@store/profile';
+import moment from 'moment';
 
 export function BirthDate() {
   const value = useSelector(profileSelectors.birthDateSelector);
@@ -10,7 +11,7 @@ export function BirthDate() {
 
   const handleChange = useCallback(
     newDate => {
-      const birthDate = new Date(newDate).toDateString();
+      const birthDate = moment(newDate).format('YYYY-MM-DD');
 
       dispatch(changeProfileState({birthDate}));
     },

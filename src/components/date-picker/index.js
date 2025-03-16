@@ -34,7 +34,7 @@ export function DatePicker({
         style={styles.openButton}
         activeOpacity={ACTIVE_BTN_OPACITY}>
         <Text style={[styles.openButtonText, value ? styles.hasValue : {}]}>
-          {value || placeholder}
+          {new Date(value).toDateString() || placeholder}
         </Text>
       </TouchableOpacity>
 

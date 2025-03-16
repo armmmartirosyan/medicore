@@ -23,13 +23,16 @@ export const useGetProfileInfo = options => {
   const dispatch = useDispatch();
 
   const onSuccess = e => {
-    console.log(e.data);
+    const phoneCode = `${e.data.phone}`.slice(0, 4);
+    const phoneNumber = e.data.phone.slice(4);
 
-    // dispatch(
-    //   changeProfileState({
-    //     ...e.data,
-    //   }),
-    // );
+    dispatch(
+      changeProfileState({
+        ...e.data,
+        phoneCode,
+        phoneNumber,
+      }),
+    );
   };
 
   return useQuery('get-profile-info', authRequests.getUserProfile, {
@@ -50,8 +53,6 @@ export const useUpdateProfileImage = ({onSuccess, ...rest}) => {
   const dispatch = useDispatch();
 
   const handleSuccess = e => {
-    console.log(e.data);
-
     // dispatch(
     //   changeProfileState({
     //     image: e.data
@@ -71,8 +72,6 @@ export const useDeleteProfileImage = ({onSuccess, ...rest}) => {
   const dispatch = useDispatch();
 
   const handleSuccess = e => {
-    console.log(e.data);
-
     // dispatch(
     //   changeProfileState({
     //     image: ''

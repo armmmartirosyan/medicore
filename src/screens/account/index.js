@@ -20,6 +20,7 @@ import {AccountHeader} from '@components';
 import {withSafeArea} from '@hoc';
 import {useNavigation} from '@react-navigation/native';
 import {useAuth} from '@contexts';
+import {useGetProfileInfo} from '@api-hooks';
 
 function AccountComponent() {
   const {signOut} = useAuth();
@@ -57,6 +58,8 @@ function AccountComponent() {
       onPress: handleSignOut,
     },
   ];
+
+  useGetProfileInfo();
 
   return (
     <View style={styles.container}>

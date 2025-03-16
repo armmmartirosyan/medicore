@@ -6,7 +6,7 @@ const initialState = {
   phoneNumber: '',
   phoneCode: '+374',
   birthDate: null,
-  image: '',
+  imageUrl: '',
 };
 
 export const profileSlice = createSlice({

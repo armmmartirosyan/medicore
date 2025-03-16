@@ -4,7 +4,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {AccountHeader, InputWrapperView} from '@components';
 import {useNavigation} from '@react-navigation/native';
-import {useGetProfileInfo} from '@api-hooks';
 import {COLORS} from '@constants';
 import {withSafeArea} from '@hoc';
 import {
@@ -17,8 +16,6 @@ import {
 
 function ProfileComponent() {
   const navigation = useNavigation();
-
-  useGetProfileInfo();
 
   return (
     <InputWrapperView contentContainerStyle={styles.container}>

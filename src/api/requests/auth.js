@@ -13,11 +13,11 @@ function getUserType(name) {
 }
 
 function getUserProfile() {
-  return axiosClient.get('Auth/UserProfile').then(data => data?.data);
+  return axiosClient.get('Auth/GetProfile').then(data => data?.data);
 }
 
 function updateProfile(params) {
-  return axiosClient.put('Auth/UserProfile', params).then(data => data?.data);
+  return axiosClient.put('Auth/UpdateProfile', params).then(data => data?.data);
 }
 
 function updateProfileImage(params) {
