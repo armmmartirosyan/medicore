@@ -1,9 +1,7 @@
 import axiosClient from './axiosConfig';
 
-function getVisits(startDate) {
-  return axiosClient
-    .get('Visit/GetAll', {params: {startDate}})
-    .then(data => data?.data);
+function getVisits() {
+  return axiosClient.get('Visit/GetAll').then(data => data?.data);
 }
 
 function getVisitById(id) {

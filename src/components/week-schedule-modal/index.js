@@ -1,11 +1,34 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {View, Text, Modal, StyleSheet, ScrollView} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircle} from '@fortawesome/free-solid-svg-icons';
 import {HeadText, Button} from '@components';
-import {COLORS, FONTS} from '@constants';
+import {COLORS, FONTS, WEEK_DAYS} from '@constants';
 
 export function WeekScheduleModal({schedule, visible, onClose}) {
+  const localSchedule = useMemo(() => {
+    const daysSchedule = schedule.map(item => ({
+      ...item,
+      day: WEEK_DAYS.find(day => day.id === item.weekDayId).day,
+    }));
+
+    WEEK_DAYS.forEach(element => {
+      const is = daysSchedule.some(i => i.weekDayId === element.id);
+
+      if (is) {
+        return daysSchedule;
+      }
+
+      daysSchedule.push({
+        id: element.id,
+        startTime: 'Closed',
+        day: element.day,
+      });
+    });
+
+    return daysSchedule;
+  }, [schedule]);
+
   return (
     <Modal
       animationType="fade"
@@ -18,20 +41,20 @@ export function WeekScheduleModal({schedule, visible, onClose}) {
             Doctor's Weekly Schedule
           </HeadText>
           <ScrollView contentContainerStyle={styles.scrollContent}>
-            {schedule.map((item, index) => (
+            {localSchedule.map((item, index) => (
               <View style={styles.scheduleItem} key={index}>
                 <View style={styles.dayContainer}>
                   <FontAwesomeIcon
                     size={12}
                     icon={faCircle}
-                    color={item.start === 'Closed' ? '#D9534F' : '#4CAF50'}
+                    color={item.startTime === 'Closed' ? '#D9534F' : '#4CAF50'}
                   />
                   <Text style={styles.dayText}>{item.day}</Text>
                 </View>
                 <Text style={styles.timeText}>
-                  {item.start === 'Closed'
+                  {item.startTime === 'Closed'
                     ? 'Closed'
-                    : `${item.start} - ${item.end}`}
+                    : `${item.startTime} - ${item.endTime}`}
                 </Text>
               </View>
             ))}

@@ -5,3 +5,4 @@ export {default as Profile} from './profile.png';
 export {default as Procedure1} from './procedure1.jpg';
 export {default as Procedure2} from './procedure2.jpeg';
 export {default as Procedure3} from './procedure3.jpg';
+export {default as DefaultDoctor} from './default-doctor.jpg';

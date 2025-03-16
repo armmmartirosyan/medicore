@@ -41,9 +41,7 @@ function deleteProfileImage() {
 }
 
 function getDoctors(page) {
-  return axiosClient
-    .get('Auth/Doctors', {params: {page}})
-    .then(data => data?.data);
+  return axiosClient.get(`Auth/Doctors/${page}`).then(data => data?.data);
 }
 
 export const authRequests = {

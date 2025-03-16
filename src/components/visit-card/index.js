@@ -42,9 +42,13 @@ export function VisitCard({item, visits}) {
               </Text>
             </View>
             <View style={styles.dash} />
-            <View style={styles.nameContainer}>
-              <Text style={styles.doctorName}>{visit.doctorName}</Text>
-            </View>
+            {visit.doctor && (
+              <View style={styles.nameContainer}>
+                <Text style={styles.doctorName}>
+                  {visit.doctor.firstName} {visit.doctor.lastName}
+                </Text>
+              </View>
+            )}
           </View>
         ))
       ) : (

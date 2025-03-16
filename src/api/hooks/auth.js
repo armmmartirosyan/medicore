@@ -97,5 +97,9 @@ export const useChangeProfilePassword = options => {
 };
 
 export const useGetDoctors = ({page, options}) => {
-  return useQuery('get-doctors', () => authRequests.getDoctors(page), options);
+  return useQuery(
+    ['get-doctors', page],
+    () => authRequests.getDoctors(page),
+    options,
+  );
 };

@@ -8,42 +8,31 @@ import {
   Linking,
   ScrollView,
 } from 'react-native';
-import {faAngleLeft, faPhone} from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleLeft,
+  faPhone,
+  faCalendarMinus,
+} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCalendarDays} from '@fortawesome/free-regular-svg-icons';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {HeadText, NonWorkingDate, WeekScheduleModal} from '@components';
-import {COLORS, FONTS} from '@constants';
+import {COLORS, FONTS, API_BASE_URL} from '@constants';
 import {withSafeArea} from '@hoc';
-
-const NON_WORKING_DATES = [
-  '2025-02-10',
-  '2025-02-14',
-  '2025-02-20',
-  '2025-02-25',
-  '2025-03-01',
-];
-
-const SCHEDULE = [
-  {day: 'Monday', start: '09:00 AM', end: '05:00 PM'},
-  {day: 'Tuesday', start: '09:00 AM', end: '05:00 PM'},
-  {day: 'Wednesday', start: '09:00 AM', end: '05:00 PM'},
-  {day: 'Thursday', start: '09:00 AM', end: '05:00 PM'},
-  {day: 'Friday', start: '09:00 AM', end: '04:00 PM'},
-  {day: 'Saturday', start: 'Closed', end: ''},
-  {day: 'Sunday', start: 'Closed', end: ''},
-];
+import {DefaultDoctor as defaultDoctor} from '@images';
 
 export default function DoctorInfoComponent({route, navigation}) {
   const {doctor} = route.params;
   const [modalVisible, setModalVisible] = useState(false);
 
   const age = useMemo(() => {
-    if (!doctor.birthDate) {
-      return '';
-    }
+    return Math.floor(Math.random() * (55 - 30 + 1)) + 30;
 
-    return new Date().getFullYear() - new Date(doctor.birthDate).getFullYear();
+    // if (!doctor.birthDate) {
+    //   return '';
+    // }
+
+    // return new Date().getFullYear() - new Date(doctor.birthDate).getFullYear();
   }, [doctor?.birthDate]);
 
   const onPhonePress = useCallback(phone => {
@@ -85,7 +74,11 @@ export default function DoctorInfoComponent({route, navigation}) {
       <View style={styles.inforContainer}>
         <View style={styles.imageContainer}>
           <Image
-            source={doctor.image}
+            source={
+              doctor.imageUrl
+                ? {uri: `${API_BASE_URL}images/${doctor.imageUrl}`}
+                : defaultDoctor
+            }
             style={styles.image}
             resizeMode="cover"
           />
@@ -123,20 +116,29 @@ export default function DoctorInfoComponent({route, navigation}) {
           <Text style={styles.name}>
             {doctor.firstName} {doctor.lastName}
           </Text>
-          <Text style={styles.specialization}>{doctor.specializations[0]}</Text>
+          <Text style={styles.specialization}>
+            {doctor.doctorsSpecializations[0].specialization.name}
+          </Text>
         </View>
       </View>
-      <Text style={styles.nonWorkingTitle}>Non-Working Days</Text>
+      <View style={styles.nonWorkingTitleBlock}>
+        <FontAwesomeIcon
+          icon={faCalendarMinus}
+          size={18}
+          color={COLORS.PRIMARY_BLUE}
+        />
+        <Text style={styles.nonWorkingTitle}>Non-Working Days</Text>
+      </View>
 
       <ScrollView style={styles.nonWorkingWrapper}>
-        {NON_WORKING_DATES.map(date => (
-          <NonWorkingDate style={styles.dateItem} key={date} date={date} />
+        {doctor.notWorkingDays.map(date => (
+          <NonWorkingDate style={styles.dateItem} key={date.id} date={date} />
         ))}
       </ScrollView>
       <WeekScheduleModal
         visible={modalVisible}
         onClose={onModalClose}
-        schedule={SCHEDULE}
+        schedule={doctor.weekDaySchedules}
       />
     </View>
   );
@@ -230,8 +232,13 @@ const styles = StyleSheet.create({
     color: COLORS.PRIMARY_BLUE,
     fontFamily: FONTS.SEMI_BOLD,
     fontSize: 18,
+    marginLeft: 10,
+  },
+  nonWorkingTitleBlock: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 10,
-    textAlign: 'center',
   },
 });
 export const DoctorInfo = withSafeArea(DoctorInfoComponent);

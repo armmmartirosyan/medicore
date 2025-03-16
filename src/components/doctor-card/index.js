@@ -1,17 +1,27 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
-import {COLORS, FONTS} from '@constants';
+import {COLORS, FONTS, API_BASE_URL} from '@constants';
 import {getSize} from '@utils';
+import {DefaultDoctor as defaultDoctor} from '@images';
 
 export function DoctorCard({doctor, style, onPress}) {
   return (
     <Pressable style={[styles.card, style]} onPress={onPress}>
-      <Image style={styles.image} source={doctor.image} />
+      <Image
+        style={styles.image}
+        source={
+          doctor.imageUrl
+            ? {uri: `${API_BASE_URL}images/${doctor.imageUrl}`}
+            : defaultDoctor
+        }
+      />
       <View style={styles.info}>
         <Text style={styles.name}>
           {doctor.firstName} {doctor.lastName}
         </Text>
-        <Text style={styles.specialization}>{doctor.specializations[0]}</Text>
+        <Text style={styles.specialization}>
+          {doctor.doctorsSpecializations?.[0]?.specialization?.name}
+        </Text>
       </View>
     </Pressable>
   );

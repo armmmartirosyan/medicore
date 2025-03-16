@@ -52,7 +52,9 @@ function MedicineDetailsComponent({route, navigation}) {
       {doctor && (
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Prescribed by</Text>
-          <Text style={styles.doctorName}>{doctor}</Text>
+          <Text style={styles.doctorName}>
+            {doctor.firstName} {doctor.lastName}
+          </Text>
         </View>
       )}
     </ScrollView>

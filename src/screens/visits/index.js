@@ -58,7 +58,7 @@ const VisitsComponent = () => {
     );
   }, [currentWeekStart]);
 
-  const {date: visits} = useGetVisits(currentWeekStart);
+  const {data: visits} = useGetVisits({});
 
   return (
     <View style={styles.container}>
@@ -81,7 +81,9 @@ const VisitsComponent = () => {
         keyExtractor={item => item}
         contentContainerStyle={styles.listContainer}
         bounces={false}
-        renderItem={({item}) => <VisitCard item={item} visits={MOCK} />}
+        renderItem={({item}) => (
+          <VisitCard item={item} visits={visits?.data || []} />
+        )}
       />
     </View>
   );
