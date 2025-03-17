@@ -20,9 +20,18 @@ function updateProfile(params) {
   return axiosClient.put('Auth/UpdateProfile', params).then(data => data?.data);
 }
 
-function updateProfileImage(params) {
+function updateProfileImage(image) {
+  const formData = new FormData();
+
+  formData.append('image', {
+    ...image,
+    uri: image.uri,
+    type: image.type,
+    name: image.name || image.fileName || `photo_${Date.now()}.${image.type}`,
+  });
+
   return axiosClient
-    .put('Auth/ProfileImage', params, {
+    .post('Auth/UploadImage', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -37,7 +46,7 @@ function changeProfilePassword(params) {
 }
 
 function deleteProfileImage() {
-  return axiosClient.delete('Auth/ProfileImage').then(data => data?.data);
+  return axiosClient.delete('Auth/DeleteImage').then(data => data?.data);
 }
 
 function getDoctors(page) {

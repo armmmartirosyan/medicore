@@ -53,13 +53,13 @@ export const useUpdateProfileImage = ({onSuccess, ...rest}) => {
   const dispatch = useDispatch();
 
   const handleSuccess = e => {
-    // dispatch(
-    //   changeProfileState({
-    //     image: e.data
-    //   }),
-    // );
+    dispatch(
+      changeProfileState({
+        imageUrl: e.data,
+      }),
+    );
 
-    onSuccess();
+    onSuccess(e);
   };
 
   return useMutation('update-profile-image', authRequests.updateProfileImage, {
@@ -72,13 +72,13 @@ export const useDeleteProfileImage = ({onSuccess, ...rest}) => {
   const dispatch = useDispatch();
 
   const handleSuccess = e => {
-    // dispatch(
-    //   changeProfileState({
-    //     image: ''
-    //   }),
-    // );
+    dispatch(
+      changeProfileState({
+        imageUrl: '',
+      }),
+    );
 
-    onSuccess();
+    onSuccess(e);
   };
 
   return useMutation('delete-profile-image', authRequests.deleteProfileImage, {

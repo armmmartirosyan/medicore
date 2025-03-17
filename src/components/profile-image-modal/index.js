@@ -6,8 +6,12 @@ import {faTrash, faImage} from '@fortawesome/free-solid-svg-icons';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {HeadText, Button} from '@components';
 import {COLORS} from '@constants';
+import {profileSelectors} from '@store/profile';
+import {useSelector} from 'react-redux';
 
 export function ProfileImageModal({visible, onClose}) {
+  const imageUrl = useSelector(profileSelectors.imageSelector);
+
   const {mutate: uploadImage} = useUpdateProfileImage({
     onSuccess: onClose,
     onError: onClose,
@@ -25,7 +29,7 @@ export function ProfileImageModal({visible, onClose}) {
 
       if (response.assets && response.assets.length > 0) {
         const image = response.assets[0];
-        uploadImage({image});
+        uploadImage(image);
       }
     });
   };
@@ -43,12 +47,14 @@ export function ProfileImageModal({visible, onClose}) {
             />
             <Text style={styles.optionText}>Update Image</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.optionButton} onPress={deleteImage}>
-            <FontAwesomeIcon icon={faTrash} size={24} color={COLORS.RED} />
-            <Text style={[styles.optionText, {color: COLORS.RED}]}>
-              Delete Image
-            </Text>
-          </TouchableOpacity>
+          {imageUrl && (
+            <TouchableOpacity style={styles.optionButton} onPress={deleteImage}>
+              <FontAwesomeIcon icon={faTrash} size={24} color={COLORS.RED} />
+              <Text style={[styles.optionText, {color: COLORS.RED}]}>
+                Delete Image
+              </Text>
+            </TouchableOpacity>
+          )}
           <Button
             variant={Button.variants.secondary}
             onPress={onClose}
