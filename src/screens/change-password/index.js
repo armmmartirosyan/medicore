@@ -7,7 +7,7 @@ import {PasswordInput, InputWrapperView, HeadText, Button} from '@components';
 import {useChangeProfilePassword} from '@api-hooks';
 import {COLORS, FONTS} from '@constants';
 import {withSafeArea} from '@hoc';
-import {getSize} from '@utils';
+import {getSize, isSecurePassword} from '@utils';
 
 function ChangePasswordComponent() {
   const navigation = useNavigation();
@@ -23,9 +23,23 @@ function ChangePasswordComponent() {
     },
   });
 
-  const disabled = useMemo(() => {
-    return !current || !newPass || !confirm || confirm !== newPass;
-  }, [current, newPass, confirm]);
+  const disabled = useMemo(
+    () =>
+      !isSecurePassword(current) ||
+      !isSecurePassword(newPass) ||
+      !isSecurePassword(confirm) ||
+      confirm !== newPass ||
+      isLoading,
+    [current, newPass, confirm, isLoading],
+  );
+
+  const handleChangePassword = () => {
+    changePassword({
+      currentPassword: current,
+      newPassword: newPass,
+      confirmPassword: confirm,
+    });
+  };
 
   return (
     <InputWrapperView
@@ -72,7 +86,7 @@ function ChangePasswordComponent() {
       </View>
       <View style={styles.view}>
         <Button
-          onPress={changePassword}
+          onPress={handleChangePassword}
           disabled={disabled}
           isLoading={isLoading}
           style={styles.button}>
