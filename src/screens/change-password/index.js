@@ -1,4 +1,5 @@
 import React, {useMemo, useState} from 'react';
+import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {View, StyleSheet, Pressable, Text} from 'react-native';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
@@ -16,10 +17,33 @@ function ChangePasswordComponent() {
   const [confirm, setConfirm] = useState('');
 
   const {mutate: changePassword, isLoading} = useChangeProfilePassword({
-    onSuccess: () => {
+    onSuccess: e => {
+      if (!e.data) {
+        return Toast.show({
+          autoClose: 2000,
+          title: 'Fail',
+          type: ALERT_TYPE.DANGER,
+          textBody: e.message || 'Unable to change the password.',
+        });
+      }
+      Toast.show({
+        autoClose: 2000,
+        title: 'Done',
+        type: ALERT_TYPE.SUCCESS,
+        textBody: 'The password has been changed successfully.',
+      });
+
       setCurrent('');
       setNewPass('');
       setConfirm('');
+    },
+    onError: e => {
+      Toast.show({
+        autoClose: 2000,
+        title: 'Fail',
+        type: ALERT_TYPE.DANGER,
+        textBody: e.data.message || 'Unable to change the password.',
+      });
     },
   });
 

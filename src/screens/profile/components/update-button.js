@@ -1,4 +1,5 @@
 import React from 'react';
+import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import moment from 'moment/moment';
 import {useSelector} from 'react-redux';
 import {StyleSheet, View} from 'react-native';
@@ -12,7 +13,32 @@ export function UpdateButton() {
   const phoneNumber = useSelector(profileSelectors.phoneNumberSelector);
   const phoneCode = useSelector(profileSelectors.phoneCodeSelector);
   const birthDate = useSelector(profileSelectors.birthDateSelector);
-  const {mutate: updateProfile, isLoading} = useUpdateProfile();
+  const {mutate: updateProfile, isLoading} = useUpdateProfile({
+    onSuccess: e => {
+      if (!e.data) {
+        return Toast.show({
+          autoClose: 2000,
+          title: 'Fail',
+          type: ALERT_TYPE.DANGER,
+          textBody: e.message || 'Unable to update the profile info.',
+        });
+      }
+      Toast.show({
+        autoClose: 2000,
+        title: 'Done',
+        type: ALERT_TYPE.SUCCESS,
+        textBody: 'The profile has been updated successfully.',
+      });
+    },
+    onError: e => {
+      Toast.show({
+        autoClose: 2000,
+        title: 'Fail',
+        type: ALERT_TYPE.DANGER,
+        textBody: e.data.message || 'Unable to update the profile info.',
+      });
+    },
+  });
 
   const handleUpdate = () => {
     const phone = phoneCode + phoneNumber;

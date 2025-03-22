@@ -19,3 +19,4 @@ export default function App() {
     </AlertNotificationRoot>
   );
 }
+//npx react-native run-ios --simulator="iPhone 14 (iOS 16.1)"
