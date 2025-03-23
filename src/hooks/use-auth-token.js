@@ -6,7 +6,7 @@ export function useAuthToken() {
 
   useEffect(() => {
     (async () => {
-      const authInfo = await getAuthInfo();
+      let authInfo = await getAuthInfo();
 
       setInfo(authInfo);
     })();

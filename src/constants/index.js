@@ -56,3 +56,9 @@ export const WEEK_DAYS = [
   {id: 6, day: 'Saturday'},
   {id: 7, day: 'Sunday'},
 ];
+
+export const VISIT_STATUSES = {
+  PENDING: 1,
+  REJECTED: 2,
+  ACCEPTED: 3,
+};

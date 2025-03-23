@@ -11,3 +11,4 @@ export {Profile} from './profile';
 export {ChangePassword} from './change-password';
 export {DoctorInfo} from './doctor-info';
 export {ProcedureDetails} from './procedure-details';
+export {VisitDetails} from './visit-details';

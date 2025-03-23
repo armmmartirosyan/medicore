@@ -15,3 +15,5 @@ export {WeekScheduleModal} from './week-schedule-modal';
 export {ProcedureCard} from './procedure-card';
 export {VisitCard} from './visit-card';
 export {ProfileImageModal} from './profile-image-modal';
+export {Select} from './select';
+export {TimePicker} from './time-picker';

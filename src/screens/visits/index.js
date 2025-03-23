@@ -1,12 +1,26 @@
 import moment from 'moment';
 import React, {useCallback, useMemo, useState} from 'react';
-import {View, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
-import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+  Text,
+} from 'react-native';
+import {
+  faAngleLeft,
+  faAngleRight,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {COLORS, ACTIVE_BTN_OPACITY} from '@constants';
-import {VisitCard, HeadText} from '@components';
-import {useGetVisits} from '@api-hooks';
+import {COLORS, ACTIVE_BTN_OPACITY, FONTS} from '@constants';
+import {VisitCard, HeadText, Select} from '@components';
+import {useGetVisits, useGetDoctors} from '@api-hooks';
 import {withSafeArea} from '@hoc';
+import {AddVisit} from './components';
+import {resetVisitState} from '@store/visit/slice';
+import {useDispatch} from 'react-redux';
 
 const MOCK = [
   {
@@ -40,9 +54,33 @@ const MOCK = [
 ];
 
 const VisitsComponent = () => {
+  const isPatient = true;
+  const dispatch = useDispatch();
+  const [addModalOpen, setAddModalOpen] = useState(false);
   const [currentWeekStart, setCurrentWeekStart] = useState(
     moment().startOf('week'),
   );
+  const [doctors, setDoctors] = useState([]);
+  const [selectedDoctor, setSelectedDoctor] = useState(undefined);
+  const [showDoctorSelect, setShowDoctorSelect] = useState(false);
+  const [allowNext, setAllowNext] = useState(false);
+  const [page, setPage] = useState(1);
+
+  useGetDoctors({
+    page,
+    options: {
+      onSuccess: data => {
+        setDoctors(prev => [...prev, ...data?.data?.data]);
+        setAllowNext(data?.data?.allowNext);
+      },
+    },
+  });
+
+  const handleEndReached = () => {
+    if (allowNext) {
+      setPage(prev => ++prev);
+    }
+  };
 
   const switchWeek = useCallback(direction => {
     setCurrentWeekStart(prev =>
@@ -58,7 +96,25 @@ const VisitsComponent = () => {
     );
   }, [currentWeekStart]);
 
-  const {data: visits} = useGetVisits({});
+  const {data: visits} = useGetVisits({
+    id: selectedDoctor?.id || 0,
+  });
+
+  const closeModal = () => {
+    dispatch(resetVisitState());
+    setAddModalOpen(false);
+  };
+
+  const openModal = () => {
+    setAddModalOpen(true);
+  };
+
+  const handleToggleDoctorSelect = () => {
+    if (showDoctorSelect) {
+      setSelectedDoctor(0);
+    }
+    setShowDoctorSelect(!showDoctorSelect);
+  };
 
   return (
     <View style={styles.container}>
@@ -76,21 +132,65 @@ const VisitsComponent = () => {
         </TouchableOpacity>
       </View>
 
+      {isPatient && (
+        <View style={styles.doctorSelectBlock}>
+          {showDoctorSelect && (
+            <Select
+              data={doctors}
+              placeholder="Select a Doctor"
+              containerStyle={styles.input}
+              onScrollEndReached={handleEndReached}
+              onSelect={setSelectedDoctor}
+              renderCurrentItem={item =>
+                `${item?.firstName} ${item?.lastName}${
+                  item?.clinic?.name ? ' (' + item?.clinic?.name + ')' : ''
+                }`
+              }
+            />
+          )}
+
+          <Pressable onPress={handleToggleDoctorSelect}>
+            <Text style={styles.doctorDoggleText}>
+              {showDoctorSelect
+                ? 'Show my visits schedule'
+                : "Show Doctor's visits schedule"}
+            </Text>
+          </Pressable>
+        </View>
+      )}
+
       <FlatList
         data={weekDays}
         keyExtractor={item => item}
         contentContainerStyle={styles.listContainer}
         bounces={false}
         renderItem={({item}) => (
-          <VisitCard item={item} visits={visits?.data || []} />
+          <VisitCard
+            item={item}
+            visits={visits?.data || []}
+            openModal={openModal}
+            isPatient={isPatient}
+          />
         )}
       />
+
+      <TouchableOpacity
+        style={styles.plus}
+        activeOpacity={ACTIVE_BTN_OPACITY}
+        onPress={openModal}>
+        <FontAwesomeIcon icon={faPlus} size={20} color="white" />
+      </TouchableOpacity>
+
+      {isPatient && (
+        <AddVisit modalVisible={addModalOpen} closeModal={closeModal} />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     flex: 1,
     padding: 16,
   },
@@ -102,9 +202,30 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingTop: 25,
+    paddingBottom: 50,
   },
   angle: {
     color: COLORS.PRIMARY_BLUE,
+  },
+  plus: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: COLORS.PRIMARY_BLUE,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  doctorSelectBlock: {
+    alignItems: 'center',
+  },
+  doctorDoggleText: {
+    fontFamily: FONTS.MEDIUM,
+    color: COLORS.PRIMARY_BLUE,
+    fontSize: 16,
+    marginTop: 15,
   },
 });
 
