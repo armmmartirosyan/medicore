@@ -49,7 +49,7 @@ export function AddVisit({modalVisible, closeModal}) {
         autoClose: 2000,
         title: 'Fail',
         type: ALERT_TYPE.DANGER,
-        textBody: e.data.message || 'Unable to add the visit.',
+        textBody: e?.data?.message || 'Unable to add the visit.',
       });
     },
   });
@@ -69,7 +69,7 @@ export function AddVisit({modalVisible, closeModal}) {
         autoClose: 2000,
         title: 'Fail',
         type: ALERT_TYPE.DANGER,
-        textBody: e.data.message || 'Unable to update the visit.',
+        textBody: e?.data.message || 'Unable to update the visit.',
       });
     },
   });

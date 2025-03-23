@@ -18,7 +18,7 @@ function ChangePasswordComponent() {
 
   const {mutate: changePassword, isLoading} = useChangeProfilePassword({
     onSuccess: e => {
-      if (!e.data) {
+      if (!e?.data) {
         return Toast.show({
           autoClose: 2000,
           title: 'Fail',
@@ -42,7 +42,7 @@ function ChangePasswordComponent() {
         autoClose: 2000,
         title: 'Fail',
         type: ALERT_TYPE.DANGER,
-        textBody: e.data.message || 'Unable to change the password.',
+        textBody: e?.data?.message || 'Unable to change the password.',
       });
     },
   });

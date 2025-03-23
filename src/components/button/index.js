@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -13,34 +13,32 @@ const variants = {
   secondary: 'secondary',
 };
 
-const Button = memo(
-  ({
-    children,
-    variant = variants.primary,
-    style,
-    textStyle,
-    isLoading,
-    ...rest
-  }) => {
-    return (
-      <TouchableOpacity
-        activeOpacity={ACTIVE_BTN_OPACITY}
-        style={[styles.container, styles[`${variant}Container`], style]}
-        {...rest}>
-        <Text style={[styles.text, styles[`${variant}Text`], textStyle]}>
-          {children}
-        </Text>
-        {isLoading && (
-          <ActivityIndicator
-            size="small"
-            color={variant === variants.primary ? 'white' : COLORS.PRIMARY_BLUE}
-            style={styles.activityIndicator}
-          />
-        )}
-      </TouchableOpacity>
-    );
-  },
-);
+const Button = ({
+  children,
+  variant = variants.primary,
+  style,
+  textStyle,
+  isLoading,
+  ...rest
+}) => {
+  return (
+    <TouchableOpacity
+      activeOpacity={ACTIVE_BTN_OPACITY}
+      style={[styles.container, styles[`${variant}Container`], style]}
+      {...rest}>
+      <Text style={[styles.text, styles[`${variant}Text`], textStyle]}>
+        {children}
+      </Text>
+      {isLoading && (
+        <ActivityIndicator
+          size="small"
+          color={variant === variants.primary ? 'white' : COLORS.PRIMARY_BLUE}
+          style={styles.activityIndicator}
+        />
+      )}
+    </TouchableOpacity>
+  );
+};
 
 Button.variants = variants;
 

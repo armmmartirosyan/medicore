@@ -15,7 +15,7 @@ export function UpdateButton() {
   const birthDate = useSelector(profileSelectors.birthDateSelector);
   const {mutate: updateProfile, isLoading} = useUpdateProfile({
     onSuccess: e => {
-      if (!e.data) {
+      if (!e?.data) {
         return Toast.show({
           autoClose: 2000,
           title: 'Fail',
@@ -35,7 +35,7 @@ export function UpdateButton() {
         autoClose: 2000,
         title: 'Fail',
         type: ALERT_TYPE.DANGER,
-        textBody: e.data.message || 'Unable to update the profile info.',
+        textBody: e?.data.message || 'Unable to update the profile info.',
       });
     },
   });

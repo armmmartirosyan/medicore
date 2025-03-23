@@ -37,7 +37,7 @@ export function VisitCard({item, visits, openModal}) {
         autoClose: 2000,
         title: 'Fail',
         type: ALERT_TYPE.DANGER,
-        textBody: e.data.message || 'Unable to update the visit.',
+        textBody: e?.data?.message || 'Unable to update the visit.',
       });
     },
   });

@@ -58,7 +58,7 @@ function VisitDetailsComponent({route}) {
         autoClose: 2000,
         title: 'Fail',
         type: ALERT_TYPE.DANGER,
-        textBody: e.data.message || 'Unable to delete the visit.',
+        textBody: e?.data.message || 'Unable to delete the visit.',
       });
     },
   });

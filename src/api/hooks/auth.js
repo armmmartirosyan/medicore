@@ -23,12 +23,12 @@ export const useGetProfileInfo = options => {
   const dispatch = useDispatch();
 
   const onSuccess = e => {
-    const phoneCode = `${e.data.phone}`.slice(0, 4);
-    const phoneNumber = e.data.phone.slice(4);
+    const phoneCode = `${e?.data?.phone}`.slice(0, 4);
+    const phoneNumber = e?.data?.phone.slice(4);
 
     dispatch(
       changeProfileState({
-        ...e.data,
+        ...e?.data,
         phoneCode,
         phoneNumber,
       }),
@@ -55,7 +55,7 @@ export const useUpdateProfileImage = ({onSuccess, ...rest}) => {
   const handleSuccess = e => {
     dispatch(
       changeProfileState({
-        imageUrl: e.data,
+        imageUrl: e?.data,
       }),
     );
 
