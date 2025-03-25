@@ -21,6 +21,7 @@ import {withSafeArea} from '@hoc';
 import {AddVisit} from './components';
 import {resetVisitState} from '@store/visit/slice';
 import {useDispatch} from 'react-redux';
+import {useAuthToken} from '@hooks';
 
 const MOCK = [
   {
@@ -54,7 +55,7 @@ const MOCK = [
 ];
 
 const VisitsComponent = () => {
-  const isPatient = true;
+  const {isPatient} = useAuthToken();
   const dispatch = useDispatch();
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [currentWeekStart, setCurrentWeekStart] = useState(
@@ -174,15 +175,16 @@ const VisitsComponent = () => {
         )}
       />
 
-      <TouchableOpacity
-        style={styles.plus}
-        activeOpacity={ACTIVE_BTN_OPACITY}
-        onPress={openModal}>
-        <FontAwesomeIcon icon={faPlus} size={20} color="white" />
-      </TouchableOpacity>
-
       {isPatient && (
-        <AddVisit modalVisible={addModalOpen} closeModal={closeModal} />
+        <>
+          <TouchableOpacity
+            style={styles.plus}
+            activeOpacity={ACTIVE_BTN_OPACITY}
+            onPress={openModal}>
+            <FontAwesomeIcon icon={faPlus} size={20} color="white" />
+          </TouchableOpacity>
+          <AddVisit modalVisible={addModalOpen} closeModal={closeModal} />
+        </>
       )}
     </View>
   );

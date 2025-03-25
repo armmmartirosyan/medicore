@@ -24,9 +24,10 @@ import {HeadText} from '@components';
 import {useNavigation} from '@react-navigation/native';
 import {useDeleteVisit} from '@api-hooks';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
+import {useAuthToken} from '@hooks';
 
 function VisitDetailsComponent({route}) {
-  const isPatient = true;
+  const {isPatient} = useAuthToken();
   const visit = route.params;
   const navigation = useNavigation();
   const goBack = () => navigation.goBack();

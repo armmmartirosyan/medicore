@@ -17,9 +17,10 @@ import {useDispatch} from 'react-redux';
 import {useEditVisit} from '@api-hooks';
 import {useNavigation} from '@react-navigation/native';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
+import {useAuthToken} from '@hooks';
 
 export function VisitCard({item, visits, openModal}) {
-  const isPatient = true;
+  const {isPatient} = useAuthToken();
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
