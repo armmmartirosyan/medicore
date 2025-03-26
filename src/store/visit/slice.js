@@ -2,6 +2,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   visitId: 0,
+  procedureId: 0,
+  visitProcedureId: 0,
   doctorId: 0,
   pacientId: 0,
   startTime: undefined,

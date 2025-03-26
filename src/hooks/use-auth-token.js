@@ -6,7 +6,9 @@ import {USER_TYPE_NAMES} from '@constants';
 export function useAuthToken() {
   const [info, setInfo] = useState({
     isPatient: false,
+    isDoctor: false,
     email: '',
+    token: '',
     role: '',
   });
 
@@ -24,8 +26,10 @@ export function useAuthToken() {
             ];
 
           setInfo({
-            email: decoded?.payload?.email,
             isPatient: role === USER_TYPE_NAMES.PATIENT,
+            isDoctor: role === USER_TYPE_NAMES.DOCTOR,
+            email: decoded?.payload?.email,
+            token: authInfo,
             role,
           });
         })

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,8 @@ import {
   faClipboardList,
   faAngleLeft,
   faTrash,
+  faUser,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import {withSafeArea} from '@hoc';
 import moment from 'moment';
@@ -25,12 +27,26 @@ import {useNavigation} from '@react-navigation/native';
 import {useDeleteVisit} from '@api-hooks';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {useAuthToken} from '@hooks';
+import {AddVisitProcedure} from './components/add-visit-procedure';
+import {useDispatch} from 'react-redux';
+import {resetVisitState} from '@store/visit/slice';
 
 function VisitDetailsComponent({route}) {
-  const {isPatient} = useAuthToken();
+  const dispatch = useDispatch();
+  const {isPatient, isDoctor} = useAuthToken();
   const visit = route.params;
   const navigation = useNavigation();
   const goBack = () => navigation.goBack();
+  const [addModalOpen, setAddModalOpen] = useState(false);
+
+  const closeModal = () => {
+    dispatch(resetVisitState());
+    setAddModalOpen(false);
+  };
+
+  const openModal = () => {
+    setAddModalOpen(true);
+  };
 
   const enableDelete = useMemo(() => {
     const dateNow = new Date();
@@ -111,21 +127,41 @@ function VisitDetailsComponent({route}) {
         </Text>
       </View> */}
 
-      <View style={styles.detailContainer}>
-        <FontAwesomeIcon icon={faUserDoctor} style={styles.icon} />
-        <Text style={styles.label}>Doctor:</Text>
-        <Text style={styles.value}>
-          {visit.doctor
-            ? `${visit.doctor.firstName} ${visit.doctor.lastName}`
-            : 'N/A'}
-        </Text>
-      </View>
+      {isPatient ? (
+        <View style={styles.detailContainer}>
+          <FontAwesomeIcon icon={faUserDoctor} style={styles.icon} />
+          <Text style={styles.label}>Doctor:</Text>
+          <Text style={styles.value}>
+            {visit.doctor
+              ? `${visit.doctor.firstName} ${visit.doctor.lastName}`
+              : 'N/A'}
+          </Text>
+        </View>
+      ) : (
+        <View style={styles.detailContainer}>
+          <FontAwesomeIcon icon={faUser} style={styles.icon} />
+          <Text style={styles.label}>Patient:</Text>
+          <Text style={styles.value}>
+            {visit.doctor
+              ? `${visit.patient.firstName} ${visit.patient.lastName}`
+              : 'N/A'}
+          </Text>
+        </View>
+      )}
 
-      <View style={styles.detailContainer}>
-        <FontAwesomeIcon icon={faPhone} style={styles.icon} />
-        <Text style={styles.label}>Doctor Phone:</Text>
-        <Text style={styles.value}>{visit.doctor?.phone || 'N/A'}</Text>
-      </View>
+      {isPatient ? (
+        <View style={styles.detailContainer}>
+          <FontAwesomeIcon icon={faPhone} style={styles.icon} />
+          <Text style={styles.label}>Doctor Phone:</Text>
+          <Text style={styles.value}>{visit.doctor?.phone || 'N/A'}</Text>
+        </View>
+      ) : (
+        <View style={styles.detailContainer}>
+          <FontAwesomeIcon icon={faPhone} style={styles.icon} />
+          <Text style={styles.label}>Patient Phone:</Text>
+          <Text style={styles.value}>{visit.patient?.phone || 'N/A'}</Text>
+        </View>
+      )}
 
       <View style={styles.detailContainer}>
         <FontAwesomeIcon icon={faClipboardList} style={styles.icon} />
@@ -164,6 +200,25 @@ function VisitDetailsComponent({route}) {
             <FontAwesomeIcon icon={faTrash} color={COLORS.RED} />
           </TouchableOpacity>
         </View>
+      )}
+
+      {isDoctor && (
+        <>
+          <View style={styles.actionWrapper}>
+            <TouchableOpacity
+              style={styles.plus}
+              activeOpacity={ACTIVE_BTN_OPACITY}
+              onPress={openModal}>
+              <FontAwesomeIcon icon={faPlus} size={20} color="white" />
+              <Text style={styles.addText}>Visit Procedure</Text>
+            </TouchableOpacity>
+          </View>
+          <AddVisitProcedure
+            modalVisible={addModalOpen}
+            closeModal={closeModal}
+            visitId={visit.id}
+          />
+        </>
       )}
     </ScrollView>
   );
@@ -239,6 +294,29 @@ const styles = StyleSheet.create({
     borderColor: COLORS.RED,
     padding: 10,
     borderRadius: 20,
+  },
+  plus: {
+    height: 40,
+    backgroundColor: COLORS.PRIMARY_BLUE,
+    borderRadius: 25,
+    justifyContent: 'center',
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  actionWrapper: {
+    position: 'absolute',
+    bottom: 20,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addText: {
+    fontFamily: FONTS.MEDIUM,
+    color: 'white',
+    fontSize: 16,
+    marginLeft: 10,
   },
 });
 
