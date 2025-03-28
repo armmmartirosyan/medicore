@@ -22,12 +22,11 @@ import {
 import {withSafeArea} from '@hoc';
 import moment from 'moment';
 import {COLORS, FONTS, ACTIVE_BTN_OPACITY, VISIT_STATUSES} from '@constants';
-import {HeadText} from '@components';
+import {HeadText, AddVisitProcedure} from '@components';
 import {useNavigation} from '@react-navigation/native';
 import {useDeleteVisit} from '@api-hooks';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {useAuthToken} from '@hooks';
-import {AddVisitProcedure} from './components/add-visit-procedure';
 import {useDispatch} from 'react-redux';
 import {resetVisitState} from '@store/visit/slice';
 

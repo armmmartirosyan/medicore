@@ -10,6 +10,7 @@ const initialState = {
   endTime: undefined,
   notes: '',
   date: '',
+  images: [],
 };
 
 export const visitSlice = createSlice({

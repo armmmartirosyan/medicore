@@ -29,10 +29,34 @@ export const useAddVisitProcedure = options => {
   );
 };
 
+export const useVisitProcedureUploadImages = options => {
+  return useMutation(
+    ['visit-procedure-upload-images'],
+    procedureRequests.visitProcedureUploadImages,
+    options,
+  );
+};
+
 export const useUpdateVisitProcedure = options => {
   return useMutation(
     ['update-visit-procedure'],
     procedureRequests.updateVisitProcedure,
+    options,
+  );
+};
+
+export const useDeleteVisitProcedure = options => {
+  return useMutation(
+    ['delete-visit-procedure'],
+    procedureRequests.deleteVisitProcedure,
+    options,
+  );
+};
+
+export const useDeleteVisitProcedureImage = options => {
+  return useMutation(
+    ['delete-visit-procedure-image'],
+    procedureRequests.deleteVisitProcedureImage,
     options,
   );
 };

@@ -3,6 +3,7 @@ import {StyleSheet, FlatList} from 'react-native';
 import {HeadText, ProcedureCard} from '@components';
 import {useNavigation} from '@react-navigation/native';
 import {useGetVisitProcedures} from '@api-hooks';
+import {useQueryClient} from 'react-query';
 
 const MOCK = [
   {
@@ -169,6 +170,7 @@ const MOCK = [
 
 export function ProceduresBlock() {
   const navigation = useNavigation();
+  const queryClient = useQueryClient();
   const [procedures, setProcedures] = useState([]);
   const [allowNext, setAllowNext] = useState(false);
   const [page, setPage] = useState(1);
@@ -189,6 +191,14 @@ export function ProceduresBlock() {
     }
   };
 
+  const onSuccess = () => {
+    setProcedures([]);
+    setAllowNext(false);
+    setPage(1);
+    queryClient.invalidateQueries(['get-visit-procedures']);
+    navigation.goBack();
+  };
+
   return (
     <>
       <HeadText style={styles.headText}>Procedures</HeadText>
@@ -202,7 +212,10 @@ export function ProceduresBlock() {
             key={item.key}
             procedure={item}
             onPress={() =>
-              navigation.navigate('ProcedureDetails', {procedure: item})
+              navigation.navigate('ProcedureDetails', {
+                onSuccess,
+                id: item.id,
+              })
             }
           />
         )}

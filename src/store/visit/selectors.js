@@ -17,6 +17,7 @@ const startTime = createSelector(visitBaseSelector, state => state.startTime);
 const endTime = createSelector(visitBaseSelector, state => state.endTime);
 const notes = createSelector(visitBaseSelector, state => state.notes);
 const date = createSelector(visitBaseSelector, state => state.date);
+const images = createSelector(visitBaseSelector, state => state.images);
 
 export const visitSelectors = {
   visitId,
@@ -28,4 +29,5 @@ export const visitSelectors = {
   endTime,
   notes,
   date,
+  images,
 };

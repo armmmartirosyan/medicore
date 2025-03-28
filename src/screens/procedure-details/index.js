@@ -19,17 +19,33 @@ import {
   faCapsules,
   faAngleLeft,
   faTimes,
+  faPlus,
+  faTrash,
+  faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import {HeadText} from '@components';
 import {withSafeArea} from '@hoc';
 import {COLORS, FONTS, ACTIVE_BTN_OPACITY, API_BASE_URL} from '@constants';
 import moment from 'moment';
+import {
+  useDeleteVisitProcedure,
+  useGetVisitProcedureById,
+  useVisitProcedureUploadImages,
+  useDeleteVisitProcedureImage,
+} from '@api-hooks';
+import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {useQueryClient} from 'react-query';
 
 function ProcedureDetailsComponent({route}) {
-  const {procedure} = route.params;
+  const {onSuccess, id} = route.params;
   const navigation = useNavigation();
+  const queryClient = useQueryClient();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const {data: proc} = useGetVisitProcedureById({id});
+  const procedure = proc?.data || {};
 
   const openImageModal = image => {
     setSelectedImage(image);
@@ -52,6 +68,78 @@ function ProcedureDetailsComponent({route}) {
     </TouchableOpacity>
   );
 
+  const {mutate: deleteVisitProcedure} = useDeleteVisitProcedure({
+    onSuccess: () => {
+      onSuccess();
+      Toast.show({
+        autoClose: 2000,
+        title: 'Done',
+        type: ALERT_TYPE.SUCCESS,
+        textBody: 'The procedure deleted successfully.',
+      });
+    },
+    onError: e => {
+      Toast.show({
+        autoClose: 2000,
+        title: 'Fail',
+        type: ALERT_TYPE.DANGER,
+        textBody: e?.data?.message || 'Unable to delete the procedure.',
+      });
+    },
+  });
+
+  const {mutate: deleteImage} = useDeleteVisitProcedureImage({
+    onSuccess: () => {
+      queryClient.invalidateQueries(['get-visit-procedure-by-id']);
+      closeImageModal();
+      Toast.show({
+        autoClose: 2000,
+        title: 'Done',
+        type: ALERT_TYPE.SUCCESS,
+        textBody: 'The procedure image deleted successfully.',
+      });
+    },
+    onError: e => {
+      Toast.show({
+        autoClose: 2000,
+        title: 'Fail',
+        type: ALERT_TYPE.DANGER,
+        textBody: e?.data?.message || 'Unable to delete image.',
+      });
+    },
+  });
+
+  const {mutate: uploadImages} = useVisitProcedureUploadImages({
+    onSuccess: () => {
+      queryClient.invalidateQueries(['get-visit-procedure-by-id']);
+    },
+    onError: e => {
+      Toast.show({
+        autoClose: 2000,
+        title: 'Fail',
+        type: ALERT_TYPE.DANGER,
+        textBody: e?.data?.message || 'Unable to upload image.',
+      });
+    },
+  });
+
+  const selectImage = () => {
+    launchImageLibrary({mediaType: 'photo'}, response => {
+      if (response.didCancel) {
+        return;
+      }
+
+      if (response.assets && response.assets.length > 0) {
+        const image = response.assets[0];
+
+        uploadImages({
+          images: [image],
+          visitProcedureId: procedure?.id,
+        });
+      }
+    });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -62,7 +150,7 @@ function ProcedureDetailsComponent({route}) {
             size={20}
           />
         </Pressable>
-        <HeadText>{procedure.procedure.name}</HeadText>
+        <HeadText>{procedure?.procedure?.name}</HeadText>
         <View />
       </View>
 
@@ -74,12 +162,12 @@ function ProcedureDetailsComponent({route}) {
             color={COLORS.PROFOUND_BLACK}
           />
           <Text style={styles.infoText}>
-            {moment(procedure.visit.startScheduledDate).format('YYYY-MM-DD')}
+            {moment(procedure?.visit?.startScheduledDate).format('YYYY-MM-DD')}
           </Text>
         </View>
         <View style={styles.infoRow}>
           <FontAwesomeIcon icon={faMoneyBillAlt} size={18} color="#10B981" />
-          <Text style={styles.infoText}>{procedure.procedure.price} AMD</Text>
+          <Text style={styles.infoText}>{procedure?.procedure?.price} AMD</Text>
         </View>
       </View>
 
@@ -90,15 +178,28 @@ function ProcedureDetailsComponent({route}) {
             size={18}
             color={COLORS.PRIMARY_BLUE}
           />
-          <Text style={styles.infoText}>{procedure.doctor.name}</Text>
+          <Text style={styles.infoText}>{procedure?.doctor?.name}</Text>
         </View>
       )}
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Procedure Images</Text>
-        {procedure.procedureImages.length > 0 ? (
+        <View style={styles.imagesTitleUpload}>
+          <Text style={{...styles.sectionTitle, marginBottom: 0}}>
+            Procedure Images
+          </Text>
+          <TouchableOpacity
+            activeOpacity={ACTIVE_BTN_OPACITY}
+            onPress={selectImage}>
+            <FontAwesomeIcon
+              icon={faUpload}
+              size={15}
+              color={COLORS.PRIMARY_BLUE}
+            />
+          </TouchableOpacity>
+        </View>
+        {procedure?.procedureImages?.length > 0 ? (
           <FlatList
-            data={procedure.procedureImages}
+            data={procedure?.procedureImages}
             renderItem={renderImage}
             keyExtractor={(_, index) => index.toString()}
             horizontal
@@ -111,8 +212,8 @@ function ProcedureDetailsComponent({route}) {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Assigned Medicines</Text>
-        {procedure.medicinesAssigneds.length > 0 ? (
-          procedure.medicinesAssigneds.map(medicine => (
+        {procedure?.medicinesAssigneds?.length > 0 ? (
+          procedure?.medicinesAssigneds?.map(medicine => (
             <View key={medicine.id} style={styles.medicineCard}>
               <FontAwesomeIcon
                 size={16}
@@ -130,8 +231,23 @@ function ProcedureDetailsComponent({route}) {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Notes</Text>
         <Text style={styles.notesText}>
-          {procedure.notes || 'No notes provided'}
+          {procedure?.notes || 'No notes provided'}
         </Text>
+      </View>
+
+      <View style={styles.actionsContainer}>
+        <TouchableOpacity
+          activeOpacity={ACTIVE_BTN_OPACITY}
+          onPress={() => deleteVisitProcedure(procedure?.id)}
+          style={{...styles.action, backgroundColor: COLORS.RED}}>
+          <FontAwesomeIcon icon={faTrash} color="white" size={15} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={ACTIVE_BTN_OPACITY}
+          style={{...styles.action, ...styles.deleteAction}}>
+          <FontAwesomeIcon icon={faPlus} color="white" size={15} />
+          <Text style={styles.actionText}>Medicine</Text>
+        </TouchableOpacity>
       </View>
 
       <Modal
@@ -152,6 +268,12 @@ function ProcedureDetailsComponent({route}) {
               style={styles.modalImage}
             />
           )}
+          <TouchableOpacity
+            activeOpacity={ACTIVE_BTN_OPACITY}
+            onPress={() => deleteImage(selectedImage.url)}
+            style={styles.deleteImage}>
+            <FontAwesomeIcon icon={faTrash} color="white" size={15} />
+          </TouchableOpacity>
         </View>
       </Modal>
     </ScrollView>
@@ -161,6 +283,8 @@ function ProcedureDetailsComponent({route}) {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    position: 'relative',
+    flex: 1,
   },
   header: {
     flexDirection: 'row',
@@ -192,6 +316,13 @@ const styles = StyleSheet.create({
   section: {
     marginVertical: 16,
   },
+  imagesTitleUpload: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+    marginRight: 15,
+  },
   sectionTitle: {
     fontFamily: FONTS.SEMI_BOLD,
     color: COLORS.PRIMARY_BLUE,
@@ -216,6 +347,16 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 4,
     elevation: 2,
+  },
+  deleteImage: {
+    position: 'absolute',
+    bottom: '30%',
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: COLORS.RED,
   },
   medicineText: {
     marginLeft: 8,
@@ -246,6 +387,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
   },
   modalImage: {
     width: '90%',
@@ -258,6 +400,36 @@ const styles = StyleSheet.create({
     top: 40,
     right: 20,
     zIndex: 10,
+  },
+  actionsContainer: {
+    position: 'absolute',
+    bottom: 25,
+    marginInline: 'auto',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '100%',
+    height: 10,
+    left: 16,
+  },
+  action: {
+    width: 40,
+    height: 40,
+    borderRadius: 25,
+    backgroundColor: COLORS.PRIMARY_BLUE,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    justifyContent: 'center',
+  },
+  actionText: {
+    marginLeft: 10,
+    fontSize: 16,
+    fontFamily: FONTS.LIGHT,
+    color: 'white',
+  },
+  deleteAction: {
+    width: 'auto',
   },
 });
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Modal,
@@ -24,7 +24,7 @@ export function AddVisitProcedure({modalVisible, closeModal, visitId}) {
   const dispatch = useDispatch();
   const notes = useSelector(visitSelectors.notes);
   const procedureId = useSelector(visitSelectors.procedureId);
-  const [images, setImages] = useState([]);
+  const images = useSelector(visitSelectors.images);
 
   const {data: procedures} = useGetProcedures();
 
@@ -71,13 +71,17 @@ export function AddVisitProcedure({modalVisible, closeModal, visitId}) {
 
       if (response.assets && response.assets.length > 0) {
         const image = response.assets[0];
-        setImages(prev => [...prev, image]);
+        handleValueChange({
+          images: [...images, image],
+        });
       }
     });
   };
 
   const removeImage = image => {
-    setImages(prev => prev.filter(i => i.uri !== image.uri));
+    handleValueChange({
+      images: images.filter(i => i.uri !== image.uri),
+    });
   };
 
   return (
