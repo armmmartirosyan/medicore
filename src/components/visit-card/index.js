@@ -20,7 +20,7 @@ import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {useAuthToken} from '@hooks';
 
 export function VisitCard({item, visits, openModal}) {
-  const {isPatient} = useAuthToken();
+  const {isPatient, isDoctor} = useAuthToken();
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -180,7 +180,7 @@ export function VisitCard({item, visits, openModal}) {
                 </TouchableOpacity>
               </>
             )}
-            {!isPatient && (
+            {isDoctor && (
               <>
                 <TouchableOpacity
                   onPress={() => handleAccept(visit)}

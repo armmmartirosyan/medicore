@@ -36,9 +36,11 @@ import {
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useQueryClient} from 'react-query';
+import {useAuthToken} from '@hooks';
 
 function ProcedureDetailsComponent({route}) {
   const {onSuccess, id} = route.params;
+  const {isDoctor} = useAuthToken();
   const navigation = useNavigation();
   const queryClient = useQueryClient();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -187,15 +189,17 @@ function ProcedureDetailsComponent({route}) {
           <Text style={{...styles.sectionTitle, marginBottom: 0}}>
             Procedure Images
           </Text>
-          <TouchableOpacity
-            activeOpacity={ACTIVE_BTN_OPACITY}
-            onPress={selectImage}>
-            <FontAwesomeIcon
-              icon={faUpload}
-              size={15}
-              color={COLORS.PRIMARY_BLUE}
-            />
-          </TouchableOpacity>
+          {isDoctor && (
+            <TouchableOpacity
+              activeOpacity={ACTIVE_BTN_OPACITY}
+              onPress={selectImage}>
+              <FontAwesomeIcon
+                icon={faUpload}
+                size={15}
+                color={COLORS.PRIMARY_BLUE}
+              />
+            </TouchableOpacity>
+          )}
         </View>
         {procedure?.procedureImages?.length > 0 ? (
           <FlatList
@@ -235,20 +239,22 @@ function ProcedureDetailsComponent({route}) {
         </Text>
       </View>
 
-      <View style={styles.actionsContainer}>
-        <TouchableOpacity
-          activeOpacity={ACTIVE_BTN_OPACITY}
-          onPress={() => deleteVisitProcedure(procedure?.id)}
-          style={{...styles.action, backgroundColor: COLORS.RED}}>
-          <FontAwesomeIcon icon={faTrash} color="white" size={15} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={ACTIVE_BTN_OPACITY}
-          style={{...styles.action, ...styles.deleteAction}}>
-          <FontAwesomeIcon icon={faPlus} color="white" size={15} />
-          <Text style={styles.actionText}>Medicine</Text>
-        </TouchableOpacity>
-      </View>
+      {isDoctor && (
+        <View style={styles.actionsContainer}>
+          <TouchableOpacity
+            activeOpacity={ACTIVE_BTN_OPACITY}
+            onPress={() => deleteVisitProcedure(procedure?.id)}
+            style={{...styles.action, backgroundColor: COLORS.RED}}>
+            <FontAwesomeIcon icon={faTrash} color="white" size={15} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={ACTIVE_BTN_OPACITY}
+            style={{...styles.action, ...styles.deleteAction}}>
+            <FontAwesomeIcon icon={faPlus} color="white" size={15} />
+            <Text style={styles.actionText}>Medicine</Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       <Modal
         visible={isModalVisible}
@@ -268,12 +274,14 @@ function ProcedureDetailsComponent({route}) {
               style={styles.modalImage}
             />
           )}
-          <TouchableOpacity
-            activeOpacity={ACTIVE_BTN_OPACITY}
-            onPress={() => deleteImage(selectedImage.url)}
-            style={styles.deleteImage}>
-            <FontAwesomeIcon icon={faTrash} color="white" size={15} />
-          </TouchableOpacity>
+          {isDoctor && (
+            <TouchableOpacity
+              activeOpacity={ACTIVE_BTN_OPACITY}
+              onPress={() => deleteImage(selectedImage.url)}
+              style={styles.deleteImage}>
+              <FontAwesomeIcon icon={faTrash} color="white" size={15} />
+            </TouchableOpacity>
+          )}
         </View>
       </Modal>
     </ScrollView>
