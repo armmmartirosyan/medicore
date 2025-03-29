@@ -32,6 +32,11 @@ const imageSelector = createSelector(
   state => state.imageUrl,
 );
 
+const doctorSpecializations = createSelector(
+  profileBaseSelector,
+  state => state.doctorsSpecializations,
+);
+
 export const profileSelectors = {
   fNameSelector,
   lNameSelector,
@@ -39,4 +44,5 @@ export const profileSelectors = {
   phoneCodeSelector,
   birthDateSelector,
   imageSelector,
+  doctorSpecializations,
 };

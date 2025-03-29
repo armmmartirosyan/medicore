@@ -13,7 +13,6 @@ import {
   faArrowRightFromBracket,
   faKey,
   faCalendarDays,
-  faStethoscope,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCalendarMinus, faUser} from '@fortawesome/free-regular-svg-icons';
@@ -70,11 +69,6 @@ function AccountComponent() {
           label: 'Profile',
           icon: faUser,
           onPress: () => navigation.navigate('Profile'),
-        },
-        {
-          label: 'Specializations',
-          icon: faStethoscope,
-          onPress: () => navigation.navigate('Specializations'),
         },
         {
           label: 'Week days schedule',

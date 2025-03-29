@@ -7,12 +7,17 @@ import {Profile as profile} from '@images';
 import {profileSelectors} from '@store/profile';
 import {useSelector} from 'react-redux';
 import {ProfileImageModal} from '@components';
+import {useAuthToken} from '@hooks';
 
 export function AccountHeader({showName = true, allowChangePicture}) {
+  const {isDoctor} = useAuthToken();
   const [modalVisible, setModalVisible] = useState(false);
   const firstName = useSelector(profileSelectors.fNameSelector);
   const lastName = useSelector(profileSelectors.lNameSelector);
   const imageUrl = useSelector(profileSelectors.imageSelector);
+  const doctorSpecializations = useSelector(
+    profileSelectors.doctorSpecializations,
+  );
 
   return (
     <View style={styles.profileHeader}>
@@ -36,6 +41,11 @@ export function AccountHeader({showName = true, allowChangePicture}) {
       {showName && (
         <Text style={styles.userName}>
           {firstName} {lastName}
+        </Text>
+      )}
+      {!showName && isDoctor && (
+        <Text style={styles.userName}>
+          {doctorSpecializations?.[0]?.specialization?.name}
         </Text>
       )}
       <ProfileImageModal
