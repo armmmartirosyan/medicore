@@ -26,13 +26,11 @@ export default function DoctorInfoComponent({route, navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const age = useMemo(() => {
-    return Math.floor(Math.random() * (55 - 30 + 1)) + 30;
+    if (!doctor.birthDate) {
+      return '';
+    }
 
-    // if (!doctor.birthDate) {
-    //   return '';
-    // }
-
-    // return new Date().getFullYear() - new Date(doctor.birthDate).getFullYear();
+    return new Date().getFullYear() - new Date(doctor.birthDate).getFullYear();
   }, [doctor?.birthDate]);
 
   const onPhonePress = useCallback(phone => {
@@ -132,7 +130,7 @@ export default function DoctorInfoComponent({route, navigation}) {
 
       <ScrollView style={styles.nonWorkingWrapper}>
         {doctor.notWorkingDays.map(date => (
-          <NonWorkingDate style={styles.dateItem} key={date.id} date={date} />
+          <NonWorkingDate key={date.id} date={date} />
         ))}
       </ScrollView>
       <WeekScheduleModal

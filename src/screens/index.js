@@ -12,3 +12,6 @@ export {ChangePassword} from './change-password';
 export {DoctorInfo} from './doctor-info';
 export {ProcedureDetails} from './procedure-details';
 export {VisitDetails} from './visit-details';
+export {NonWorkingDays} from './non-working-days';
+export {Specializations} from './specializations';
+export {WeekDaysSchedule} from './week-days-schedule';

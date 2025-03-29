@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {
   View,
   Text,
@@ -12,18 +12,22 @@ import {
   faShieldHalved,
   faArrowRightFromBracket,
   faKey,
+  faCalendarDays,
+  faStethoscope,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faUser} from '@fortawesome/free-regular-svg-icons';
+import {faCalendarMinus, faUser} from '@fortawesome/free-regular-svg-icons';
 import {COLORS, ACTIVE_BTN_OPACITY} from '@constants';
 import {AccountHeader} from '@components';
 import {withSafeArea} from '@hoc';
 import {useNavigation} from '@react-navigation/native';
 import {useAuth} from '@contexts';
 import {useGetProfileInfo} from '@api-hooks';
+import {useAuthToken} from '@hooks';
 
 function AccountComponent() {
   const {signOut} = useAuth();
+  const {isDoctor} = useAuthToken();
   const navigation = useNavigation();
 
   const handleSignOut = useCallback(() => {
@@ -36,28 +40,72 @@ function AccountComponent() {
     ]);
   }, [signOut]);
 
-  const MENU_ITEMS = [
-    {
-      label: 'Profile',
-      icon: faUser,
-      onPress: () => navigation.navigate('Profile'),
-    },
-    {
-      label: 'Change Password',
-      icon: faKey,
-      onPress: () => navigation.navigate('ChangePassword'),
-    },
-    {
-      label: 'Terms and Privacy',
-      icon: faShieldHalved,
-      onPress: () => navigation.navigate('TermsAndPrivacy'),
-    },
-    {
-      label: 'Logout',
-      icon: faArrowRightFromBracket,
-      onPress: handleSignOut,
-    },
-  ];
+  const MENU_ITEMS = useMemo(() => {
+    var initial = [
+      {
+        label: 'Profile',
+        icon: faUser,
+        onPress: () => navigation.navigate('Profile'),
+      },
+      {
+        label: 'Change Password',
+        icon: faKey,
+        onPress: () => navigation.navigate('ChangePassword'),
+      },
+      {
+        label: 'Terms and Privacy',
+        icon: faShieldHalved,
+        onPress: () => navigation.navigate('TermsAndPrivacy'),
+      },
+      {
+        label: 'Logout',
+        icon: faArrowRightFromBracket,
+        onPress: handleSignOut,
+      },
+    ];
+
+    if (isDoctor) {
+      initial = [
+        {
+          label: 'Profile',
+          icon: faUser,
+          onPress: () => navigation.navigate('Profile'),
+        },
+        {
+          label: 'Specializations',
+          icon: faStethoscope,
+          onPress: () => navigation.navigate('Specializations'),
+        },
+        {
+          label: 'Week days schedule',
+          icon: faCalendarDays,
+          onPress: () => navigation.navigate('WeekDaysSchedule'),
+        },
+        {
+          label: 'Non-working days',
+          icon: faCalendarMinus,
+          onPress: () => navigation.navigate('NonWorkingDays'),
+        },
+        {
+          label: 'Change Password',
+          icon: faKey,
+          onPress: () => navigation.navigate('ChangePassword'),
+        },
+        {
+          label: 'Terms and Privacy',
+          icon: faShieldHalved,
+          onPress: () => navigation.navigate('TermsAndPrivacy'),
+        },
+        {
+          label: 'Logout',
+          icon: faArrowRightFromBracket,
+          onPress: handleSignOut,
+        },
+      ];
+    }
+
+    return initial;
+  }, [isDoctor]);
 
   useGetProfileInfo();
 

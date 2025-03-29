@@ -16,7 +16,7 @@ export function NonWorkingDate({date, style = {}}) {
         />
       </View>
       <Text style={styles.dateText}>
-        {moment(date).format('MMMM Do, YYYY')}
+        {moment(date.notWorkDate).format('MMMM Do, YYYY')}
       </Text>
     </View>
   );
