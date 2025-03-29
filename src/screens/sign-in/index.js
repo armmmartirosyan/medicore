@@ -57,12 +57,13 @@ export function SignIn() {
             onChangeText={setPassword}
             placeholder="···················"
             containerStyle={styles.passwordInput}
+            style={{marginBottom: getSize(56)}}
           />
-          <View style={styles.forgotWrapper}>
+          {/* <View style={styles.forgotWrapper}>
             <Pressable style={styles.forgetBtn}>
               <Text style={styles.forgetText}>Forgot Password?</Text>
             </Pressable>
-          </View>
+          </View> */}
           <SignInButton email={email} password={password} />
           <SignUpLink />
         </View>

@@ -88,16 +88,17 @@ function ChangePasswordComponent() {
             onChangeText={setCurrent}
             placeholder="···················"
           />
-          <View style={styles.forgotWrapper}>
+          {/* <View style={styles.forgotWrapper}>
             <Pressable style={styles.forgetBtn}>
               <Text style={styles.forgetText}>Forgot Password?</Text>
             </Pressable>
-          </View>
+          </View> */}
           <PasswordInput
             label="New Password"
             value={newPass}
             onChangeText={setNewPass}
             placeholder="···················"
+            containerStyle={styles.input}
           />
           <PasswordInput
             label="Confirm New Password"
