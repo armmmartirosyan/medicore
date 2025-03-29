@@ -5,6 +5,11 @@ import {store} from '@store/index';
 import {AuthProvider} from '@contexts';
 import {ReactQueryProvider} from '@api-hooks';
 import {AlertNotificationRoot} from 'react-native-alert-notification';
+import {LogBox} from 'react-native';
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 export default function App() {
   return (

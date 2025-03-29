@@ -3,6 +3,8 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import {useGetMedicinesAssigned} from '@api-hooks';
 import {HeadText, MedicineCard} from '@components';
 import {withSafeArea} from '@hoc';
+import {useQueryClient} from 'react-query';
+import {useNavigation} from '@react-navigation/native';
 
 const MOCK_MEDICINES = [
   {
@@ -83,6 +85,8 @@ const MOCK_MEDICINES = [
 ];
 
 function MedicinesComponent() {
+  const queryClient = useQueryClient();
+  const navigation = useNavigation();
   const [medicinesAssigned, setMedicinesAssigned] = useState([]);
   const [allowNext, setAllowNext] = useState(false);
   const [page, setPage] = useState(1);
@@ -103,6 +107,14 @@ function MedicinesComponent() {
     }
   };
 
+  const onSuccess = () => {
+    setMedicinesAssigned([]);
+    setAllowNext(false);
+    setPage(1);
+    queryClient.invalidateQueries(['get-medicines-assigned']);
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
       <HeadText style={styles.headerText}>Assigned Medicines</HeadText>
@@ -111,7 +123,9 @@ function MedicinesComponent() {
         data={medicinesAssigned}
         keyExtractor={ma => ma.id}
         onEndReached={handleEndReached}
-        renderItem={({item}) => <MedicineCard key={item.key} medicine={item} />}
+        renderItem={({item}) => (
+          <MedicineCard key={item.key} medicine={item} onSuccess={onSuccess} />
+        )}
       />
     </View>
   );

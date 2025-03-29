@@ -23,7 +23,7 @@ import {
   faTrash,
   faUpload,
 } from '@fortawesome/free-solid-svg-icons';
-import {HeadText} from '@components';
+import {HeadText, AddMedicine} from '@components';
 import {withSafeArea} from '@hoc';
 import {COLORS, FONTS, ACTIVE_BTN_OPACITY, API_BASE_URL} from '@constants';
 import moment from 'moment';
@@ -32,6 +32,7 @@ import {
   useGetVisitProcedureById,
   useVisitProcedureUploadImages,
   useDeleteVisitProcedureImage,
+  useDeleteMedicine,
 } from '@api-hooks';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -44,6 +45,7 @@ function ProcedureDetailsComponent({route}) {
   const navigation = useNavigation();
   const queryClient = useQueryClient();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [addMedicineVisible, setAddMedicineVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const {data: proc} = useGetVisitProcedureById({id});
@@ -57,6 +59,14 @@ function ProcedureDetailsComponent({route}) {
   const closeImageModal = () => {
     setIsModalVisible(false);
     setSelectedImage(null);
+  };
+
+  const openAddMedicineModal = () => {
+    setAddMedicineVisible(true);
+  };
+
+  const closeAddMedicineModal = () => {
+    setAddMedicineVisible(false);
   };
 
   const renderImage = ({item}) => (
@@ -86,6 +96,26 @@ function ProcedureDetailsComponent({route}) {
         title: 'Fail',
         type: ALERT_TYPE.DANGER,
         textBody: e?.data?.message || 'Unable to delete the procedure.',
+      });
+    },
+  });
+
+  const {mutate: deleteMedicine} = useDeleteMedicine({
+    onSuccess: () => {
+      queryClient.invalidateQueries(['get-visit-procedure-by-id']);
+      Toast.show({
+        autoClose: 2000,
+        title: 'Done',
+        type: ALERT_TYPE.SUCCESS,
+        textBody: 'The medicine deleted successfully.',
+      });
+    },
+    onError: e => {
+      Toast.show({
+        autoClose: 2000,
+        title: 'Fail',
+        type: ALERT_TYPE.DANGER,
+        textBody: e?.data?.message || 'Unable to delete the medicine.',
       });
     },
   });
@@ -215,16 +245,44 @@ function ProcedureDetailsComponent({route}) {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Assigned Medicines</Text>
+        <View style={styles.imagesTitleUpload}>
+          <Text style={{...styles.sectionTitle, marginBottom: 0}}>
+            Assigned Medicines
+          </Text>
+          {isDoctor && (
+            <TouchableOpacity
+              activeOpacity={ACTIVE_BTN_OPACITY}
+              onPress={openAddMedicineModal}>
+              <FontAwesomeIcon
+                icon={faPlus}
+                size={15}
+                color={COLORS.PRIMARY_BLUE}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
         {procedure?.medicinesAssigneds?.length > 0 ? (
           procedure?.medicinesAssigneds?.map(medicine => (
             <View key={medicine.id} style={styles.medicineCard}>
-              <FontAwesomeIcon
-                size={16}
-                icon={faCapsules}
-                color={COLORS.PRIMARY_BLUE}
-              />
-              <Text style={styles.medicineText}>{medicine.name}</Text>
+              <View key={medicine.id} style={styles.medicineCardLeft}>
+                <FontAwesomeIcon
+                  size={16}
+                  icon={faCapsules}
+                  color={COLORS.PRIMARY_BLUE}
+                />
+                <Text style={styles.medicineText}>{medicine.name}</Text>
+              </View>
+              {isDoctor && (
+                <TouchableOpacity
+                  activeOpacity={ACTIVE_BTN_OPACITY}
+                  onPress={() => deleteMedicine(medicine.id)}>
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    size={15}
+                    color={COLORS.RED}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
           ))
         ) : (
@@ -246,12 +304,6 @@ function ProcedureDetailsComponent({route}) {
             onPress={() => deleteVisitProcedure(procedure?.id)}
             style={{...styles.action, backgroundColor: COLORS.RED}}>
             <FontAwesomeIcon icon={faTrash} color="white" size={15} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={ACTIVE_BTN_OPACITY}
-            style={{...styles.action, ...styles.deleteAction}}>
-            <FontAwesomeIcon icon={faPlus} color="white" size={15} />
-            <Text style={styles.actionText}>Medicine</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -284,6 +336,14 @@ function ProcedureDetailsComponent({route}) {
           )}
         </View>
       </Modal>
+
+      {addMedicineVisible && (
+        <AddMedicine
+          modalVisible={addMedicineVisible}
+          closeModal={closeAddMedicineModal}
+          visitProcedure={procedure}
+        />
+      )}
     </ScrollView>
   );
 }
@@ -346,6 +406,7 @@ const styles = StyleSheet.create({
   medicineCard: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
     padding: 12,
@@ -355,6 +416,10 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 4,
     elevation: 2,
+  },
+  medicineCardLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   deleteImage: {
     position: 'absolute',

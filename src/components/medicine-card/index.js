@@ -4,7 +4,7 @@ import {FONTS, COLORS, ACTIVE_BTN_OPACITY} from '@constants';
 import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
 
-export const MedicineCard = ({medicine}) => {
+export const MedicineCard = ({medicine, onSuccess}) => {
   const navigation = useNavigation();
 
   return (
@@ -25,7 +25,9 @@ export const MedicineCard = ({medicine}) => {
       <View style={styles.moreContainer}>
         <TouchableOpacity
           activeOpacity={ACTIVE_BTN_OPACITY}
-          onPress={() => navigation.navigate('MedicineDetails', {...medicine})}>
+          onPress={() =>
+            navigation.navigate('MedicineDetails', {...medicine, onSuccess})
+          }>
           <Text style={styles.moreText}>{'More >'}</Text>
         </TouchableOpacity>
       </View>

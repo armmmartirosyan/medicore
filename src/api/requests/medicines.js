@@ -12,7 +12,21 @@ function getMedicineById(id) {
     .then(data => data?.data);
 }
 
+function addMedicine(params) {
+  return axiosClient
+    .post('MedicinesAssigned/Add', params)
+    .then(data => data?.data);
+}
+
+function deleteMedicine(id) {
+  return axiosClient
+    .delete(`MedicinesAssigned/Delete/${id}`)
+    .then(data => data?.data);
+}
+
 export const medicinesRequests = {
+  addMedicine,
   getMedicines,
+  deleteMedicine,
   getMedicineById,
 };

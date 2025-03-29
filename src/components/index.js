@@ -18,3 +18,4 @@ export {ProfileImageModal} from './profile-image-modal';
 export {Select} from './select';
 export {TimePicker} from './time-picker';
 export {AddVisitProcedure} from './add-visit-procedure';
+export {AddMedicine} from './add-medicine';
