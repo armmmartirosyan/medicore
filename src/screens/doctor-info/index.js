@@ -12,6 +12,8 @@ import {
   faAngleLeft,
   faPhone,
   faCalendarMinus,
+  faStethoscope,
+  faClinicMedical,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCalendarDays} from '@fortawesome/free-regular-svg-icons';
@@ -114,9 +116,21 @@ export default function DoctorInfoComponent({route, navigation}) {
           <Text style={styles.name}>
             {doctor.firstName} {doctor.lastName}
           </Text>
-          <Text style={styles.specialization}>
-            {doctor.doctorsSpecializations[0].specialization.name}
-          </Text>
+          <View style={styles.row}>
+            <FontAwesomeIcon icon={faStethoscope} color="black" size={15} />
+            <Text style={styles.specialization}>
+              {doctor.doctorsSpecializations[0].specialization.name}
+            </Text>
+          </View>
+          {doctor.clinic?.name && (
+            <View style={styles.row}>
+              <FontAwesomeIcon icon={faClinicMedical} color="black" size={15} />
+              <Text style={styles.specialization}>
+                {doctor.clinic.name}
+                {`(${doctor.clinic.address})`}
+              </Text>
+            </View>
+          )}
         </View>
       </View>
       <View style={styles.nonWorkingTitleBlock}>
@@ -218,13 +232,20 @@ const styles = StyleSheet.create({
     color: COLORS.PRIMARY_BLUE,
     fontFamily: FONTS.MEDIUM,
     fontSize: 15,
-    marginRight: 5,
   },
   specialization: {
     color: 'black',
     fontFamily: FONTS.LIGHT,
     fontSize: 15,
-    marginRight: 5,
+    marginLeft: 8,
+    textAlign: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
   },
   nonWorkingTitle: {
     color: COLORS.PRIMARY_BLUE,

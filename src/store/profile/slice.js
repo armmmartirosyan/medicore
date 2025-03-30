@@ -9,6 +9,7 @@ const initialState = {
   birthDate: null,
   imageUrl: '',
   doctorsSpecializations: [],
+  clinic: null,
 };
 
 export const profileSlice = createSlice({

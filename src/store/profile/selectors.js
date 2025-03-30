@@ -4,6 +4,8 @@ const profileBaseSelector = store => store.profile;
 
 const id = createSelector(profileBaseSelector, state => state.id);
 
+const clinic = createSelector(profileBaseSelector, state => state.clinic);
+
 const fNameSelector = createSelector(
   profileBaseSelector,
   state => state.firstName,
@@ -41,6 +43,7 @@ const doctorSpecializations = createSelector(
 
 export const profileSelectors = {
   id,
+  clinic,
   fNameSelector,
   lNameSelector,
   phoneNumberSelector,

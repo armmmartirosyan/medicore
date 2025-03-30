@@ -3,6 +3,11 @@ import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import {COLORS, FONTS, API_BASE_URL} from '@constants';
 import {getSize} from '@utils';
 import {DefaultDoctor as defaultDoctor} from '@images';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faClinicMedical,
+  faStethoscope,
+} from '@fortawesome/free-solid-svg-icons';
 
 export function DoctorCard({doctor, style, onPress}) {
   return (
@@ -19,9 +24,18 @@ export function DoctorCard({doctor, style, onPress}) {
         <Text style={styles.name}>
           {doctor.firstName} {doctor.lastName}
         </Text>
-        <Text style={styles.specialization}>
-          {doctor.doctorsSpecializations?.[0]?.specialization?.name}
-        </Text>
+        <View style={styles.row}>
+          <FontAwesomeIcon icon={faStethoscope} color="black" size={15} />
+          <Text style={styles.specialization}>
+            {doctor.doctorsSpecializations?.[0]?.specialization?.name}
+          </Text>
+        </View>
+        {doctor.clinic?.name && (
+          <View style={styles.row}>
+            <FontAwesomeIcon icon={faClinicMedical} color="black" size={15} />
+            <Text style={styles.specialization}>{doctor.clinic?.name}</Text>
+          </View>
+        )}
       </View>
     </Pressable>
   );
@@ -55,10 +69,19 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.MEDIUM,
     fontSize: getSize(14),
     color: COLORS.PRIMARY_BLUE,
+    width: '100%',
+    textAlign: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
   specialization: {
     fontFamily: FONTS.LIGHT,
     fontSize: getSize(12),
     color: 'black',
+    marginLeft: 6,
   },
 });
