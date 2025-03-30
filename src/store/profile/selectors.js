@@ -2,6 +2,8 @@ import {createSelector} from '@reduxjs/toolkit';
 
 const profileBaseSelector = store => store.profile;
 
+const id = createSelector(profileBaseSelector, state => state.id);
+
 const fNameSelector = createSelector(
   profileBaseSelector,
   state => state.firstName,
@@ -38,6 +40,7 @@ const doctorSpecializations = createSelector(
 );
 
 export const profileSelectors = {
+  id,
   fNameSelector,
   lNameSelector,
   phoneNumberSelector,

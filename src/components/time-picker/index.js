@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {TimerPickerModal} from 'react-native-timer-picker';
 import {ACTIVE_BTN_OPACITY} from '@constants';
 import {FONTS, COLORS} from '@constants';
-import {getSize} from '@utils';
+import {getSize, normalizeTime} from '@utils';
 
 export function TimePicker({
   onChange = () => {},
@@ -23,12 +23,11 @@ export function TimePicker({
   };
 
   const showValue = useMemo(() => {
-    if (!value || !value.hours) {
+    const {hours, minutes} = normalizeTime(value);
+
+    if (!hours) {
       return '';
     }
-
-    const hours = value.hours < 10 ? '0' + value.hours : value.hours;
-    const minutes = value.minutes < 10 ? '0' + value.minutes : value.minutes;
 
     return `${hours} : ${minutes}`;
   }, [value]);

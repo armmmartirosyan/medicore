@@ -159,18 +159,20 @@ export function AddVisit({modalVisible, closeModal}) {
             />
             <Text style={styles.infoText}>{INFO}</Text>
           </View>
-          <Select
-            data={doctors}
-            placeholder="Select a Doctor"
-            containerStyle={styles.input}
-            onScrollEndReached={handleEndReached}
-            onSelect={selected => handleValueChange({doctorId: selected.id})}
-            renderCurrentItem={item =>
-              `${item?.firstName} ${item?.lastName}${
-                item?.clinic?.name ? ' (' + item?.clinic?.name + ')' : ''
-              }`
-            }
-          />
+          {!visitId && (
+            <Select
+              data={doctors}
+              placeholder="Select a Doctor"
+              containerStyle={styles.input}
+              onScrollEndReached={handleEndReached}
+              onSelect={selected => handleValueChange({doctorId: selected.id})}
+              renderCurrentItem={item =>
+                `${item?.firstName} ${item?.lastName}${
+                  item?.clinic?.name ? ' (' + item?.clinic?.name + ')' : ''
+                }`
+              }
+            />
+          )}
           <DatePicker
             value={date}
             onDateChange={newDate => handleValueChange({date: newDate})}

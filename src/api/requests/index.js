@@ -1,5 +1,6 @@
 export {authRequests} from './auth';
 export {visitRequests} from './visit';
-export {procedureRequests} from './procedures';
+export {weekDaysRequests} from './week-days';
 export {medicinesRequests} from './medicines';
+export {procedureRequests} from './procedures';
 export {nonWorkingDaysRequests} from './non-working-days';

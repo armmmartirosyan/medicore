@@ -38,3 +38,23 @@ export function getSafeNumber(number) {
 
   return safeNumber;
 }
+
+export function normalizeTime(value) {
+  if (!value || !value.hours) {
+    return {};
+  }
+
+  const hours =
+    value.hours < 10 && (value.hours + '')?.length < 2
+      ? '0' + value.hours
+      : value.hours;
+  const minutes =
+    value.minutes < 10 && (value.minutes + '')?.length < 2
+      ? '0' + value.minutes
+      : value.minutes;
+
+  return {
+    hours,
+    minutes,
+  };
+}
