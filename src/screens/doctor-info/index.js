@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   specialization: {
     color: 'black',
     fontFamily: FONTS.LIGHT,
-    fontSize: getSize(15),
+    fontSize: getSize(13),
     marginLeft: getSize(8),
     textAlign: 'center',
   },

@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     marginRight: getSize(15),
   },
   actionBtn: {
-    marginLeft: getSize(40),
+    marginLeft: getSize(20),
     padding: getSize(5),
     borderRadius: getSize(20),
   },
