@@ -18,6 +18,7 @@ import {useEditVisit} from '@api-hooks';
 import {useNavigation} from '@react-navigation/native';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {useAuthToken} from '@hooks';
+import {getSize} from '@utils';
 
 export function VisitCard({item, visits, openModal}) {
   const {isPatient, isDoctor} = useAuthToken();
@@ -132,7 +133,7 @@ export function VisitCard({item, visits, openModal}) {
                   <FontAwesomeIcon
                     icon={faStethoscope}
                     color={COLORS.PROFOUND_BLACK}
-                    size={12}
+                    size={getSize(12)}
                   />
                   <Text style={styles.doctorName}>
                     {visit.doctor.firstName} {visit.doctor.lastName}
@@ -142,7 +143,7 @@ export function VisitCard({item, visits, openModal}) {
                   <FontAwesomeIcon
                     icon={faUser}
                     color={COLORS.PROFOUND_BLACK}
-                    size={12}
+                    size={getSize(12)}
                   />
                   <Text style={styles.patientName}>
                     {visit.patient.firstName} {visit.patient.lastName}
@@ -155,7 +156,7 @@ export function VisitCard({item, visits, openModal}) {
                 <FontAwesomeIcon
                   icon={faXmarkCircle}
                   color={COLORS.RED}
-                  size={15}
+                  size={getSize(15)}
                 />
               </View>
             )}
@@ -165,7 +166,7 @@ export function VisitCard({item, visits, openModal}) {
                   <FontAwesomeIcon
                     icon={faHourglassHalf}
                     color={COLORS.PROFOUND_BLACK}
-                    size={15}
+                    size={getSize(15)}
                   />
                 </View>
                 <TouchableOpacity
@@ -175,7 +176,7 @@ export function VisitCard({item, visits, openModal}) {
                   <FontAwesomeIcon
                     icon={faPencil}
                     color={COLORS.PROFOUND_BLACK}
-                    size={15}
+                    size={getSize(15)}
                   />
                 </TouchableOpacity>
               </>
@@ -194,7 +195,7 @@ export function VisitCard({item, visits, openModal}) {
                   <FontAwesomeIcon
                     icon={faCheck}
                     color={COLORS.PRIMARY_BLUE}
-                    size={15}
+                    size={getSize(15)}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -209,7 +210,7 @@ export function VisitCard({item, visits, openModal}) {
                   <FontAwesomeIcon
                     icon={faXmark}
                     color={COLORS.RED}
-                    size={15}
+                    size={getSize(15)}
                   />
                 </TouchableOpacity>
               </>
@@ -225,58 +226,58 @@ export function VisitCard({item, visits, openModal}) {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
+    marginBottom: getSize(10),
   },
   dayContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: getSize(15),
   },
   dayMonth: {
     fontFamily: FONTS.MEDIUM,
     color: COLORS.PRIMARY_BLUE,
-    fontSize: 18,
+    fontSize: getSize(18),
   },
   weekDay: {
     fontFamily: FONTS.LIGHT,
     color: COLORS.PRIMARY_BLUE,
-    fontSize: 14,
-    marginLeft: 10,
+    fontSize: getSize(14),
+    marginLeft: getSize(10),
   },
   noVisitText: {
     fontFamily: FONTS.LIGHT,
     color: COLORS.GRAYISH,
-    fontSize: 14,
-    marginLeft: 15,
-    marginBottom: 15,
+    fontSize: getSize(14),
+    marginLeft: getSize(15),
+    marginBottom: getSize(15),
   },
   visitCard: {
-    marginBottom: 15,
+    marginBottom: getSize(15),
     flexDirection: 'row',
     alignItems: 'center',
   },
   timeContainer: {
-    width: 70,
+    width: getSize(70),
   },
   dash: {
-    width: 2,
+    width: getSize(2),
     height: '100%',
     backgroundColor: COLORS.ACTIVE_BLUE,
-    borderRadius: 3,
+    borderRadius: getSize(3),
   },
   nameContainer: {
-    marginLeft: 15,
+    marginLeft: getSize(15),
   },
   startTime: {
     fontFamily: FONTS.REGULAR,
     color: COLORS.PROFOUND_BLACK,
-    fontSize: 16,
-    marginBottom: 5,
+    fontSize: getSize(16),
+    marginBottom: getSize(5),
   },
   endTime: {
     fontFamily: FONTS.REGULAR,
     color: COLORS.GRAYISH,
-    fontSize: 12,
+    fontSize: getSize(12),
   },
   doctorPatientNameContainer: {
     flexDirection: 'row',
@@ -284,31 +285,31 @@ const styles = StyleSheet.create({
   doctorName: {
     fontFamily: FONTS.REGULAR,
     color: COLORS.PROFOUND_BLACK,
-    fontSize: 16,
-    marginBottom: 5,
-    marginLeft: 5,
+    fontSize: getSize(16),
+    marginBottom: getSize(5),
+    marginLeft: getSize(5),
   },
   patientName: {
     fontFamily: FONTS.REGULAR,
     color: COLORS.PROFOUND_BLACK,
-    fontSize: 14,
-    marginLeft: 5,
+    fontSize: getSize(14),
+    marginLeft: getSize(5),
   },
   pencilContainer: {
     flex: 1,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    marginRight: 15,
+    marginRight: getSize(15),
   },
   iconWrapper: {
     flex: 1,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    marginRight: 15,
+    marginRight: getSize(15),
   },
   actionBtn: {
-    marginLeft: 40,
-    padding: 5,
-    borderRadius: 20,
+    marginLeft: getSize(40),
+    padding: getSize(5),
+    borderRadius: getSize(20),
   },
 });

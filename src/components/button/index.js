@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   activityIndicator: {
-    marginLeft: 10,
+    marginLeft: getSize(10),
   },
   primaryContainer: {
     backgroundColor: COLORS.PRIMARY_BLUE,

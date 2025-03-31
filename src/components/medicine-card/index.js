@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {FONTS, COLORS, ACTIVE_BTN_OPACITY} from '@constants';
 import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
+import {getSize} from '@utils';
 
 export const MedicineCard = ({medicine, onSuccess}) => {
   const navigation = useNavigation();
@@ -38,35 +39,35 @@ export const MedicineCard = ({medicine, onSuccess}) => {
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: COLORS.SOLITUDE_BLUE,
-    borderRadius: 12,
-    padding: 16,
-    marginVertical: 8,
+    borderRadius: getSize(12),
+    padding: getSize(16),
+    marginVertical: getSize(8),
   },
   infoContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: getSize(10),
   },
   medicineName: {
-    fontSize: 20,
+    fontSize: getSize(20),
     fontFamily: FONTS.SEMI_BOLD,
     color: COLORS.PRIMARY_BLUE,
-    marginBottom: 12,
+    marginBottom: getSize(12),
   },
   detailText: {
-    fontSize: 14,
+    fontSize: getSize(14),
     fontFamily: FONTS.REGULAR,
     color: COLORS.PROFOUND_BLACK,
-    marginBottom: 4,
+    marginBottom: getSize(4),
   },
   moreContainer: {
     width: '100%',
     alignItems: 'flex-end',
   },
   moreText: {
-    fontSize: 14,
+    fontSize: getSize(14),
     fontFamily: FONTS.SEMI_BOLD,
     color: COLORS.PRIMARY_BLUE,
   },

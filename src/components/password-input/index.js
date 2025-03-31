@@ -26,7 +26,7 @@ export const PasswordInput = memo(({label, style, containerStyle, ...rest}) => {
           <FontAwesomeIcon
             icon={showPassword ? faEye : faEyeSlash}
             style={styles.eye}
-            size={20}
+            size={getSize(20)}
           />
         </Pressable>
       </View>

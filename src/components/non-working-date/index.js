@@ -4,6 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCalendarXmark} from '@fortawesome/free-solid-svg-icons';
 import {COLORS, FONTS} from '@constants';
+import {getSize} from '@utils';
 
 export function NonWorkingDate({date, style = {}}) {
   return (
@@ -12,7 +13,7 @@ export function NonWorkingDate({date, style = {}}) {
         <FontAwesomeIcon
           icon={faCalendarXmark}
           color={COLORS.ACTIVE_BLUE}
-          size={20}
+          size={getSize(20)}
         />
       </View>
       <Text style={styles.dateText}>
@@ -31,18 +32,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
-    paddingVertical: 5,
+    marginBottom: getSize(10),
+    paddingVertical: getSize(5),
   },
   dateText: {
     color: 'black',
     fontFamily: FONTS.MEDIUM,
-    fontSize: 15,
+    fontSize: getSize(15),
     width: '65%',
   },
   iconContainer: {
     width: '35%',
     alignItems: 'flex-end',
-    marginRight: 10,
+    marginRight: getSize(10),
   },
 });

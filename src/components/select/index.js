@@ -35,7 +35,7 @@ export function Select({
             </Text>
             <FontAwesomeIcon
               icon={isOpen ? faAngleUp : faAngleDown}
-              size={15}
+              size={getSize(15)}
               color={
                 hasSelectedItem ? COLORS.PRIMARY_BLUE : COLORS.PLACEHOLDER_BLUE
               }
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.REGULAR,
   },
   dropdownButtonArrowStyle: {
-    fontSize: 28,
+    fontSize: getSize(28),
     color: 'red',
   },
   dropdownMenuStyle: {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: getSize(13),
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: getSize(10),
   },
   dropdownItemTxtStyle: {
     flex: 1,

@@ -25,14 +25,22 @@ export function DoctorCard({doctor, style, onPress}) {
           {doctor.firstName} {doctor.lastName}
         </Text>
         <View style={styles.row}>
-          <FontAwesomeIcon icon={faStethoscope} color="black" size={15} />
+          <FontAwesomeIcon
+            icon={faStethoscope}
+            color="black"
+            size={getSize(15)}
+          />
           <Text style={styles.specialization}>
             {doctor.doctorsSpecializations?.[0]?.specialization?.name}
           </Text>
         </View>
         {doctor.clinic?.name && (
           <View style={styles.row}>
-            <FontAwesomeIcon icon={faClinicMedical} color="black" size={15} />
+            <FontAwesomeIcon
+              icon={faClinicMedical}
+              color="black"
+              size={getSize(15)}
+            />
             <Text style={styles.specialization}>{doctor.clinic?.name}</Text>
           </View>
         )}
@@ -82,6 +90,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.LIGHT,
     fontSize: getSize(12),
     color: 'black',
-    marginLeft: 6,
+    marginLeft: getSize(6),
   },
 });

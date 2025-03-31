@@ -12,6 +12,7 @@ import {profileSelectors} from '@store/profile';
 import {useSelector} from 'react-redux';
 import {ProfileImageModal} from '@components';
 import {useAuthToken} from '@hooks';
+import {getSize} from '@utils';
 
 export function AccountHeader({showName = true, allowChangePicture}) {
   const {isDoctor} = useAuthToken();
@@ -39,7 +40,7 @@ export function AccountHeader({showName = true, allowChangePicture}) {
             style={styles.editButton}
             activeOpacity={ACTIVE_BTN_OPACITY}
             onPress={() => setModalVisible(true)}>
-            <FontAwesomeIcon color="white" icon={faPencil} size={13} />
+            <FontAwesomeIcon color="white" icon={faPencil} size={getSize(13)} />
           </TouchableOpacity>
         )}
       </View>
@@ -51,13 +52,21 @@ export function AccountHeader({showName = true, allowChangePicture}) {
       {!showName && isDoctor && (
         <>
           <View style={styles.row}>
-            <FontAwesomeIcon icon={faStethoscope} color="black" size={15} />
+            <FontAwesomeIcon
+              icon={faStethoscope}
+              color="black"
+              size={getSize(15)}
+            />
             <Text style={styles.specializationClinic}>
               {doctorSpecializations?.[0]?.specialization?.name}
             </Text>
           </View>
           <View style={styles.row}>
-            <FontAwesomeIcon icon={faClinicMedical} color="black" size={15} />
+            <FontAwesomeIcon
+              icon={faClinicMedical}
+              color="black"
+              size={getSize(15)}
+            />
             <Text style={styles.specializationClinic}>{clinic?.name}</Text>
           </View>
         </>
@@ -73,51 +82,51 @@ export function AccountHeader({showName = true, allowChangePicture}) {
 const styles = StyleSheet.create({
   headerText: {
     fontFamily: FONTS.SEMI_BOLD,
-    fontSize: 24,
-    marginBottom: 12,
+    fontSize: getSize(24),
+    marginBottom: getSize(12),
     color: COLORS.PRIMARY_BLUE,
   },
   imageWrapper: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 15,
+    width: getSize(100),
+    height: getSize(100),
+    borderRadius: getSize(50),
+    marginBottom: getSize(15),
     position: 'relative',
   },
   profileHeader: {
     alignItems: 'center',
-    padding: 20,
+    padding: getSize(20),
   },
   profilePicture: {
     width: '100%',
     height: '100%',
-    borderRadius: 50,
+    borderRadius: getSize(50),
   },
   row: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: getSize(10),
   },
   userName: {
     fontFamily: FONTS.SEMI_BOLD,
-    fontSize: 24,
+    fontSize: getSize(24),
     color: 'black',
   },
   specializationClinic: {
     fontFamily: FONTS.SEMI_BOLD,
-    fontSize: 18,
+    fontSize: getSize(18),
     color: 'black',
-    marginLeft: 6,
+    marginLeft: getSize(6),
   },
   editButton: {
     position: 'absolute',
-    bottom: 5,
+    bottom: getSize(5),
     right: -1,
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: getSize(28),
+    height: getSize(28),
+    borderRadius: getSize(14),
     backgroundColor: COLORS.PRIMARY_BLUE,
     justifyContent: 'center',
     alignItems: 'center',

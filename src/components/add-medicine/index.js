@@ -89,7 +89,11 @@ export function AddMedicine({modalVisible, closeModal, visitProcedure}) {
           <View style={styles.headWrapper}>
             <HeadText>Add Medicine</HeadText>
             <Pressable onPress={handleClose}>
-              <FontAwesomeIcon icon={faXmark} size={20} color="black" />
+              <FontAwesomeIcon
+                icon={faXmark}
+                size={getSize(20)}
+                color="black"
+              />
             </Pressable>
           </View>
           <Input
@@ -158,30 +162,30 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: '90%',
-    padding: 20,
+    padding: getSize(20),
     backgroundColor: '#fff',
-    borderRadius: 20,
+    borderRadius: getSize(20),
   },
   headWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
-  input: {marginBottom: 20},
+  input: {marginBottom: getSize(20)},
   view: {
     width: '100%',
     alignItems: 'center',
   },
   infoView: {
     flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: getSize(20),
     justifyContent: 'center',
     alignItems: 'center',
   },
   infoText: {
     color: COLORS.ACTIVE_BLUE,
-    marginLeft: 10,
+    marginLeft: getSize(10),
     width: '85%',
   },
   imageUploadBtn: {
@@ -190,7 +194,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: getSize(13),
     borderRadius: getSize(13),
     backgroundColor: COLORS.SOLITUDE_BLUE,
-    marginBottom: 20,
+    marginBottom: getSize(20),
     justifyContent: 'center',
   },
   imageUploadText: {
@@ -206,11 +210,11 @@ const styles = StyleSheet.create({
   imageWrapper: {
     width: '100%',
     position: 'relative',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   image: {
     width: '100%',
-    height: 100,
+    height: getSize(100),
   },
   removeImage: {
     position: 'absolute',

@@ -8,6 +8,7 @@ import {HeadText, Button} from '@components';
 import {COLORS} from '@constants';
 import {profileSelectors} from '@store/profile';
 import {useSelector} from 'react-redux';
+import {getSize} from '@utils';
 
 export function ProfileImageModal({visible, onClose}) {
   const imageUrl = useSelector(profileSelectors.imageSelector);
@@ -42,14 +43,18 @@ export function ProfileImageModal({visible, onClose}) {
           <TouchableOpacity style={styles.optionButton} onPress={selectImage}>
             <FontAwesomeIcon
               icon={faImage}
-              size={24}
+              size={getSize(24)}
               color={COLORS.ACTIVE_BLUE}
             />
             <Text style={styles.optionText}>Update Image</Text>
           </TouchableOpacity>
           {imageUrl && (
             <TouchableOpacity style={styles.optionButton} onPress={deleteImage}>
-              <FontAwesomeIcon icon={faTrash} size={24} color={COLORS.RED} />
+              <FontAwesomeIcon
+                icon={faTrash}
+                size={getSize(24)}
+                color={COLORS.RED}
+              />
               <Text style={[styles.optionText, {color: COLORS.RED}]}>
                 Delete Image
               </Text>
@@ -76,35 +81,35 @@ const styles = StyleSheet.create({
   modalContainer: {
     width: '85%',
     backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 15,
+    padding: getSize(20),
+    borderRadius: getSize(15),
     alignItems: 'center',
     shadowColor: 'black',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: {width: 0, height: getSize(2)},
     shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowRadius: getSize(4),
+    elevation: getSize(5),
   },
   title: {
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   optionButton: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.LIGHT_GREY,
-    paddingVertical: 12,
-    paddingHorizontal: 15,
-    borderRadius: 10,
-    marginVertical: 5,
+    paddingVertical: getSize(12),
+    paddingHorizontal: getSize(15),
+    borderRadius: getSize(10),
+    marginVertical: getSize(5),
     width: '100%',
   },
   optionText: {
-    fontSize: 16,
-    marginLeft: 10,
+    fontSize: getSize(16),
+    marginLeft: getSize(10),
     fontWeight: '500',
     color: COLORS.ACTIVE_BLUE,
   },
   cancelButton: {
-    marginTop: 20,
+    marginTop: getSize(20),
   },
 });

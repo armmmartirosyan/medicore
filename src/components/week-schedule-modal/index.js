@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircle} from '@fortawesome/free-solid-svg-icons';
 import {HeadText, Button} from '@components';
 import {COLORS, FONTS, WEEK_DAYS} from '@constants';
+import {getSize} from '@utils';
 
 export function WeekScheduleModal({schedule, visible, onClose}) {
   const localSchedule = useMemo(() => {
@@ -45,7 +46,7 @@ export function WeekScheduleModal({schedule, visible, onClose}) {
               <View style={styles.scheduleItem} key={index}>
                 <View style={styles.dayContainer}>
                   <FontAwesomeIcon
-                    size={12}
+                    size={getSize(12)}
                     icon={faCircle}
                     color={item.startTime === 'Closed' ? '#D9534F' : '#4CAF50'}
                   />
@@ -81,25 +82,25 @@ const styles = StyleSheet.create({
   modalContent: {
     width: '90%',
     backgroundColor: 'white',
-    borderRadius: 16,
-    padding: 20,
+    borderRadius: getSize(16),
+    padding: getSize(20),
     shadowColor: 'black',
     shadowOpacity: 0.25,
-    shadowOffset: {width: 0, height: 2},
-    shadowRadius: 8,
+    shadowOffset: {width: 0, height: getSize(2)},
+    shadowRadius: getSize(8),
   },
   modalTitle: {
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: getSize(16),
   },
   scrollContent: {
-    paddingVertical: 8,
+    paddingVertical: getSize(8),
   },
   scheduleItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: getSize(8),
     borderBottomWidth: 1,
     borderBottomColor: '#E5E7EB',
   },
@@ -108,22 +109,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dayText: {
-    marginLeft: 8,
-    fontSize: 16,
+    marginLeft: getSize(8),
+    fontSize: getSize(16),
     fontFamily: FONTS.SEMI_BOLD,
     color: COLORS.PROFOUND_BLACK,
   },
   timeText: {
-    fontSize: 14,
+    fontSize: getSize(14),
     fontFamily: FONTS.REGULAR,
     color: COLORS.GRAYISH,
   },
   closeButton: {
-    marginTop: 16,
-    height: 40,
+    marginTop: getSize(16),
+    height: getSize(40),
     width: '100%',
   },
   textStyle: {
-    fontSize: 18,
+    fontSize: getSize(18),
   },
 });

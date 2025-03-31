@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {FONTS, COLORS} from '@constants';
 import moment from 'moment/moment';
+import {getSize} from '@utils';
 
 export function ProcedureCard({procedure, onPress}) {
   return (
@@ -14,7 +15,7 @@ export function ProcedureCard({procedure, onPress}) {
       <View style={styles.cardHeader}>
         <FontAwesomeIcon
           icon={faClipboardList}
-          size={20}
+          size={getSize(20)}
           color={COLORS.ACTIVE_BLUE}
         />
         <Text style={styles.procedureName}>{procedure?.procedure.name}</Text>
@@ -22,7 +23,7 @@ export function ProcedureCard({procedure, onPress}) {
       <View style={styles.cardFooter}>
         <FontAwesomeIcon
           icon={faCalendarDays}
-          size={16}
+          size={getSize(16)}
           color={COLORS.GRAYISH}
         />
         <Text style={styles.procedureDate}>
@@ -39,22 +40,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 16,
-    marginVertical: 8,
+    borderRadius: getSize(16),
+    padding: getSize(16),
+    marginVertical: getSize(8),
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowOffset: {width: 0, height: 2},
-    shadowRadius: 6,
-    elevation: 3,
+    shadowOffset: {width: 0, height: getSize(2)},
+    shadowRadius: getSize(6),
+    elevation: getSize(3),
   },
   cardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   procedureName: {
-    marginLeft: 8,
-    fontSize: 16,
+    marginLeft: getSize(8),
+    fontSize: getSize(16),
     fontFamily: FONTS.SEMI_BOLD,
     color: COLORS.PROFOUND_BLACK,
   },
@@ -63,8 +64,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   procedureDate: {
-    marginLeft: 8,
-    fontSize: 14,
+    marginLeft: getSize(8),
+    fontSize: getSize(14),
     fontFamily: FONTS.REGULAR,
     color: COLORS.GRAYISH,
   },

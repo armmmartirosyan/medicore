@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   triangle: {
     color: COLORS.PRIMARY_BLUE,
     position: 'relative',
-    bottom: 2,
+    bottom: getSize(2),
   },
   text: {
     marginRight: getSize(3),
