@@ -51,7 +51,7 @@ function WeekDaysScheduleComponent() {
     setSelectedDay(null);
   };
 
-  const {mutate: remove, isLoading: isLoadingRemove} = useRemoveWeekDay({
+  const {mutate: remove} = useRemoveWeekDay({
     onSuccess: () => {
       Toast.show({
         autoClose: 2000,
@@ -81,13 +81,21 @@ function WeekDaysScheduleComponent() {
                 style={styles.updateBtn}
                 onPress={() => openModal(item)}
                 activeOpacity={ACTIVE_BTN_OPACITY}>
-                <FontAwesomeIcon icon={faPencil} color="white" size={10} />
+                <FontAwesomeIcon
+                  icon={faPencil}
+                  color="white"
+                  size={getSize(10)}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.trashBtn}
                 onPress={() => remove(item.info.id)}
                 activeOpacity={ACTIVE_BTN_OPACITY}>
-                <FontAwesomeIcon icon={faTrash} color="white" size={10} />
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  color="white"
+                  size={getSize(10)}
+                />
               </TouchableOpacity>
             </View>
           )}
@@ -114,7 +122,7 @@ function WeekDaysScheduleComponent() {
             style={styles.plusBtn}
             onPress={() => openModal(item)}
             activeOpacity={ACTIVE_BTN_OPACITY}>
-            <FontAwesomeIcon icon={faPlus} color="white" size={20} />
+            <FontAwesomeIcon icon={faPlus} color="white" size={getSize(20)} />
           </TouchableOpacity>
         )}
       </View>
@@ -161,34 +169,34 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginBottom: 45,
+    marginBottom: getSize(45),
   },
   wrapper: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: getSize(10),
   },
   card: {
     backgroundColor: 'white',
-    marginHorizontal: 16,
-    marginVertical: 8,
-    padding: 16,
-    borderRadius: 10,
+    marginHorizontal: getSize(16),
+    marginVertical: getSize(8),
+    padding: getSize(16),
+    borderRadius: getSize(10),
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
+    shadowRadius: getSize(5),
+    elevation: getSize(3),
     position: 'relative',
   },
   dayText: {
     fontFamily: FONTS.MEDIUM,
-    fontSize: 18,
+    fontSize: getSize(18),
     fontWeight: 'bold',
     color: COLORS.PRIMARY_BLUE,
   },
   weekDayNameWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: getSize(8),
     justifyContent: 'space-between',
   },
   dayActionsWrapper: {
@@ -198,44 +206,44 @@ const styles = StyleSheet.create({
   timeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 4,
+    marginBottom: getSize(4),
   },
   timeText: {
     fontFamily: FONTS.REGULAR,
-    fontSize: 16,
+    fontSize: getSize(16),
     color: '#555',
   },
   breakText: {
     fontFamily: FONTS.LIGHT,
-    fontSize: 14,
+    fontSize: getSize(14),
     color: '#888',
     fontStyle: 'italic',
   },
   plusBtn: {
     width: '100%',
-    height: 30,
-    borderRadius: 20,
+    height: getSize(30),
+    borderRadius: getSize(20),
     backgroundColor: COLORS.PRIMARY_BLUE,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: getSize(20),
   },
   trashBtn: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: getSize(20),
+    height: getSize(20),
+    borderRadius: getSize(10),
     backgroundColor: COLORS.RED,
     alignItems: 'center',
     justifyContent: 'center',
   },
   updateBtn: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: getSize(20),
+    height: getSize(20),
+    borderRadius: getSize(10),
     backgroundColor: COLORS.PRIMARY_BLUE,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10,
+    marginRight: getSize(10),
   },
 });
 

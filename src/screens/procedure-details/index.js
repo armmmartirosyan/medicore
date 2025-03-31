@@ -38,6 +38,7 @@ import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useQueryClient} from 'react-query';
 import {useAuthToken} from '@hooks';
+import {getSize} from '@utils';
 
 function ProcedureDetailsComponent({route}) {
   const {onSuccess, id} = route.params;
@@ -179,7 +180,7 @@ function ProcedureDetailsComponent({route}) {
           <FontAwesomeIcon
             style={styles.angleLeft}
             icon={faAngleLeft}
-            size={20}
+            size={getSize(20)}
           />
         </Pressable>
         <HeadText>{procedure?.procedure?.name}</HeadText>
@@ -190,7 +191,7 @@ function ProcedureDetailsComponent({route}) {
         <View style={styles.infoRow}>
           <FontAwesomeIcon
             icon={faCalendarAlt}
-            size={18}
+            size={getSize(18)}
             color={COLORS.PROFOUND_BLACK}
           />
           <Text style={styles.infoText}>
@@ -198,7 +199,11 @@ function ProcedureDetailsComponent({route}) {
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <FontAwesomeIcon icon={faMoneyBillAlt} size={18} color="#10B981" />
+          <FontAwesomeIcon
+            icon={faMoneyBillAlt}
+            size={getSize(18)}
+            color="#10B981"
+          />
           <Text style={styles.infoText}>{procedure?.procedure?.price} AMD</Text>
         </View>
       </View>
@@ -207,7 +212,7 @@ function ProcedureDetailsComponent({route}) {
         <View style={styles.doctorRow}>
           <FontAwesomeIcon
             icon={faUserMd}
-            size={18}
+            size={getSize(18)}
             color={COLORS.PRIMARY_BLUE}
           />
           <Text style={styles.infoText}>{procedure?.doctor?.name}</Text>
@@ -225,7 +230,7 @@ function ProcedureDetailsComponent({route}) {
               onPress={selectImage}>
               <FontAwesomeIcon
                 icon={faUpload}
-                size={15}
+                size={getSize(15)}
                 color={COLORS.PRIMARY_BLUE}
               />
             </TouchableOpacity>
@@ -255,7 +260,7 @@ function ProcedureDetailsComponent({route}) {
               onPress={openAddMedicineModal}>
               <FontAwesomeIcon
                 icon={faPlus}
-                size={15}
+                size={getSize(15)}
                 color={COLORS.PRIMARY_BLUE}
               />
             </TouchableOpacity>
@@ -266,7 +271,7 @@ function ProcedureDetailsComponent({route}) {
             <View key={medicine.id} style={styles.medicineCard}>
               <View key={medicine.id} style={styles.medicineCardLeft}>
                 <FontAwesomeIcon
-                  size={16}
+                  size={getSize(16)}
                   icon={faCapsules}
                   color={COLORS.PRIMARY_BLUE}
                 />
@@ -278,7 +283,7 @@ function ProcedureDetailsComponent({route}) {
                   onPress={() => deleteMedicine(medicine.id)}>
                   <FontAwesomeIcon
                     icon={faTrash}
-                    size={15}
+                    size={getSize(15)}
                     color={COLORS.RED}
                   />
                 </TouchableOpacity>
@@ -303,7 +308,7 @@ function ProcedureDetailsComponent({route}) {
             activeOpacity={ACTIVE_BTN_OPACITY}
             onPress={() => deleteVisitProcedure(procedure?.id)}
             style={{...styles.action, backgroundColor: COLORS.RED}}>
-            <FontAwesomeIcon icon={faTrash} color="white" size={15} />
+            <FontAwesomeIcon icon={faTrash} color="white" size={getSize(15)} />
           </TouchableOpacity>
         </View>
       )}
@@ -318,7 +323,11 @@ function ProcedureDetailsComponent({route}) {
             style={styles.closeButton}
             onPress={closeImageModal}
             activeOpacity={ACTIVE_BTN_OPACITY}>
-            <FontAwesomeIcon icon={faTimes} size={24} color="#FFFFFF" />
+            <FontAwesomeIcon
+              icon={faTimes}
+              size={getSize(24)}
+              color="#FFFFFF"
+            />
           </TouchableOpacity>
           {selectedImage && (
             <Image
@@ -331,7 +340,11 @@ function ProcedureDetailsComponent({route}) {
               activeOpacity={ACTIVE_BTN_OPACITY}
               onPress={() => deleteImage(selectedImage.url)}
               style={styles.deleteImage}>
-              <FontAwesomeIcon icon={faTrash} color="white" size={15} />
+              <FontAwesomeIcon
+                icon={faTrash}
+                color="white"
+                size={getSize(15)}
+              />
             </TouchableOpacity>
           )}
         </View>
@@ -350,7 +363,7 @@ function ProcedureDetailsComponent({route}) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: getSize(16),
     position: 'relative',
     flex: 1,
   },
@@ -359,7 +372,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   angleLeft: {
     color: COLORS.PRIMARY_BLUE,
@@ -367,55 +380,55 @@ const styles = StyleSheet.create({
   infoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 8,
+    marginVertical: getSize(8),
   },
   doctorRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 8,
+    marginVertical: getSize(8),
   },
   infoText: {
-    marginLeft: 8,
-    fontSize: 16,
+    marginLeft: getSize(8),
+    fontSize: getSize(16),
     fontFamily: FONTS.REGULAR,
     color: COLORS.PROFOUND_BLACK,
   },
   section: {
-    marginVertical: 16,
+    marginVertical: getSize(16),
   },
   imagesTitleUpload: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 8,
-    marginRight: 15,
+    marginBottom: getSize(8),
+    marginRight: getSize(15),
   },
   sectionTitle: {
     fontFamily: FONTS.SEMI_BOLD,
     color: COLORS.PRIMARY_BLUE,
-    fontSize: 18,
-    marginBottom: 8,
+    fontSize: getSize(18),
+    marginBottom: getSize(8),
   },
   procedureImage: {
-    width: 120,
-    height: 80,
-    borderRadius: 8,
-    marginRight: 8,
+    width: getSize(120),
+    height: getSize(80),
+    borderRadius: getSize(8),
+    marginRight: getSize(8),
   },
   medicineCard: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 12,
-    marginVertical: 4,
+    borderRadius: getSize(12),
+    padding: getSize(12),
+    marginVertical: getSize(4),
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowOffset: {width: 0, height: 2},
-    shadowRadius: 4,
-    elevation: 2,
+    shadowOffset: {width: 0, height: getSize(2)},
+    shadowRadius: getSize(4),
+    elevation: getSize(2),
   },
   medicineCardLeft: {
     flexDirection: 'row',
@@ -424,31 +437,31 @@ const styles = StyleSheet.create({
   deleteImage: {
     position: 'absolute',
     bottom: '30%',
-    width: 40,
-    height: 40,
+    width: getSize(40),
+    height: getSize(40),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
+    borderRadius: getSize(20),
     backgroundColor: COLORS.RED,
   },
   medicineText: {
-    marginLeft: 8,
-    fontSize: 16,
+    marginLeft: getSize(8),
+    fontSize: getSize(16),
     fontFamily: FONTS.REGULAR,
     color: COLORS.PROFOUND_BLACK,
   },
   notesText: {
-    fontSize: 16,
+    fontSize: getSize(16),
     fontFamily: FONTS.LIGHT,
     color: COLORS.GRAYISH,
-    marginLeft: 10,
+    marginLeft: getSize(10),
   },
   emptyText: {
-    fontSize: 16,
+    fontSize: getSize(16),
     fontFamily: FONTS.LIGHT,
     color: COLORS.GRAYISH,
     fontStyle: 'italic',
-    marginLeft: 10,
+    marginLeft: getSize(10),
   },
   rowBetween: {
     flexDirection: 'row',
@@ -465,39 +478,39 @@ const styles = StyleSheet.create({
   modalImage: {
     width: '90%',
     height: '60%',
-    borderRadius: 16,
+    borderRadius: getSize(16),
     resizeMode: 'contain',
   },
   closeButton: {
     position: 'absolute',
-    top: 40,
-    right: 20,
-    zIndex: 10,
+    top: getSize(40),
+    right: getSize(20),
+    zIndex: getSize(10),
   },
   actionsContainer: {
     position: 'absolute',
-    bottom: 25,
+    bottom: getSize(25),
     marginInline: 'auto',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
     width: '100%',
-    height: 10,
-    left: 16,
+    height: getSize(10),
+    left: getSize(16),
   },
   action: {
-    width: 40,
-    height: 40,
-    borderRadius: 25,
+    width: getSize(40),
+    height: getSize(40),
+    borderRadius: getSize(25),
     backgroundColor: COLORS.PRIMARY_BLUE,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    padding: getSize(10),
     justifyContent: 'center',
   },
   actionText: {
-    marginLeft: 10,
-    fontSize: 16,
+    marginLeft: getSize(10),
+    fontSize: getSize(16),
     fontFamily: FONTS.LIGHT,
     color: 'white',
   },

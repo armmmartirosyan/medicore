@@ -6,6 +6,7 @@ import {StyleSheet, View} from 'react-native';
 import {profileSelectors} from '@store/profile';
 import {useUpdateProfile} from '@api-hooks';
 import {Button} from '@components';
+import {getSize} from '@utils';
 
 export function UpdateButton() {
   const firstName = useSelector(profileSelectors.fNameSelector);
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   view: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: getSize(10),
+    marginBottom: getSize(20),
   },
 });

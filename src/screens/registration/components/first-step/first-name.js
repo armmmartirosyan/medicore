@@ -6,6 +6,7 @@ import {
   registrationSelectors,
   changeRegistrationState,
 } from '@store/registration';
+import {getSize} from '@utils';
 
 export function FirstName() {
   const dispatch = useDispatch();
@@ -35,6 +36,6 @@ export function FirstName() {
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 18,
+    marginBottom: getSize(18),
   },
 });

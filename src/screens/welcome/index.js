@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   logoWrapper: {
     width: getSize(138),
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: getSize(40),
   },
   logo: {
     width: getSize(138),
@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   signIn: {
-    marginBottom: 7,
+    marginBottom: getSize(7),
   },
 });

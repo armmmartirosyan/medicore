@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     marginBottom: getSize(18),
   },
   headText: {
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: getSize(10),
+    marginBottom: getSize(20),
     textAlign: 'center',
   },
 });

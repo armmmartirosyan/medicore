@@ -22,6 +22,7 @@ import {HeadText, NonWorkingDate, WeekScheduleModal} from '@components';
 import {COLORS, FONTS, API_BASE_URL} from '@constants';
 import {withSafeArea} from '@hoc';
 import {DefaultDoctor as defaultDoctor} from '@images';
+import {getSize} from '@utils';
 
 export default function DoctorInfoComponent({route, navigation}) {
   const {doctor} = route.params;
@@ -65,7 +66,7 @@ export default function DoctorInfoComponent({route, navigation}) {
           <FontAwesomeIcon
             style={styles.angleLeft}
             icon={faAngleLeft}
-            size={20}
+            size={getSize(20)}
           />
         </Pressable>
         <HeadText>Doctor Info</HeadText>
@@ -94,7 +95,7 @@ export default function DoctorInfoComponent({route, navigation}) {
               <FontAwesomeIcon
                 style={styles.infoIcon}
                 icon={faPhone}
-                size={12}
+                size={getSize(12)}
               />
               <Text> </Text>
               <Text style={styles.infoValue}>{doctor.phone}</Text>
@@ -105,7 +106,7 @@ export default function DoctorInfoComponent({route, navigation}) {
               <FontAwesomeIcon
                 style={styles.infoIcon}
                 icon={faCalendarDays}
-                size={12}
+                size={getSize(12)}
               />
               <Text> </Text>
               <Text style={styles.infoValue}>Schedule</Text>
@@ -117,14 +118,22 @@ export default function DoctorInfoComponent({route, navigation}) {
             {doctor.firstName} {doctor.lastName}
           </Text>
           <View style={styles.row}>
-            <FontAwesomeIcon icon={faStethoscope} color="black" size={15} />
+            <FontAwesomeIcon
+              icon={faStethoscope}
+              color="black"
+              size={getSize(15)}
+            />
             <Text style={styles.specialization}>
               {doctor.doctorsSpecializations[0].specialization.name}
             </Text>
           </View>
           {doctor.clinic?.name && (
             <View style={styles.row}>
-              <FontAwesomeIcon icon={faClinicMedical} color="black" size={15} />
+              <FontAwesomeIcon
+                icon={faClinicMedical}
+                color="black"
+                size={getSize(15)}
+              />
               <Text style={styles.specialization}>
                 {doctor.clinic.name}
                 {`(${doctor.clinic.address})`}
@@ -136,7 +145,7 @@ export default function DoctorInfoComponent({route, navigation}) {
       <View style={styles.nonWorkingTitleBlock}>
         <FontAwesomeIcon
           icon={faCalendarMinus}
-          size={18}
+          size={getSize(18)}
           color={COLORS.PRIMARY_BLUE}
         />
         <Text style={styles.nonWorkingTitle}>Non-Working Days</Text>
@@ -160,84 +169,84 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingHorizontal: getSize(20),
+    paddingTop: getSize(20),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   angleLeft: {
     color: COLORS.PRIMARY_BLUE,
   },
   inforContainer: {
     width: '100%',
-    borderRadius: 17,
+    borderRadius: getSize(17),
     backgroundColor: COLORS.SECONDARY_BLUE,
-    paddingVertical: 18,
-    paddingHorizontal: 18,
-    marginBottom: 20,
+    paddingVertical: getSize(18),
+    paddingHorizontal: getSize(18),
+    marginBottom: getSize(20),
   },
   image: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
+    width: getSize(140),
+    height: getSize(140),
+    borderRadius: getSize(70),
     backgroundColor: 'white',
   },
   imageContainer: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 14,
+    marginBottom: getSize(14),
   },
   infoWrapper: {
     justifyContent: 'space-around',
   },
   infoBlock: {
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-    borderRadius: 18,
+    paddingHorizontal: getSize(10),
+    paddingVertical: getSize(3),
+    borderRadius: getSize(18),
     backgroundColor: COLORS.PRIMARY_BLUE,
-    height: 27,
+    height: getSize(27),
     alignItems: 'center',
     flexDirection: 'row',
-    marginBottom: 7,
+    marginBottom: getSize(7),
   },
   infoName: {
     color: 'white',
     fontFamily: FONTS.REGULAR,
-    fontSize: 12,
-    marginRight: 5,
+    fontSize: getSize(12),
+    marginRight: getSize(5),
   },
   infoIcon: {
     color: 'white',
-    marginRight: 5,
+    marginRight: getSize(5),
   },
   infoValue: {
     color: 'white',
     fontFamily: FONTS.LIGHT,
-    fontSize: 12,
+    fontSize: getSize(12),
   },
   nameContainer: {
     width: '100%',
-    borderRadius: 13,
+    borderRadius: getSize(13),
     backgroundColor: 'white',
-    paddingVertical: 10,
+    paddingVertical: getSize(10),
     alignItems: 'center',
   },
   name: {
     color: COLORS.PRIMARY_BLUE,
     fontFamily: FONTS.MEDIUM,
-    fontSize: 15,
+    fontSize: getSize(15),
   },
   specialization: {
     color: 'black',
     fontFamily: FONTS.LIGHT,
-    fontSize: 15,
-    marginLeft: 8,
+    fontSize: getSize(15),
+    marginLeft: getSize(8),
     textAlign: 'center',
   },
   row: {
@@ -245,19 +254,19 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 5,
+    marginTop: getSize(5),
   },
   nonWorkingTitle: {
     color: COLORS.PRIMARY_BLUE,
     fontFamily: FONTS.SEMI_BOLD,
-    fontSize: 18,
-    marginLeft: 10,
+    fontSize: getSize(18),
+    marginLeft: getSize(10),
   },
   nonWorkingTitleBlock: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: getSize(10),
   },
 });
 export const DoctorInfo = withSafeArea(DoctorInfoComponent);

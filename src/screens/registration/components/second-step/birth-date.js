@@ -6,6 +6,7 @@ import {
   registrationSelectors,
   changeRegistrationState,
 } from '@store/registration';
+import {getSize} from '@utils';
 
 export function BirthDate() {
   const value = useSelector(registrationSelectors.birthDateSelector);
@@ -32,6 +33,6 @@ export function BirthDate() {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    marginBottom: 18,
+    marginBottom: getSize(18),
   },
 });

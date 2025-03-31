@@ -13,6 +13,7 @@ import {
   Phone,
   UpdateButton,
 } from './components';
+import {getSize} from '@utils';
 
 function ProfileComponent() {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ function ProfileComponent() {
           <FontAwesomeIcon
             style={styles.angleLeft}
             icon={faAngleLeft}
-            size={20}
+            size={getSize(20)}
           />
         </Pressable>
         <AccountHeader showName={false} allowChangePicture={true} />
@@ -45,7 +46,7 @@ function ProfileComponent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: getSize(20),
   },
   headerContainer: {
     flexDirection: 'row',
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   angleLeft: {
     color: COLORS.PRIMARY_BLUE,
     position: 'relative',
-    top: 20,
+    top: getSize(20),
   },
   list: {
     flex: 1,

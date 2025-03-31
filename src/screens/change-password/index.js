@@ -75,7 +75,7 @@ function ChangePasswordComponent() {
             <FontAwesomeIcon
               style={styles.angleLeft}
               icon={faAngleLeft}
-              size={20}
+              size={getSize(20)}
             />
           </Pressable>
           <HeadText>Change Password</HeadText>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginBottom: 45,
+    marginBottom: getSize(45),
   },
   angleLeft: {
     color: COLORS.PRIMARY_BLUE,
@@ -151,21 +151,21 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-end',
     marginBottom: getSize(20),
-    paddingTop: 9,
-    paddingRight: 7,
+    paddingTop: getSize(9),
+    paddingRight: getSize(7),
   },
   forgetText: {
     color: COLORS.PRIMARY_BLUE,
-    fontSize: 14,
+    fontSize: getSize(14),
     fontFamily: FONTS.SEMI_BOLD,
   },
   input: {
-    marginTop: 26,
+    marginTop: getSize(26),
   },
   view: {
     width: '100%',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   button: {
     width: '100%',

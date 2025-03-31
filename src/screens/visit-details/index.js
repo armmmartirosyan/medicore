@@ -29,6 +29,7 @@ import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {useAuthToken} from '@hooks';
 import {useDispatch} from 'react-redux';
 import {resetVisitState} from '@store/visit/slice';
+import {getSize} from '@utils';
 
 function VisitDetailsComponent({route}) {
   const dispatch = useDispatch();
@@ -88,7 +89,7 @@ function VisitDetailsComponent({route}) {
           <FontAwesomeIcon
             style={styles.angleLeft}
             icon={faAngleLeft}
-            size={20}
+            size={getSize(20)}
           />
         </Pressable>
         <HeadText>Visit Details</HeadText>
@@ -208,7 +209,7 @@ function VisitDetailsComponent({route}) {
               style={styles.plus}
               activeOpacity={ACTIVE_BTN_OPACITY}
               onPress={openModal}>
-              <FontAwesomeIcon icon={faPlus} size={20} color="white" />
+              <FontAwesomeIcon icon={faPlus} size={getSize(20)} color="white" />
               <Text style={styles.addText}>Visit Procedure</Text>
             </TouchableOpacity>
           </View>
@@ -227,7 +228,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 16,
+    padding: getSize(16),
   },
   contentContainer: {
     position: 'relative',
@@ -238,38 +239,38 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   angleLeft: {
     color: COLORS.PRIMARY_BLUE,
   },
   detailContainer: {
-    padding: 12,
-    marginVertical: 6,
-    borderRadius: 10,
+    padding: getSize(12),
+    marginVertical: getSize(6),
+    borderRadius: getSize(10),
     flexDirection: 'row',
     alignItems: 'center',
     elevation: 2,
   },
   notesContainer: {
-    padding: 12,
-    marginVertical: 6,
-    borderRadius: 10,
+    padding: getSize(12),
+    marginVertical: getSize(6),
+    borderRadius: getSize(10),
   },
   icon: {
     color: '#007AFF',
-    marginRight: 10,
+    marginRight: getSize(10),
   },
   label: {
     flex: 1,
     fontFamily: FONTS.MEDIUM,
     color: COLORS.PRIMARY_BLUE,
-    fontSize: 16,
+    fontSize: getSize(16),
   },
   value: {
     fontFamily: FONTS.MEDIUM,
     color: COLORS.PROFOUND_BLACK,
-    fontSize: 16,
+    fontSize: getSize(16),
   },
   valueAccepted: {
     color: COLORS.PRIMARY_BLUE,
@@ -280,7 +281,7 @@ const styles = StyleSheet.create({
   noteTitle: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   trashWrapper: {
     position: 'absolute',
@@ -291,21 +292,21 @@ const styles = StyleSheet.create({
   trash: {
     borderWidth: 1,
     borderColor: COLORS.RED,
-    padding: 10,
-    borderRadius: 20,
+    padding: getSize(10),
+    borderRadius: getSize(20),
   },
   plus: {
-    height: 40,
+    height: getSize(40),
     backgroundColor: COLORS.PRIMARY_BLUE,
-    borderRadius: 25,
+    borderRadius: getSize(25),
     justifyContent: 'center',
-    padding: 10,
+    padding: getSize(10),
     flexDirection: 'row',
     alignItems: 'center',
   },
   actionWrapper: {
     position: 'absolute',
-    bottom: 20,
+    bottom: getSize(20),
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -314,8 +315,8 @@ const styles = StyleSheet.create({
   addText: {
     fontFamily: FONTS.MEDIUM,
     color: 'white',
-    fontSize: 16,
-    marginLeft: 10,
+    fontSize: getSize(16),
+    marginLeft: getSize(10),
   },
 });
 

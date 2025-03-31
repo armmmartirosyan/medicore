@@ -35,7 +35,7 @@ export function SignIn() {
             <FontAwesomeIcon
               style={styles.angleLeft}
               icon={faAngleLeft}
-              size={20}
+              size={getSize(20)}
             />
           </Pressable>
           <HeadText>Sign In</HeadText>
@@ -110,12 +110,12 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-end',
     marginBottom: getSize(56),
-    paddingTop: 9,
-    paddingRight: 7,
+    paddingTop: getSize(9),
+    paddingRight: getSize(7),
   },
   forgetText: {
     color: COLORS.PRIMARY_BLUE,
-    fontSize: 14,
+    fontSize: getSize(14),
     fontFamily: FONTS.SEMI_BOLD,
   },
 });

@@ -4,6 +4,7 @@ import {StyleSheet} from 'react-native';
 import {DatePicker} from '@components';
 import {profileSelectors, changeProfileState} from '@store/profile';
 import moment from 'moment';
+import {getSize} from '@utils';
 
 export function BirthDate() {
   const value = useSelector(profileSelectors.birthDateSelector);
@@ -30,6 +31,6 @@ export function BirthDate() {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    marginBottom: 18,
+    marginBottom: getSize(18),
   },
 });

@@ -23,6 +23,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useAuth} from '@contexts';
 import {useGetProfileInfo} from '@api-hooks';
 import {useAuthToken} from '@hooks';
+import {getSize} from '@utils';
 
 function AccountComponent() {
   const {signOut} = useAuth();
@@ -118,14 +119,14 @@ function AccountComponent() {
               <FontAwesomeIcon
                 icon={item.icon}
                 style={styles.menuIcon}
-                size={20}
+                size={getSize(20)}
               />
             </View>
             <Text style={styles.menuText}>{item.label}</Text>
             <FontAwesomeIcon
               color={COLORS.PRIMARY_BLUE}
               icon={faAngleRight}
-              size={20}
+              size={getSize(20)}
             />
           </TouchableOpacity>
         ))}
@@ -137,7 +138,7 @@ function AccountComponent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: getSize(20),
   },
   menu: {
     flex: 1,
@@ -145,26 +146,26 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   iconBackground: {
     backgroundColor: COLORS.SECONDARY_BLUE,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: getSize(40),
+    height: getSize(40),
+    borderRadius: getSize(20),
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 20,
+    marginRight: getSize(20),
   },
   menuIcon: {
     color: COLORS.PRIMARY_BLUE,
   },
   menuText: {
-    fontSize: 16,
+    fontSize: getSize(16),
     flex: 1,
   },
   menuArrow: {
-    fontSize: 16,
+    fontSize: getSize(16),
     color: '#888',
   },
 });

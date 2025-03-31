@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {Input} from '@components';
 import {profileSelectors, changeProfileState} from '@store/profile';
+import {getSize} from '@utils';
 
 export function LastName() {
   const dispatch = useDispatch();
@@ -32,6 +33,6 @@ export function LastName() {
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 18,
+    marginBottom: getSize(18),
   },
 });

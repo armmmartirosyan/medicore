@@ -15,6 +15,7 @@ import {withSafeArea} from '@hoc';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
 import {useDeleteMedicine} from '@api-hooks';
 import {useAuthToken} from '@hooks';
+import {getSize} from '@utils';
 
 function MedicineDetailsComponent({route, navigation}) {
   const {
@@ -59,7 +60,7 @@ function MedicineDetailsComponent({route, navigation}) {
           <FontAwesomeIcon
             style={styles.angleLeft}
             icon={faAngleLeft}
-            size={20}
+            size={getSize(20)}
           />
         </Pressable>
         <HeadText>Medicine Details</HeadText>
@@ -106,7 +107,7 @@ function MedicineDetailsComponent({route, navigation}) {
             activeOpacity={ACTIVE_BTN_OPACITY}
             onPress={() => deleteMedicine(id)}
             style={styles.action}>
-            <FontAwesomeIcon icon={faTrash} color="white" size={15} />
+            <FontAwesomeIcon icon={faTrash} color="white" size={getSize(15)} />
           </TouchableOpacity>
         </View>
       )}
@@ -118,8 +119,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingHorizontal: getSize(20),
+    paddingTop: getSize(20),
   },
   contentContainer: {
     flex: 1,
@@ -127,16 +128,16 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: COLORS.SOLITUDE_BLUE,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    borderRadius: getSize(12),
+    padding: getSize(16),
+    marginBottom: getSize(16),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   angleLeft: {
     color: COLORS.PRIMARY_BLUE,
@@ -144,55 +145,55 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: FONTS.SEMI_BOLD,
     color: COLORS.PRIMARY_BLUE,
-    fontSize: 20,
+    fontSize: getSize(20),
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: getSize(8),
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
+    marginBottom: getSize(8),
   },
   label: {
     fontWeight: '600',
     fontFamily: FONTS.SEMI_BOLD,
     color: COLORS.PROFOUND_BLACK,
-    fontSize: 16,
+    fontSize: getSize(16),
   },
   value: {
     fontFamily: FONTS.LIGHT,
     color: COLORS.PROFOUND_BLACK,
-    fontSize: 16,
+    fontSize: getSize(16),
   },
   sectionTitle: {
     fontFamily: FONTS.SEMI_BOLD,
     color: COLORS.PRIMARY_BLUE,
-    fontSize: 18,
-    marginBottom: 8,
+    fontSize: getSize(18),
+    marginBottom: getSize(8),
   },
   notes: {
     fontFamily: FONTS.REGULAR,
     color: COLORS.PROFOUND_BLACK,
-    fontSize: 16,
+    fontSize: getSize(16),
   },
   doctorName: {
     fontFamily: FONTS.REGULAR,
     color: COLORS.PROFOUND_BLACK,
-    fontSize: 16,
+    fontSize: getSize(16),
   },
   action: {
-    width: 40,
-    height: 40,
-    borderRadius: 25,
+    width: getSize(40),
+    height: getSize(40),
+    borderRadius: getSize(25),
     backgroundColor: COLORS.RED,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    padding: getSize(10),
     justifyContent: 'center',
   },
   actionsContainer: {
     position: 'absolute',
-    bottom: 20,
+    bottom: getSize(20),
     width: '100%',
     alignItems: 'center',
   },

@@ -113,7 +113,7 @@ function NonWorkingDaysComponent() {
             <FontAwesomeIcon
               color={COLORS.PRIMARY_BLUE}
               icon={faAngleLeft}
-              size={20}
+              size={getSize(20)}
             />
           </Pressable>
           <HeadText>Non-working days</HeadText>
@@ -133,11 +133,11 @@ function NonWorkingDaysComponent() {
                   <FontAwesomeIcon
                     icon={faXmark}
                     color={COLORS.RED}
-                    size={20}
+                    size={getSize(20)}
                   />
                 </TouchableOpacity>
               ) : (
-                <View style={{width: 20}} />
+                <View style={{width: getSize(20)}} />
               )}
             </View>
           ))}
@@ -148,7 +148,7 @@ function NonWorkingDaysComponent() {
           activeOpacity={ACTIVE_BTN_OPACITY}
           onPress={() => setModalVisible(true)}
           style={styles.plus}>
-          <FontAwesomeIcon icon={faPlus} color="white" size={20} />
+          <FontAwesomeIcon icon={faPlus} color="white" size={getSize(20)} />
         </TouchableOpacity>
       </View>
 
@@ -162,7 +162,11 @@ function NonWorkingDaysComponent() {
             <View style={styles.headWrapper}>
               <HeadText>Add non-working date</HeadText>
               <Pressable onPress={handleClose}>
-                <FontAwesomeIcon icon={faXmark} size={20} color="black" />
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  size={getSize(20)}
+                  color="black"
+                />
               </Pressable>
             </View>
             <DatePicker
@@ -207,20 +211,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginBottom: 45,
+    marginBottom: getSize(45),
   },
   view: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   button: {
     width: '100%',
   },
   scrollView: {
     flex: 1,
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   scrollViewContainer: {
     width: '100%',
@@ -231,7 +235,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   xMark: {
-    marginTop: 5,
+    marginTop: getSize(5),
   },
   modal: {
     maxHeight: '100%',
@@ -244,9 +248,9 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: '90%',
-    padding: 20,
+    padding: getSize(20),
     backgroundColor: '#fff',
-    borderRadius: 20,
+    borderRadius: getSize(20),
   },
   headWrapper: {
     flexDirection: 'row',
@@ -255,14 +259,14 @@ const styles = StyleSheet.create({
   },
   plus: {
     width: '100%',
-    height: 40,
+    height: getSize(40),
     backgroundColor: COLORS.PRIMARY_BLUE,
-    borderRadius: 20,
+    borderRadius: getSize(20),
     alignItems: 'center',
     justifyContent: 'center',
   },
   input: {
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
 });
 

@@ -17,6 +17,7 @@ import {useGetDoctors, useAddVisit, useEditVisit} from '@api-hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {COLORS} from '@constants';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
+import {getSize} from '@utils';
 
 const INFO =
   'Before scheduling a visit, please ensure that the doctor is available on the selected date and time. Appointments scheduled during unavailable hours may be subject to rejection.';
@@ -148,7 +149,11 @@ export function AddVisit({modalVisible, closeModal}) {
           <View style={styles.headWrapper}>
             <HeadText>{visitId ? 'Edit' : 'Add'} Visit</HeadText>
             <Pressable onPress={closeModal}>
-              <FontAwesomeIcon icon={faXmark} size={20} color="black" />
+              <FontAwesomeIcon
+                icon={faXmark}
+                size={getSize(20)}
+                color="black"
+              />
             </Pressable>
           </View>
           <View style={styles.infoView}>
@@ -232,30 +237,30 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: '90%',
-    padding: 20,
+    padding: getSize(20),
     backgroundColor: '#fff',
-    borderRadius: 20,
+    borderRadius: getSize(20),
   },
   headWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
-  input: {marginBottom: 20},
+  input: {marginBottom: getSize(20)},
   view: {
     width: '100%',
     alignItems: 'center',
   },
   infoView: {
     flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: getSize(20),
     justifyContent: 'center',
     alignItems: 'center',
   },
   infoText: {
     color: COLORS.ACTIVE_BLUE,
-    marginLeft: 10,
+    marginLeft: getSize(10),
     width: '85%',
   },
 });

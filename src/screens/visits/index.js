@@ -22,37 +22,7 @@ import {AddVisit} from './components';
 import {resetVisitState} from '@store/visit/slice';
 import {useDispatch} from 'react-redux';
 import {useAuthToken} from '@hooks';
-
-const MOCK = [
-  {
-    id: 1,
-    doctorName: 'Dr. John Doe',
-    patientId: 25,
-    startScheduledDate: '2025-02-26T10:00:00.000Z',
-    endScheduledDate: '2025-02-26T11:00:00.000Z',
-  },
-  {
-    id: 2,
-    doctorName: 'Dr. John Doe',
-    patientId: 72,
-    startScheduledDate: '2025-02-28T10:00:00.000Z',
-    endScheduledDate: '2025-02-28T11:00:00.000Z',
-  },
-  {
-    id: 4,
-    doctorName: 'Dr. John Doe',
-    patientId: 15,
-    startScheduledDate: '2025-03-03T14:00:00.000Z',
-    endScheduledDate: '2025-03-03T15:00:00.000Z',
-  },
-  {
-    id: 3,
-    doctorName: 'Dr. John Doe',
-    patientId: 14,
-    startScheduledDate: '2025-03-03T10:00:00.000Z',
-    endScheduledDate: '2025-03-03T11:00:00.000Z',
-  },
-];
+import {getSize} from '@utils';
 
 const VisitsComponent = () => {
   const {isPatient} = useAuthToken();
@@ -123,13 +93,21 @@ const VisitsComponent = () => {
         <TouchableOpacity
           onPress={() => switchWeek('prev')}
           activeOpacity={ACTIVE_BTN_OPACITY}>
-          <FontAwesomeIcon style={styles.angle} icon={faAngleLeft} size={20} />
+          <FontAwesomeIcon
+            style={styles.angle}
+            icon={faAngleLeft}
+            size={getSize(20)}
+          />
         </TouchableOpacity>
         <HeadText>{currentWeekStart.format('MMMM YYYY')}</HeadText>
         <TouchableOpacity
           onPress={() => switchWeek('next')}
           activeOpacity={ACTIVE_BTN_OPACITY}>
-          <FontAwesomeIcon style={styles.angle} icon={faAngleRight} size={20} />
+          <FontAwesomeIcon
+            style={styles.angle}
+            icon={faAngleRight}
+            size={getSize(20)}
+          />
         </TouchableOpacity>
       </View>
 
@@ -194,29 +172,29 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     flex: 1,
-    padding: 16,
+    padding: getSize(16),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: getSize(10),
   },
   listContainer: {
-    paddingTop: 25,
-    paddingBottom: 50,
+    paddingTop: getSize(25),
+    paddingBottom: getSize(50),
   },
   angle: {
     color: COLORS.PRIMARY_BLUE,
   },
   plus: {
     position: 'absolute',
-    bottom: 20,
-    right: 20,
+    bottom: getSize(20),
+    right: getSize(20),
     backgroundColor: COLORS.PRIMARY_BLUE,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: getSize(50),
+    height: getSize(50),
+    borderRadius: getSize(25),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -226,8 +204,8 @@ const styles = StyleSheet.create({
   doctorDoggleText: {
     fontFamily: FONTS.MEDIUM,
     color: COLORS.PRIMARY_BLUE,
-    fontSize: 16,
-    marginTop: 15,
+    fontSize: getSize(16),
+    marginTop: getSize(15),
   },
 });
 

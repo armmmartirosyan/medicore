@@ -6,6 +6,7 @@ import {
   changeRegistrationState,
 } from '@store/registration';
 import {PhoneInput} from '@components';
+import {getSize} from '@utils';
 
 export function Phone() {
   const dispatch = useDispatch();
@@ -47,6 +48,6 @@ export function Phone() {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    marginBottom: 18,
+    marginBottom: getSize(18),
   },
 });

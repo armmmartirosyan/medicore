@@ -6,6 +6,7 @@ import {
   registrationSelectors,
   changeRegistrationState,
 } from '@store/registration';
+import {getSize} from '@utils';
 
 export function Password() {
   const dispatch = useDispatch();
@@ -31,6 +32,6 @@ export function Password() {
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 22,
+    marginBottom: getSize(22),
   },
 });

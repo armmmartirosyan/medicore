@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faXmark} from '@fortawesome/free-solid-svg-icons';
 import {useAddWeekDay, useUpdateWeekDay} from '@api-hooks';
 import {ALERT_TYPE, Toast} from 'react-native-alert-notification';
-import {normalizeTime} from '@utils';
+import {normalizeTime, getSize} from '@utils';
 
 export function AddEditModal({closeModal, selectedDay}) {
   const [startTime, setStartTime] = useState({
@@ -142,7 +142,11 @@ export function AddEditModal({closeModal, selectedDay}) {
           <View style={styles.headWrapper}>
             <HeadText>{selectedDay.day} schedule</HeadText>
             <Pressable onPress={closeModal}>
-              <FontAwesomeIcon icon={faXmark} size={20} color="black" />
+              <FontAwesomeIcon
+                icon={faXmark}
+                size={getSize(20)}
+                color="black"
+              />
             </Pressable>
           </View>
 
@@ -206,18 +210,18 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: '90%',
-    padding: 20,
+    padding: getSize(20),
     backgroundColor: '#fff',
-    borderRadius: 20,
+    borderRadius: getSize(20),
   },
   headWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   input: {
-    marginBottom: 20,
+    marginBottom: getSize(20),
   },
   view: {
     width: '100%',

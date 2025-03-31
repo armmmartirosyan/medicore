@@ -6,6 +6,7 @@ import {
   registrationSelectors,
   changeRegistrationState,
 } from '@store/registration';
+import {getSize} from '@utils';
 
 export function Email() {
   const dispatch = useDispatch();
@@ -32,6 +33,6 @@ export function Email() {
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 18,
+    marginBottom: getSize(18),
   },
 });

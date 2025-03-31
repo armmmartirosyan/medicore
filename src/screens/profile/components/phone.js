@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {profileSelectors, changeProfileState} from '@store/profile';
 import {PhoneInput} from '@components';
+import {getSize} from '@utils';
 
 export function Phone() {
   const dispatch = useDispatch();
@@ -44,6 +45,6 @@ export function Phone() {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    marginBottom: 18,
+    marginBottom: getSize(18),
   },
 });

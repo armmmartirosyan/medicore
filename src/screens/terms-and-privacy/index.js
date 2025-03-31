@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: getSize(20),
     paddingBottom: getSize(20),
-    paddingTop: 20,
+    paddingTop: getSize(20),
   },
   header: {
     flexDirection: 'row',
@@ -154,9 +154,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'black',
-    fontSize: 14,
+    fontSize: getSize(14),
     fontFamily: FONTS.LIGHT,
-    paddingVertical: 20,
+    paddingVertical: getSize(20),
   },
 });
 
