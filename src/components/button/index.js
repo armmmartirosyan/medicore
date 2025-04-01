@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONTS.MEDIUM,
-    fontSize: getSize(24),
+    fontSize: getSize(20),
   },
   primaryText: {
     color: 'white',

@@ -305,7 +305,7 @@ PODS:
   - React-jsinspector (0.70.6)
   - React-logger (0.70.6):
     - glog
-  - react-native-image-picker (8.2.0):
+  - react-native-image-picker (7.0.1):
     - React-Core
   - react-native-pure-jwt (3.0.3):
     - JWT (= 3.0.0-beta.12)
@@ -596,7 +596,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 2105e907db2343be205b93c74533784d7f386879
   React-jsinspector: 60769e5a0a6d4b32294a2456077f59d0266f9a8b
   React-logger: 28e721a44e671acf52ac6588f8624eb23245cb27
-  react-native-image-picker: 0caff4ce12dacdbdbcd36be773db10acc67ad844
+  react-native-image-picker: e03c903835de212a72bafbd6a8fa43c2904d4317
   react-native-pure-jwt: ddc75cb6ec8fe40c8efa6b5ca2cd41eadc914056
   react-native-safe-area-context: 758e894ca5a9bd1868d2a9cfbca7326a2b6bf9dc
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
