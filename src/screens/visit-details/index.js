@@ -250,7 +250,6 @@ const styles = StyleSheet.create({
     borderRadius: getSize(10),
     flexDirection: 'row',
     alignItems: 'center',
-    elevation: 2,
   },
   notesContainer: {
     padding: getSize(12),

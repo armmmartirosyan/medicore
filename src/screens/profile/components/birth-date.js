@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {DatePicker} from '@components';
@@ -19,12 +19,21 @@ export function BirthDate() {
     [dispatch],
   );
 
+  const minDate = useMemo(() => {
+    var currentDate = new Date();
+    currentDate.setFullYear(currentDate.getFullYear() - 200);
+
+    return currentDate;
+  }, []);
+
   return (
     <DatePicker
       value={value}
       label="Birth date"
       onDateChange={handleChange}
       containerStyle={styles.containerStyle}
+      maxDate={new Date()}
+      minDate={minDate}
     />
   );
 }
